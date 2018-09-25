@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
+
 public class CeciliaDrive extends OpMode {
 
     DcMotor leftMotor;
@@ -17,6 +18,6 @@ public class CeciliaDrive extends OpMode {
 
     public void loop(){
         leftMotor.setPower(gamepad1.left_stick_y);
-        rightMotor.setPower(gamepad1.right_stick_y);
+        rightMotor.setPower(-gamepad1.right_stick_y);
     }
 }
