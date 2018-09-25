@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class Encoders {
 
     public static void Forward (DcMotor leftMotor, DcMotor rightMotor, double power, int distance) {
-//test
+
         //Reset Encoders
         leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
