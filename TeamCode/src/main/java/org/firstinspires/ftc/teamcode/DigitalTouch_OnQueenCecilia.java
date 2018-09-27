@@ -1,31 +1,20 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp
+@TeleOp(name = "Sensor: Digital touch", group = "Sensor")
 
-public class CeciliaDrive extends OpMode {
+public class DigitalTouch_OnQueenCecilia extends LinearOpMode{
 
-    DcMotor leftMotor;
-    DcMotor rightMotor;
-
-    public void init(){
-        leftMotor=hardwareMap.dcMotor.get("left_motor");
-        rightMotor=hardwareMap.dcMotor.get("right_motor");
-    }
-
-    public void loop(){
-        leftMotor.setPower(gamepad1.left_stick_y);
-        rightMotor.setPower(-gamepad1.right_stick_y);
-    }
-
-    /*DigitalChannel digitalTouch;  // Hardware Device Object
+    DigitalChannel digitalTouch;  // Hardware Device Object
 
     @Override
-
-    public void runOpMode(){
+    public void runOpMode() {
+        DcMotor leftMotor=hardwareMap.dcMotor.get("left_motor");
+        DcMotor rightMotor=hardwareMap.dcMotor.get("right_motor");
 
         // get a reference to our digitalTouch object.
         digitalTouch = hardwareMap.get(DigitalChannel.class, "sensor_digital");
@@ -44,12 +33,15 @@ public class CeciliaDrive extends OpMode {
             // if the digital channel returns true it's HIGH and the button is unpressed.
             if (digitalTouch.getState() == true) {
                 telemetry.addData("Digital Touch", "Is Not Pressed");
+                leftMotor.setPower(0.3);
+                rightMotor.setPower(0.3);
             } else {
                 telemetry.addData("Digital Touch", "Is Pressed");
+                leftMotor.setPower(0);
+                rightMotor.setPower(0);
             }
 
             telemetry.update();
         }
     }
-    */
 }
