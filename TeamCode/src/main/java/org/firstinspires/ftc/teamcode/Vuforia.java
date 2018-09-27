@@ -266,6 +266,7 @@ public class Vuforia extends LinearOpMode {
         waitForStart();
 
         /** Start tracking the data sets we care about. */
+
         stonesAndChips.activate();
 
         while (opModeIsActive()) {
