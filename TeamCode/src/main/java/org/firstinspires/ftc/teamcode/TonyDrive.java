@@ -7,23 +7,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp
 public class TonyDrive extends OpMode{
 
-    DcMotor leftFrontMotor;
-    DcMotor rightFrontMotor;
-    DcMotor leftBackMotor;
-    DcMotor rightBackMotor;
+    DcMotor leftMotor;
+    DcMotor rightMotor;
 
     public void init(){
-        leftFrontMotor=hardwareMap.dcMotor.get("lf");
-        leftBackMotor=hardwareMap.dcMotor.get("lb");
-        rightFrontMotor=hardwareMap.dcMotor.get("rf");
-        rightBackMotor=hardwareMap.dcMotor.get("rb");
+        leftMotor=hardwareMap.dcMotor.get("lf");
+        rightMotor=hardwareMap.dcMotor.get("rf");
     }
 
     public void loop(){
-        leftFrontMotor.setPower(gamepad1.left_stick_y);
-        leftBackMotor.setPower(gamepad1.left_stick_y);
-        rightFrontMotor.setPower(-gamepad1.right_stick_y);
-        rightBackMotor.setPower(-gamepad1.right_stick_y);
+        leftMotor.setPower(gamepad1.left_stick_y);
+        rightMotor.setPower(-gamepad1.right_stick_y);
     }
 
 }
