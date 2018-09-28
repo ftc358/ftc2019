@@ -59,10 +59,8 @@ public class Sample_Vuforia_Autonomous extends LinearOpMode {
 
     VuforiaLocalizer vuforia;
 
-    DcMotor FrontLeft;
-    DcMotor FrontRight;
-    DcMotor BackLeft;
-    DcMotor BackRight;
+    DcMotor Left;
+    DcMotor Right;
 
     @Override public void runOpMode() {
 
@@ -98,10 +96,8 @@ public class Sample_Vuforia_Autonomous extends LinearOpMode {
         List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
         allTrackables.addAll(targetsRoverRuckus);
 
-        FrontLeft = hardwareMap.dcMotor.get("Fl");
-        FrontRight = hardwareMap.dcMotor.get("Fr");
-        BackLeft = hardwareMap.dcMotor.get("Bl");
-        BackRight = hardwareMap.dcMotor.get("Br");
+        Left = hardwareMap.dcMotor.get("L");
+        Right = hardwareMap.dcMotor.get("R");
 
         double Power = 0.5;
 
@@ -233,10 +229,8 @@ public class Sample_Vuforia_Autonomous extends LinearOpMode {
                         lastLocation = robotLocationTransform;
                     }
                     //Here's a sample Autonomous.//
-                    FrontLeft.setPower(0.5);
-                    FrontRight.setPower(0.5);
-                    BackLeft.setPower(0.5);
-                    BackRight.setPower(0.5);
+                    Left.setPower(0.5);
+                    Right.setPower(0.5);
                     sleep(500);
                     //Run autonomous for this pattern//
                 }
@@ -252,20 +246,16 @@ public class Sample_Vuforia_Autonomous extends LinearOpMode {
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-                FrontLeft.setPower(-0.5);
-                FrontRight.setPower(-0.5);
-                BackLeft.setPower(-0.5);
-                BackRight.setPower(-0.5);
+                Left.setPower(-0.5);
+                Right.setPower(-0.5);
                 sleep(500);
                 //Run autonomous for this pattern//
             }
 
             else {
                 telemetry.addData("Visible Target", "none");
-                FrontLeft.setPower(0);
-                FrontRight.setPower(0);
-                BackLeft.setPower(0);
-                BackRight.setPower(0);
+                Left.setPower(0);
+                Right.setPower(0);
                 stop();
                 //Run a backup autonomous//
             }
