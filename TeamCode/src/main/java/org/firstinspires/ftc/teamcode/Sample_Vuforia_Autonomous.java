@@ -229,9 +229,12 @@ public class Sample_Vuforia_Autonomous extends LinearOpMode {
                         lastLocation = robotLocationTransform;
                     }
                     //Here's a sample Autonomous.//
-                    Left.setPower(0.5);
+                    Left.setPower(-0.5);
                     Right.setPower(0.5);
                     sleep(500);
+                    Left.setPower(0.5);
+                    Right.setPower(0.5);
+                    sleep(1500);
                     //Run autonomous for this pattern//
                 }
             }
@@ -246,9 +249,12 @@ public class Sample_Vuforia_Autonomous extends LinearOpMode {
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-                Left.setPower(-0.5);
+                Left.setPower(0.5);
                 Right.setPower(-0.5);
                 sleep(500);
+                Left.setPower(0.5);
+                Right.setPower(0.5);
+                sleep(1500);
                 //Run autonomous for this pattern//
             }
 
