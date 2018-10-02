@@ -17,6 +17,7 @@ public class Intake extends LinearOpMode
     private static final double servoretracted=0.2;
 
     public void runOpMode() throws InterruptedException {
+
         //Initialize Servos
         servo1=hardwareMap.servo.get("servo1");
         servo2=hardwareMap.servo.get("servo2");
@@ -25,13 +26,13 @@ public class Intake extends LinearOpMode
 
         while(opModeIsActive())
         {
-            if (gamepad2.a)
+            if (gamepad1.a)
             {
                 servo1.setPosition(servoextend);
                 servo2.setPosition(servoextend);
             }
 
-            if (gamepad2.b)
+            if (gamepad1.b)
             {
                 servo1.setPosition(servoretracted);
                 servo2.setPosition(servoretracted);
