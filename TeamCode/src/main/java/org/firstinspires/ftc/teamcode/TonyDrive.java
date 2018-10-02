@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
 public class TonyDrive extends OpMode{
-//test2
+
     DcMotor leftMotor;
     DcMotor rightMotor;
 
