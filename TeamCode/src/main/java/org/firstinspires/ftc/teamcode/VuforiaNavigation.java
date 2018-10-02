@@ -47,7 +47,7 @@ public class VuforiaNavigation extends LinearOpMode {
     private static final float mmPerInch        = 25.4f;
     private static final float mmFTCFieldWidth  = (12*6) * mmPerInch;       // the width of the FTC field (from the center point to the outer panels)
     private static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
-
+    private double X, Y, Z;
     // Using back camera
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
 
@@ -221,8 +221,8 @@ public class VuforiaNavigation extends LinearOpMode {
 
             // Provide feedback as to where the robot is located (if we know).
             if (targetVisible) {
-                // express position (translation) of robot in inches.
                 VectorF translation = lastLocation.getTranslation();
+                // express position (translation) of robot in inches.
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                         translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
@@ -230,6 +230,9 @@ public class VuforiaNavigation extends LinearOpMode {
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll" +
                         ", Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+                X = translation.get(0);
+                Y = translation.get(1);
+                Z = translation.get(2);
             }
             else {
                 telemetry.addData("Visible Target", "none");
