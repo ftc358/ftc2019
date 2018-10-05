@@ -9,12 +9,12 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 public class HookArm extends OpMode{
 
-    DcMotor hookArmMotor;
+    private DcMotor hookArmMotor;
 
-    double power = 0.25;
-    int target = 0;
-    double runPower = power;
-    int diff = 0;
+    private double power = 0.25;
+    private int target = 0;
+    private double runPower = power;
+    private int diff = 0;
 
     public void init() { //
 
