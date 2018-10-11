@@ -13,8 +13,8 @@ public class Intake extends LinearOpMode
     private Servo servo1=null;
     private Servo servo2=null;
 
-    private static final double servoextend=0.8;
-    private static final double servoretracted=0.2;
+    private static final double servoExtend=0.8;
+    private static final double servoRetract=0.2;
 
     public void runOpMode() throws InterruptedException {
 
@@ -28,14 +28,14 @@ public class Intake extends LinearOpMode
         {
             if (gamepad1.a)
             {
-                servo1.setPosition(servoextend);
-                servo2.setPosition(servoextend);
+                servo1.setPosition(servoExtend);
+                servo2.setPosition(servoExtend);
             }
 
             if (gamepad1.b)
             {
-                servo1.setPosition(servoretracted);
-                servo2.setPosition(servoretracted);
+                servo1.setPosition(servoRetract);
+                servo2.setPosition(servoRetract);
             }
 
             idle();
