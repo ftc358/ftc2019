@@ -10,7 +10,7 @@ public class Latching_Mechanism extends OpMode{
     DcMotor leftMotor;
 
     public void init() {
-        public leftMotor = hardwareMap.dcMotor.get("M");
+        leftMotor = hardwareMap.dcMotor.get("M");
     }
     public void loop() {
         leftMotor.setPower(gamepad1.left_stick_y);
