@@ -104,7 +104,7 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
         targetsRoverRuckus.activate();
         while (opModeIsActive()) {
 
-            list = Vuforia_Stuffs.Vuforia_Thingy_Thing(targetVisible, allTrackables, lastLocation, mmPerInch)
+            list = Vuforia_Stuffs.Vuforia_Thingy_Thing(targetVisible, allTrackables, lastLocation, mmPerInch);
 
             if (list[0] == 1){
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
@@ -117,7 +117,7 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
             }
 
 
-            telemetry.update()
+            telemetry.update();
 
         }
     }
