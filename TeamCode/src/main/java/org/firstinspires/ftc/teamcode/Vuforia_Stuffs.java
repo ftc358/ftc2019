@@ -14,17 +14,29 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 
 public class Vuforia_Stuffs{
 
-   static double[] Vuforia_Thingy_Thing (boolean targetVisible, List<VuforiaTrackable> allTrackables, OpenGLMatrix lastLocation, float mmPerInch){
+   static double[] Vuforia_Thingy_Thing (List<VuforiaTrackable> allTrackables, OpenGLMatrix lastLocation, float mmPerInch){
 
-       double[] returningStuff = {0, 0, 0, 0, 0, 0, 0};
-       targetVisible = false;
+       double[] returningStuff = {0, 0, 0, 0, 0, 0, 0, 0};
+       boolean targetVisible = false;
 
        for (VuforiaTrackable trackable : allTrackables) {
            if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
                targetVisible = true;
+               returningStuff[0] = 1;
 
-               // getUpdatedRobotLocation() will return null if no new information is available since
-               // the last time that call was made, or if the trackable is not currently visible.
+               if (trackable.getName() == "Blue-Rover"){
+                   returningStuff[1] = 1;
+               }
+               else if (trackable.getName() == "Red-Footprint"){
+                   returningStuff[1] = 2;
+               }
+               else if (trackable.getName() == "Front-Craters"){
+                   returningStuff[1] = 3;
+               }
+               else if (trackable.getName() == "Back-Space"){
+                   returningStuff[1] = 4;
+               }
+
                OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
                if (robotLocationTransform != null) {
                    lastLocation = robotLocationTransform;
@@ -36,16 +48,16 @@ public class Vuforia_Stuffs{
        if (targetVisible) {
            VectorF translation = lastLocation.getTranslation();
 
-           returningStuff[0] = 1;
-           returningStuff[1] = translation.get(0) / mmPerInch;
-           returningStuff[2] = translation.get(1) / mmPerInch;
-           returningStuff[3] = translation.get(2) / mmPerInch;
+
+           returningStuff[2] = translation.get(0) / mmPerInch;
+           returningStuff[3] = translation.get(1) / mmPerInch;
+           returningStuff[4] = translation.get(2) / mmPerInch;
 
            Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
 
-           returningStuff[4] = rotation.firstAngle;
-           returningStuff[5] = rotation.secondAngle;
-           returningStuff[6] = rotation.thirdAngle;
+           returningStuff[5] = rotation.firstAngle;
+           returningStuff[6] = rotation.secondAngle;
+           returningStuff[7] = rotation.thirdAngle;
 
        }
        else {
