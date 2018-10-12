@@ -24,7 +24,6 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Using the Vuforia localizer to determine positioning and orientation of robot on the FTC field.
  *
@@ -80,8 +79,9 @@ public class Sample_Vuforia_Autonomous extends LinearOpMode {
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
-        // Load the data sets that for the trackable objects. These particular data
-        // sets are stored in the 'assets' part of our application.
+        /* Load the data sets that are for the trackable objects. These particular data
+        sets are stored in the 'assets' part of our application.
+        */
         VuforiaTrackables targetsRoverRuckus = this.vuforia.loadTrackablesFromAsset("RoverRuckus");
         VuforiaTrackable blueRover = targetsRoverRuckus.get(0);
         blueRover.setName("Blue-Rover");
@@ -185,7 +185,7 @@ public class Sample_Vuforia_Autonomous extends LinearOpMode {
          *
          * If using the Front (Low Res) camera
          * We need to rotate the camera around it's long axis to bring the FRONT camera forward.
-         * This requires a Positive 90 degree rotation on the Y axis
+         * This requires a positive 90 degree rotation on the Y axis
          *
          * Next, translate the camera lens to where it is on the robot.
          * In this example, it is centered (left to right), but 110 mm forward of the middle of the robot, and 200 mm above ground level.

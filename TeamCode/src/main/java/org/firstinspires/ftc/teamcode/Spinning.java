@@ -5,25 +5,21 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
-public class Spinning extends OpMode {
 
-    DcMotor Motor1;
-    private double maxSpeed = 1;
+public class spinning extends OpMode{
+    DcMotor motor;
+    final static double maxSpeed =1;
 
-    public void init()
-    {
-        Motor1 = hardwareMap.dcMotor.get("Motor1");
+    public void init(){
+        motor=hardwareMap.dcMotor.get("motor");
     }
 
-    public void loop()
-    {
-        if (gamepad1.a)
-        {
-            Motor1.setPower(maxSpeed);
+    public void loop(){
+        if(gamepad1.a){
+            motor.setPower(maxSpeed);
         }
-        else
-        {
-            Motor1.setPower(0);
+        else{
+            motor.setPower(0);
         }
     }
 }
