@@ -4,8 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-
-
 @TeleOp(name="Intake")
 public class Intake extends LinearOpMode
 {
@@ -14,7 +12,7 @@ public class Intake extends LinearOpMode
     private Servo servo2=null;
 
     private static final double servoextend=0.8;
-    private static final double servorextracted=0.2;
+    private static final double servoretracted=0.2;
 
     public void runOpMode() throws InterruptedException {
 
@@ -34,8 +32,8 @@ public class Intake extends LinearOpMode
 
             if (gamepad1.b)
             {
-                servo1.setPosition(servorextracted);
-                servo2.setPosition(servorextracted);
+                servo1.setPosition(servoretracted);
+                servo2.setPosition(servoretracted);
             }
 
             idle();
