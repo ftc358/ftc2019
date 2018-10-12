@@ -59,6 +59,8 @@ public class Vuforia_Stuffs{
            returningStuff[6] = 0;
        }
 
+       return returningStuff;
+
     }
 
 }
