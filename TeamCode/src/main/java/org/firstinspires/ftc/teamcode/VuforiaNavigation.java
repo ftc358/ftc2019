@@ -57,7 +57,7 @@ public class VuforiaNavigation extends LinearOpMode {
         targetsRoverRuckus.activate();
 
         while (opModeIsActive()){
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            .vuMark = RelicRecoveryVuMark.from(relicTemplate);
             if (vuMark != RelicRecoveryVuMark.UNKNOWN) { // Test to see if image is visable
                 OpenGLMatrix pose = ((VuforiaTrackableDefaultListener) relicTemplate.getListener()).getPose(); // Get Positional value to use later
                 telemetry.addData("Pose", format(pose));
