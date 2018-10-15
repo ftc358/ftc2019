@@ -6,7 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
 
-public class spinning extends OpMode{
+public class Spinning extends OpMode{
+
     DcMotor motor;
     final static double maxSpeed =1;
 
