@@ -21,10 +21,6 @@ import org.opencv.imgproc.Imgproc;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Victo on 9/17/2018.
- */
-
 public class GoldAlignDetector extends DogeCVDetector {
 
     // Defining Mats to be used.
