@@ -45,7 +45,7 @@ public class RevEncoderDrive {
 
     }
 
-     static double Sq (double num){
+    static double Sq (double num){
 
         return pow(num, 2);
 
