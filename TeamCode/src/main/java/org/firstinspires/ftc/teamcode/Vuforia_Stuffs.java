@@ -12,8 +12,6 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGR
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 
-//Hey great grammar
-
 public class Vuforia_Stuffs{
 
     static double[] Vuforia_Thingy_Thing (List<VuforiaTrackable> allTrackables, OpenGLMatrix lastLocation, float mmPerInch){
