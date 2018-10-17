@@ -33,6 +33,9 @@ public class Exponential_Drive extends OpMode{
         if (gamepad1.left_bumper){
             Band.setPower(0.75);
         }
+        if (gamepad1.right_bumper){
+            Band.setPower(-0.75);
+        }
     }
 
     //This should run according to the function y=x^2//
