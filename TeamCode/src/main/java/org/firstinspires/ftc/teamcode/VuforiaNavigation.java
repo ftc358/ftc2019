@@ -145,14 +145,19 @@ public class VuforiaNavigation extends LinearOpMode {
             }
             telemetry.update();
 
-            while(rotation<90){
-                left.setPower(0.1);
-                right.setPower(-0.1);
+            if(rotation<87){
+                left.setPower(-0.2);
+                right.setPower(0.2);
             }
 
-            while(rotation>90){
-                left.setPower(-0.1);
-                right.setPower(0.1);
+            else if(rotation>93){
+                left.setPower(0.2);
+                right.setPower(-0.2);
+            }
+
+            else{
+                left.setPower(0);
+                right.setPower(0);
             }
 
         }

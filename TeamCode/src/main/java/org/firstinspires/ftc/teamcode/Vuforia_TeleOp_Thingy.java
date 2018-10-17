@@ -103,9 +103,38 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
         targetsRoverRuckus.activate();
         while (opModeIsActive()) {
 
+            for (VuforiaTrackable trackable : allTrackables) {
+                if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
+
+                    // getUpdatedRobotLocation() will return null if no new information is available since
+                    // the last time that call was made, or if the trackable is not currently visible.
+                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
+                    if (robotLocationTransform != null) {
+                        lastLocation = robotLocationTransform;
+                    }
+                    break;
+                }
+            }
+
+
             list = Vuforia_Stuffs.Vuforia_Thingy_Thing(allTrackables, lastLocation, mmPerInch);
 
+
             if (list[0] == 1){
+
+                if (list[1] == 1){
+                    telemetry.addData("Visible Target", "Blue-Rover");
+                }
+                else if (list[1] == 2){
+                    telemetry.addData("Visible Target", "Red-Footprint");
+                }
+                else if (list[1] == 3){
+                    telemetry.addData("Visible Target", "Front-Craters");
+                }
+                else if (list[1] == 4){
+                    telemetry.addData("Visible Target", "Back-Space");
+                }
+
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                         list[1], list[2], list[3]);
                 telemetry.addData("Rot (deg)", "{Roll" +
