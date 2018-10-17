@@ -10,11 +10,12 @@ public class Exponential_Drive extends OpMode{
 
     DcMotor leftMotor;
     DcMotor rightMotor;
-
+    DcMotor Band;
     @Override
     public void init() {
         leftMotor=hardwareMap.dcMotor.get("fM");
         rightMotor=hardwareMap.dcMotor.get("rM");
+        Band=hardwareMap.dcMotor.get("rB");
         //Used for 2 motor drive//
     }
     double POWER = -1 * Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
@@ -28,6 +29,11 @@ public class Exponential_Drive extends OpMode{
     public void loop() {
         leftMotor.setPower(POWER * (gamepad1.left_stick_y)/maxPower);
         rightMotor.setPower(POWER * (gamepad1.right_stick_y)/maxPower);
+
+        if (gamepad1.left_bumper){
+            Band.setPower(0.75);
+        }
     }
+
     //This should run according to the function y=x^2//
 }
