@@ -11,11 +11,13 @@ public class Exponential_Drive extends OpMode{
     DcMotor leftMotor;
     DcMotor rightMotor;
     DcMotor Band;
+    DcMotor Latcher;
     @Override
     public void init() {
         leftMotor=hardwareMap.dcMotor.get("fM");
         rightMotor=hardwareMap.dcMotor.get("rM");
         Band=hardwareMap.dcMotor.get("rB");
+        Latcher=hardwareMap.dcMotor.get("Lc");
         //Used for 2 motor drive//
     }
     double POWER = -1 * Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
@@ -31,6 +33,12 @@ public class Exponential_Drive extends OpMode{
         }
         if (gamepad1.right_bumper){
             Band.setPower(-0.75);
+        }
+        if (gamepad1.dpad_up){
+            Latcher.setPower(1);
+        }
+        if (gamepad1.dpad_down){
+            Latcher.setPower(-1);
         }
     }
 
