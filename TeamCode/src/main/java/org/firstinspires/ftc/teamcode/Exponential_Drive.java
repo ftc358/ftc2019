@@ -10,24 +10,38 @@ public class Exponential_Drive extends OpMode{
 
     DcMotor leftMotor;
     DcMotor rightMotor;
-
+    DcMotor Band;
+    DcMotor Latcher;
     @Override
     public void init() {
         leftMotor=hardwareMap.dcMotor.get("fM");
         rightMotor=hardwareMap.dcMotor.get("rM");
-        //Used for 2 motor drive//
+        Band=hardwareMap.dcMotor.get("rB");
+        Latcher=hardwareMap.dcMotor.get("Lc");
+        //Used for 2 motor omniwheel drive//
     }
-    double POWER = -1 * Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
-            Math.abs(gamepad1.right_stick_x)), -1, 1);
-    double maxPower = Math.max(Math.max(Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x),
-            Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x)),
-            Math.max(Math.abs(gamepad1.left_stick_y),
-                    Math.abs(gamepad1.right_stick_y)));
+    //double POWER = -1 * Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
+            //Math.abs(gamepad1.right_stick_x)), -1, 1);//
     //More edit needed in order to run the motor efficiently//
 
     public void loop() {
-        leftMotor.setPower(POWER * (gamepad1.left_stick_y)/maxPower);
-        rightMotor.setPower(POWER * (gamepad1.right_stick_y)/maxPower);
+        leftMotor.setPower(Math.pow(gamepad1.left_stick_y, 2));
+        rightMotor.setPower(Math.pow(gamepad1.right_stick_y, 2));
+
+        if (gamepad1.left_bumper){
+            Band.setPower(0.75);
+        }
+        if (gamepad1.right_bumper){
+            Band.setPower(-0.75);
+            //this part of code is subject to change, if the joystick version is better, this code will be operated in gamepad 2//
+        }
+        if (gamepad1.dpad_up){
+            Latcher.setPower(1);
+        }
+        if (gamepad1.dpad_down){
+            Latcher.setPower(-1);
+        }
     }
+
     //This should run according to the function y=x^2//
 }
