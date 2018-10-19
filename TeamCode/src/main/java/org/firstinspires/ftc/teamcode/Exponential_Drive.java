@@ -18,15 +18,15 @@ public class Exponential_Drive extends OpMode{
         rightMotor=hardwareMap.dcMotor.get("rM");
         Band=hardwareMap.dcMotor.get("rB");
         Latcher=hardwareMap.dcMotor.get("Lc");
-        //Used for 2 motor drive//
+        //Used for 2 motor omniwheel drive//
     }
-    double POWER = -1 * Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
-            Math.abs(gamepad1.right_stick_x)), -1, 1);
+    //double POWER = -1 * Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
+            //Math.abs(gamepad1.right_stick_x)), -1, 1);//
     //More edit needed in order to run the motor efficiently//
 
     public void loop() {
-        leftMotor.setPower(POWER * Math.pow(gamepad1.left_stick_y, 2));
-        rightMotor.setPower(POWER * Math.pow(gamepad1.right_stick_y, 2));
+        leftMotor.setPower(Math.pow(gamepad1.left_stick_y, 2));
+        rightMotor.setPower(Math.pow(gamepad1.right_stick_y, 2));
 
         if (gamepad1.left_bumper){
             Band.setPower(0.75);
