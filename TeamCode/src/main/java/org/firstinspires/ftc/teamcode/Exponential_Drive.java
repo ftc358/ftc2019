@@ -33,6 +33,7 @@ public class Exponential_Drive extends OpMode{
         }
         if (gamepad1.right_bumper){
             Band.setPower(-0.75);
+            //this part of code is subject to change, if the joystick version is better, this code will be operated in gamepad 2//
         }
         if (gamepad1.dpad_up){
             Latcher.setPower(1);
