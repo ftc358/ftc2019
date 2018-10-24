@@ -25,8 +25,8 @@ public class Exponential_Drive extends OpMode{
     //More edit needed in order to run the motor efficiently//
 
     public void loop() {
-        leftMotor.setPower(Range.clip(Math.pow(gamepad1.left_stick_y, 2), -1, 1));
-        rightMotor.setPower(Range.clip(Math.pow(gamepad1.right_stick_y, 2), -1, 1));
+        leftMotor.setPower(Range.clip(Math.pow(gamepad1.left_stick_y, 3), -1, 1));
+        rightMotor.setPower(Range.clip(Math.pow(gamepad1.right_stick_y, 3), -1, 1));
 
         if (gamepad1.left_bumper){
             Band.setPower(0.75);
