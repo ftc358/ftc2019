@@ -158,7 +158,7 @@ public class Vuforia extends LinearOpMode {
                 }
             }
 
-            // Provide feedback as to where the robot is located (if we know).
+            // Provide feedback as to where the robot is located (if we know). hi.
             if (targetVisible) {
                 VectorF translation = lastLocation.getTranslation();
                 // express position (translation) of robot in inches.

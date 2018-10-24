@@ -37,7 +37,7 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
 
     VuforiaLocalizer vuforia;
 
-    double[] list = {0, 0, 0, 0, 0, 0, 0};
+    float[] list = {0, 0, 0, 0, 0, 0, 0};
 
     public void runOpMode() {
 
@@ -106,8 +106,6 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
             for (VuforiaTrackable trackable : allTrackables) {
                 if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
 
-                    // getUpdatedRobotLocation() will return null if no new information is available since
-                    // the last time that call was made, or if the trackable is not currently visible.
                     OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
                     if (robotLocationTransform != null) {
                         lastLocation = robotLocationTransform;
