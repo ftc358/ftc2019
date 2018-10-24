@@ -99,7 +99,7 @@ public class VuforiaNavigation extends LinearOpMode {
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES,
                         CAMERA_CHOICE == FRONT ? 90 : -90, 0, 0));
 
-        /**  Let all the trackable listeners know where the phone is.  */
+        /**  Let all the trackable listeners know where the phone is.  **/
         for (VuforiaTrackable trackable : allTrackables)
         {
             ((VuforiaTrackableDefaultListener)trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
