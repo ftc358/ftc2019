@@ -16,10 +16,10 @@ public class Rubber_band extends OpMode{
     }
     public void loop() {
         if (gamepad1.left_bumper){
-            Band.setPower(0.75);
+            Band.setPower(0.3);
         }
         if (gamepad1.right_bumper){
-            Band.setPower(-0.75);
+            Band.setPower(-0.3);
         }
 
     }
