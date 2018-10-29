@@ -38,7 +38,7 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
 
     VuforiaLocalizer vuforia;
 
-    float[] list = {0, 0, 0, 0, 0, 0, 0};
+    double[] list = {0, 0, 0, 0, 0, 0, 0};
 
     public void runOpMode() {
 
