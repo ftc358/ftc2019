@@ -14,9 +14,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 
 public class Vuforia_Stuffs{
 
-    static float[] Vuforia_Thingy_Thing (List<VuforiaTrackable> allTrackables, OpenGLMatrix lastLocation, float mmPerInch){
+    static double[] Vuforia_Thingy_Thing (List<VuforiaTrackable> allTrackables, OpenGLMatrix lastLocation, float mmPerInch){
 
-        float[] returningStuff = {0, 0, 0, 0, 0, 0, 0, 0};
+        double[] returningStuff = {0, 0, 0, 0, 0, 0, 0, 0};
         boolean targetVisible = false;
 
         for (VuforiaTrackable trackable : allTrackables) {
