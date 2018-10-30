@@ -19,8 +19,8 @@ public class CeciliaDrive extends OpMode {
     }
 
     public void loop(){
-        leftMotor.setPower((Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y)/3);
-        rightMotor.setPower((Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y)/3);
+        leftMotor.setPower(gamepad1.left_stick_y);
+        rightMotor.setPower(gamepad1.right_stick_y);
         //for precise movement
         if (gamepad1.right_trigger>0.1f){
             leftMotor.setPower(((Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y)/3)/2);
