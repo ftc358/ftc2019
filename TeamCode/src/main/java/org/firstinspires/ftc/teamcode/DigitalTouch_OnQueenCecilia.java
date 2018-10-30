@@ -7,14 +7,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "Sensor: Digital touch", group = "Sensor")
 
-public class DigitalTouch_OnQueenCecilia extends LinearOpMode{
+public class DigitalTouch_OnQueenCecilia extends LinearOpMode {
 
     DigitalChannel digitalTouch;  // Hardware Device Object
 
     @Override
     public void runOpMode() {
-        DcMotor leftMotor=hardwareMap.dcMotor.get("left_motor");
-        DcMotor rightMotor=hardwareMap.dcMotor.get("right_motor");
+        DcMotor leftMotor = hardwareMap.dcMotor.get("left_motor");
+        DcMotor rightMotor = hardwareMap.dcMotor.get("right_motor");
 
         // get a reference to our digitalTouch object.
         digitalTouch = hardwareMap.get(DigitalChannel.class, "sensor_digital");

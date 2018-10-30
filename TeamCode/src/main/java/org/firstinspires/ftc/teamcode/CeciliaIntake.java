@@ -18,19 +18,17 @@ public class CeciliaIntake extends OpMode {
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
     }
 
-    public void loop(){
-        if(gamepad1.b){
+    public void loop() {
+        if (gamepad1.b) {
             leftMotor.setPower(0.1);
             rightMotor.setPower(0.1);
-        }
-        else{
-            if(gamepad1.a){
+        } else {
+            if (gamepad1.a) {
                 leftMotor.setPower(-0.18);
                 rightMotor.setPower(-0.18);
                 leftMotor.setTargetPosition(336);
                 leftMotor.setTargetPosition(336);
-            }
-            else{
+            } else {
                 leftMotor.setPower(0);
                 rightMotor.setPower(0);
             }

@@ -8,7 +8,7 @@ import static java.lang.Math.*;
 
 public class RevEncoderDrive {
 
-    public static void RotateMotor (DcMotor motor1, DcMotor motor2, double power, int distance){
+    public static void RotateMotor(DcMotor motor1, DcMotor motor2, double power, int distance) {
 
         motor1.setMode(STOP_AND_RESET_ENCODER);
         motor2.setMode(STOP_AND_RESET_ENCODER);
@@ -22,19 +22,17 @@ public class RevEncoderDrive {
         motor1.setPower(power);
         motor1.setPower(power);
 
-        while (motor1.isBusy() && motor2.isBusy()){
+        while (motor1.isBusy() && motor2.isBusy()) {
 
-            if (motor1.getCurrentPosition() < 0.7 * distance){
+            if (motor1.getCurrentPosition() < 0.7 * distance) {
                 motor1.setPower(power);
-            }
-            else {
+            } else {
                 motor1.setPower(power * sqrt(1 - Sq(((motor1.getCurrentPosition() / distance - 0.7) / 0.3))));
             }
 
-            if (motor2.getCurrentPosition() < 0.7 * distance){
+            if (motor2.getCurrentPosition() < 0.7 * distance) {
                 motor2.setPower(power);
-            }
-            else {
+            } else {
                 motor2.setPower(power * sqrt(1 - Sq(((motor2.getCurrentPosition() / distance - 0.7) / 0.3))));
             }
 
@@ -45,7 +43,7 @@ public class RevEncoderDrive {
 
     }
 
-    static double Sq (double num){
+    static double Sq(double num) {
 
         return pow(num, 2);
 

@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Encoders {
 
-    public static void Forward (DcMotor leftMotor, DcMotor rightMotor, double power, int distance) {
+    public static void Forward(DcMotor leftMotor, DcMotor rightMotor, double power, int distance) {
 
         //Reset Encoders
         leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -22,8 +22,7 @@ public class Encoders {
         leftMotor.setPower(power);
         rightMotor.setPower(power);
 
-        while (leftMotor.isBusy() && rightMotor.isBusy())
-        {
+        while (leftMotor.isBusy() && rightMotor.isBusy()) {
             //Wait Until Target Position is Reached
         }
 
@@ -36,7 +35,7 @@ public class Encoders {
 
     //negative distance to turn left; positive distance to turn right
 
-    public static void Turn (DcMotor leftMotor, DcMotor rightMotor, double power, int distance) {
+    public static void Turn(DcMotor leftMotor, DcMotor rightMotor, double power, int distance) {
 
         //Reset Encoders
         leftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -48,14 +47,13 @@ public class Encoders {
 
         //Set Target Position
         leftMotor.setTargetPosition(distance);
-        rightMotor.setTargetPosition(-1*distance);
+        rightMotor.setTargetPosition(-1 * distance);
 
         //Set Drive Power
         leftMotor.setPower(power);
         rightMotor.setPower(power);
 
-        while (leftMotor.isBusy() && rightMotor.isBusy())
-        {
+        while (leftMotor.isBusy() && rightMotor.isBusy()) {
             //Wait Until Target Position is Reached
         }
 

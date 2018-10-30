@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareDevice;
 
 @Autonomous
 
-public class RevEncoderTest extends LinearOpMode{
+public class RevEncoderTest extends LinearOpMode {
 
     DcMotor Motor1 = null;
     DcMotor Motor2 = null;

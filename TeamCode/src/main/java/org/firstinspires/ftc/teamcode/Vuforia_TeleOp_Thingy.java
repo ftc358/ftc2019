@@ -24,7 +24,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 @TeleOp
 
-public class Vuforia_TeleOp_Thingy extends LinearOpMode{
+public class Vuforia_TeleOp_Thingy extends LinearOpMode {
 
     private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
 
@@ -47,7 +47,7 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection   = CAMERA_CHOICE;
+        parameters.cameraDirection = CAMERA_CHOICE;
 
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
@@ -76,7 +76,7 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
 
         OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
                 .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90));
         frontCraters.setLocation(frontCratersLocationOnField);
 
         OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
@@ -93,9 +93,8 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES,
                         CAMERA_CHOICE == FRONT ? 90 : -90, 0, 0));
 
-        for (VuforiaTrackable trackable : allTrackables)
-        {
-            ((VuforiaTrackableDefaultListener)trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
+        for (VuforiaTrackable trackable : allTrackables) {
+            ((VuforiaTrackableDefaultListener) trackable.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
         }
 
         telemetry.addData(">", "Press Play to start tracking");
@@ -106,9 +105,9 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
         while (opModeIsActive()) {
 
             for (VuforiaTrackable trackable : allTrackables) {
-                if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
+                if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
 
-                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
+                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener) trackable.getListener()).getUpdatedRobotLocation();
                     if (robotLocationTransform != null) {
                         lastLocation = robotLocationTransform;
                     }
@@ -120,18 +119,15 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
             list = Vuforia_Stuffs.Vuforia_Thingy_Thing(allTrackables, lastLocation, mmPerInch);
 
 
-            if (list[0] == 1){
+            if (list[0] == 1) {
 
-                if (list[1] == 1){
+                if (list[1] == 1) {
                     telemetry.addData("Visible Target", "Blue-Rover");
-                }
-                else if (list[1] == 2){
+                } else if (list[1] == 2) {
                     telemetry.addData("Visible Target", "Red-Footprint");
-                }
-                else if (list[1] == 3){
+                } else if (list[1] == 3) {
                     telemetry.addData("Visible Target", "Front-Craters");
-                }
-                else if (list[1] == 4){
+                } else if (list[1] == 4) {
                     telemetry.addData("Visible Target", "Back-Space");
                 }
 
@@ -139,8 +135,7 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode{
                         list[1], list[2], list[3]);
                 telemetry.addData("Rot (deg)", "{Roll" +
                         ", Pitch, Heading} = %.0f, %.0f, %.0f", list[4], list[5], list[6]);
-            }
-            else{
+            } else {
                 telemetry.addData("Visible Target", "none");
             }
 

@@ -5,13 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
-public class Latching_Mechanism extends OpMode{
+public class Latching_Mechanism extends OpMode {
 
     DcMotor leftMotor;
 
     public void init() {
         leftMotor = hardwareMap.dcMotor.get("mL");
     }
+
     public void loop() {
         leftMotor.setPower(gamepad1.left_stick_y);
     }
