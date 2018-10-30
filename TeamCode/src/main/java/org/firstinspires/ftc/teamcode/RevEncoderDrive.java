@@ -37,12 +37,10 @@ public class RevEncoderDrive {
             else {
                 motor2.setPower(power * sqrt(1 - Sq(((motor2.getCurrentPosition() / distance - 0.7) / 0.3))));
             }
-
         }
 
         motor1.setPower(0);
         motor2.setPower(0);
-
     }
 
     static double Sq (double num){
@@ -50,5 +48,4 @@ public class RevEncoderDrive {
         return pow(num, 2);
 
     }
-
 }
