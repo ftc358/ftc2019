@@ -61,6 +61,5 @@ public class Encoders{
         //Stop and Change Mode back to Normal
         leftMotor.setPower(0);
         rightMotor.setPower(0);
-
     }
 }

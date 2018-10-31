@@ -159,7 +159,6 @@ public class VuforiaNavigation extends LinearOpMode {
                 left.setPower(0);
                 right.setPower(0);
             }
-
         }
     }
 }
