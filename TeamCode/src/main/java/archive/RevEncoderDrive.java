@@ -1,10 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package archive;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.*;
 
 import static java.lang.Math.*;
+
+@Disabled
 
 public class RevEncoderDrive {
 

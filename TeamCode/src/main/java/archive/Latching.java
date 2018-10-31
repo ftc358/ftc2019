@@ -1,11 +1,14 @@
-package org.firstinspires.ftc.teamcode;
+package archive;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name="Intake")
-public class Intake extends LinearOpMode
+@Disabled
+@TeleOp(name="Latching")
+
+public class Latching extends LinearOpMode
 {
     //Declare servos
     Servo servo1=null;
@@ -18,7 +21,6 @@ public class Intake extends LinearOpMode
     {
         //Initialize Servos
         servo1=hardwareMap.servo.get("servo1");
-        servo2=hardwareMap.servo.get("servo2");
 
         waitForStart();
 
@@ -27,12 +29,10 @@ public class Intake extends LinearOpMode
             if (gamepad1.a)
             {
                 servo1.setPosition(servoextend);
-                servo2.setPosition(servoextend);
             }
             if (gamepad1.b)
             {
                 servo1.setPosition(servoretracted);
-                servo2.setPosition(servoretracted);
             }
             idle();
         }
