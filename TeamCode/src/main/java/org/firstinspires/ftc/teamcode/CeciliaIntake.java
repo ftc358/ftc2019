@@ -28,7 +28,7 @@ public class CeciliaIntake extends OpMode {
                 leftMotor.setPower(-0.18);
                 rightMotor.setPower(-0.18);
                 leftMotor.setTargetPosition(336);
-                leftMotor.setTargetPosition(336);
+                rightMotor.setTargetPosition(336);
             }
             else{
                 leftMotor.setPower(0);
