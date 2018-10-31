@@ -2,7 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Encoders {
+public class Encoders{
+
 
     public static void Forward (DcMotor leftMotor, DcMotor rightMotor, double power, int distance) {
 
@@ -27,11 +28,9 @@ public class Encoders {
             //Wait Until Target Position is Reached
         }
 
-
         //Stop and Change Mode back to Normal
         leftMotor.setPower(0);
         rightMotor.setPower(0);
-
     }
 
     //negative distance to turn left; positive distance to turn right
@@ -64,5 +63,4 @@ public class Encoders {
         rightMotor.setPower(0);
 
     }
-
 }
