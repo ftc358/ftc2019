@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package archive;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 
+@Disabled
 @Autonomous
 
 public class RevEncoderTest extends LinearOpMode {

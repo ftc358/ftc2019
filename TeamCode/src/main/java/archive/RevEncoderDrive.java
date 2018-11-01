@@ -1,10 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package archive;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.*;
 
 import static java.lang.Math.*;
+
+@Disabled
 
 public class RevEncoderDrive {
 
@@ -35,12 +38,10 @@ public class RevEncoderDrive {
             } else {
                 motor2.setPower(power * sqrt(1 - Sq(((motor2.getCurrentPosition() / distance - 0.7) / 0.3))));
             }
-
         }
 
         motor1.setPower(0);
         motor2.setPower(0);
-
     }
 
     static double Sq(double num) {
@@ -48,5 +49,4 @@ public class RevEncoderDrive {
         return pow(num, 2);
 
     }
-
 }

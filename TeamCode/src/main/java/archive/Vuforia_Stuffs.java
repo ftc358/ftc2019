@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package archive;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
@@ -12,29 +14,34 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGR
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 
-public class Vuforia_Stuffs {
+@Disabled
 
-    static double[] Vuforia_Thingy_Thing(List<VuforiaTrackable> allTrackables, OpenGLMatrix lastLocation, float mmPerInch) {
+public class Vuforia_Stuffs{
+
+    static double[] Vuforia_Thingy_Thing (List<VuforiaTrackable> allTrackables, OpenGLMatrix lastLocation, float mmPerInch){
 
         double[] returningStuff = {0, 0, 0, 0, 0, 0, 0, 0};
         boolean targetVisible = false;
 
         for (VuforiaTrackable trackable : allTrackables) {
-            if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
+            if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
                 targetVisible = true;
                 returningStuff[0] = 1;
 
-                if (trackable.getName() == "Blue-Rover") {
+                if (trackable.getName() == "Blue-Rover"){
                     returningStuff[1] = 1;
-                } else if (trackable.getName() == "Red-Footprint") {
+                }
+                else if (trackable.getName() == "Red-Footprint"){
                     returningStuff[1] = 2;
-                } else if (trackable.getName() == "Front-Craters") {
+                }
+                else if (trackable.getName() == "Front-Craters"){
                     returningStuff[1] = 3;
-                } else if (trackable.getName() == "Back-Space") {
+                }
+                else if (trackable.getName() == "Back-Space"){
                     returningStuff[1] = 4;
                 }
 
-                OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener) trackable.getListener()).getUpdatedRobotLocation();
+                OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
                 if (robotLocationTransform != null) {
                     lastLocation = robotLocationTransform;
                 }
@@ -56,7 +63,8 @@ public class Vuforia_Stuffs {
             returningStuff[6] = rotation.secondAngle;
             returningStuff[7] = rotation.thirdAngle;
 
-        } else {
+        }
+        else {
 
             returningStuff[0] = 0;
             returningStuff[1] = 0;

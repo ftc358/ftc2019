@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package archive;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+@Disabled
 @TeleOp(name = "Sensor: Digital touch", group = "Sensor")
 
 public class DigitalTouch_OnQueenCecilia extends LinearOpMode {
