@@ -21,15 +21,14 @@ public class GenericTeleOp extends OpMode {
 
     @Override
     public void init() {
-        String sURL = "https://jsonplaceholder.typicode.com/todos/1"; //just a string
+        String sURL = "https://jsonplaceholder.typicode.com/todos/1"; //will be remote config json
 
         try {
-            // Connect to the URL using java's native library
             URL url = new URL(sURL);
             URLConnection request = url.openConnection();
             request.connect();
-            // Convert to a JSON object to print data
-            JsonParser jp = new JsonParser(); //from gson
+
+            JsonParser jp = new JsonParser(); //gson
 
             JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
             JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object.
