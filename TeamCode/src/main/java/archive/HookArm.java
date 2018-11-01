@@ -1,13 +1,15 @@
-package org.firstinspires.ftc.teamcode;
+package archive;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+@Disabled
 @TeleOp
 
-public class HookArm extends OpMode{
+public class HookArm extends OpMode {
 
     private DcMotor hookArmMotor;
 
@@ -31,29 +33,26 @@ public class HookArm extends OpMode{
         if (gamepad1.a) {
             target = target + 200;
             while (gamepad1.a) {
-                if  (target > 2000) {
+                if (target > 2000) {
                     target = 2000;
                 }
             }
-        }
-        else if (gamepad1.b) { //
+        } else if (gamepad1.b) { //
             target = target - 200;
             while (gamepad1.b) {
-                if  (target < 0) {
+                if (target < 0) {
                     target = 0;
                 }
             }
-        }
-        else if (gamepad1.x) {
+        } else if (gamepad1.x) {
             target = 0;
-        }
-        else if (gamepad1.y) {
+        } else if (gamepad1.y) {
             target = 1800;
         }
 
         hookArmMotor.setTargetPosition(target);
 
-        if (hookArmMotor.getCurrentPosition()!=target) {
+        if (hookArmMotor.getCurrentPosition() != target) {
             hookArmMotor.setPower(runPower);
         }
 
@@ -62,15 +61,14 @@ public class HookArm extends OpMode{
             if (gamepad1.a) {
                 target = target + 200;
                 while (gamepad1.a) {
-                    if  (target > 2000) {
+                    if (target > 2000) {
                         target = 2000;
                     }
                 }
-            }
-            else if (gamepad1.b) {
+            } else if (gamepad1.b) {
                 target = target - 200;
                 while (gamepad1.b) {
-                    if  (target < 0) {
+                    if (target < 0) {
                         target = 0;
                     }
                 }
@@ -82,9 +80,8 @@ public class HookArm extends OpMode{
 
             if (diff > 400) {
                 runPower = power;
-            }
-            else {
-                runPower = power * Math.pow(1 - Math.pow(diff/400,2),1/2);
+            } else {
+                runPower = power * Math.pow(1 - Math.pow(diff / 400, 2), 1 / 2);
             }
 
             hookArmMotor.setPower(runPower);
