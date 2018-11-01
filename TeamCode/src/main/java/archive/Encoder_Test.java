@@ -7,13 +7,15 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.Encoders;
 
+import java.util.ArrayList;
+
 @Disabled
 @Autonomous
 
 public class Encoder_Test extends LinearOpMode{
 
-    DcMotor leftMotor=null;
-    DcMotor rightMotor=null;
+    DcMotor leftMotor;
+    DcMotor rightMotor;
 
     public void runOpMode() throws InterruptedException
     {
@@ -28,7 +30,11 @@ public class Encoder_Test extends LinearOpMode{
 
         waitForStart();
 
-        Encoders.Forward(leftMotor, rightMotor,0.5, 1200);
-        Encoders.Turn(leftMotor, rightMotor,0.5, 495);
+        ArrayList<DcMotor> motorArrayList = new ArrayList<DcMotor>();
+        motorArrayList.add(leftMotor);
+        motorArrayList.add(rightMotor);
+
+        Encoders.Forward(motorArrayList,0.5, 1200);
+        Encoders.Turn(motorArrayList,0.5, 495);
     }
 }
