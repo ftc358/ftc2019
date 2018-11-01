@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
-public class TeleOp358 extends OpMode{
+public class RandomThingy extends OpMode{
 
     DcMotor lF;
     DcMotor lB;
