@@ -11,6 +11,7 @@ public class TeleOp358 extends OpMode{
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
+    boolean ExpState = false;
 
     public void init(){
 
@@ -26,10 +27,13 @@ public class TeleOp358 extends OpMode{
 
     public void loop(){
 
+        /*
+
         lF.setPower(gamepad1.left_stick_y);
         lB.setPower(gamepad1.left_stick_y);
         rF.setPower(gamepad1.right_stick_y);
         rB.setPower(gamepad1.right_stick_y);
+
 
         // right trigger for precise movement
         if (gamepad1.right_trigger>0.1f){
@@ -39,6 +43,39 @@ public class TeleOp358 extends OpMode{
             rF.setPower(((Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y)/3)/2);
             rB.setPower(((Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y)/3)/2);
 
+        }
+
+        */
+
+        if (gamepad1.right_bumper){
+            ExpState = !ExpState;
+            while (gamepad1.right_bumper){
+                if (ExpState){
+                    lF.setPower(((Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y)/3)/2);
+                    lB.setPower(((Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y)/3)/2);
+                    rF.setPower(((Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y)/3)/2);
+                    rB.setPower(((Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y)/3)/2);
+                }
+                else {
+                    lF.setPower(gamepad1.left_stick_y);
+                    lB.setPower(gamepad1.left_stick_y);
+                    rF.setPower(gamepad1.right_stick_y);
+                    rB.setPower(gamepad1.right_stick_y);
+                }
+            }
+        }
+
+        if (ExpState){
+            lF.setPower(((Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y)/3)/2);
+            lB.setPower(((Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y)/3)/2);
+            rF.setPower(((Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y)/3)/2);
+            rB.setPower(((Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y)/3)/2);
+        }
+        else {
+            lF.setPower(gamepad1.left_stick_y);
+            lB.setPower(gamepad1.left_stick_y);
+            rF.setPower(gamepad1.right_stick_y);
+            rB.setPower(gamepad1.right_stick_y);
         }
     }
 }
