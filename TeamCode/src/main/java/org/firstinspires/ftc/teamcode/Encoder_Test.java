@@ -1,4 +1,4 @@
-package archive;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -9,17 +9,14 @@ import org.firstinspires.ftc.teamcode.Encoders;
 
 import java.util.ArrayList;
 
-@Disabled
 @Autonomous
-
-public class Encoder_Test extends LinearOpMode{
+public class Encoder_Test extends LinearOpMode {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
 
-    public void runOpMode() throws InterruptedException
-    {
-        //initialize motors
+    public void runOpMode() throws InterruptedException {
+        //initialize motor
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");
 
@@ -34,7 +31,7 @@ public class Encoder_Test extends LinearOpMode{
         motorArrayList.add(leftMotor);
         motorArrayList.add(rightMotor);
 
-        Encoders.Forward(motorArrayList,0.5, 1200);
-        Encoders.Turn(motorArrayList,0.5, 495);
+        Encoders.Forward(motorArrayList, 0.5, 1200);
+        Encoders.Turn(motorArrayList, 0.5, 495);
     }
 }

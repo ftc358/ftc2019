@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Encoders {
 
-
     public static void Forward(ArrayList<DcMotor> motorArray, double power, int distance) {
 
         ArrayList<DcMotor> motors = new ArrayList<>();
@@ -25,7 +24,10 @@ public class Encoders {
             motors.add(motor);
         }
 
+        System.out.println("Motor config done");
+
         while (allMotorStatus(motors)) {
+            System.out.println(allMotorStatus(motors));
             //Wait Until Target Position is Reached
         }
 
