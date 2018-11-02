@@ -77,5 +77,8 @@ public class RandomThingy extends OpMode{
             rF.setPower(gamepad1.right_stick_y);
             rB.setPower(gamepad1.right_stick_y);
         }
+
+        telemetry.addData("ExpState: ", ExpState);
+        telemetry.update()
     }
 }
