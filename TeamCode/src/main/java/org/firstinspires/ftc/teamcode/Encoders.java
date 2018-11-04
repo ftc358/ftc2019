@@ -17,7 +17,7 @@ public class Encoders {
             //Set to RUN_TO_POSITION mode
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             //Set Target Position
-            motor.setTargetPosition(distance);
+            motor.setTargetPosition(-distance);
             //Set Drive Power
             motor.setPower(power);
 

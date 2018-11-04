@@ -31,7 +31,7 @@ public class Encoder_Test extends LinearOpMode {
         motorArrayList.add(leftMotor);
         motorArrayList.add(rightMotor);
 
-        Encoders.Forward(motorArrayList, 0.5, 1200);
+        //Encoders.Forward(motorArrayList, 0.5, 1200);
         Encoders.Turn(motorArrayList, 0.5, 495);
     }
 }
