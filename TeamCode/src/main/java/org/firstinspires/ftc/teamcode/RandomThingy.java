@@ -51,10 +51,10 @@ public class RandomThingy extends OpMode{
             ExpState = !(ExpState);
             while (gamepad1.right_bumper){
                 if (ExpState){
-                    lF.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/10);
-                    lB.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/10);
-                    rF.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/10);
-                    rB.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/10);
+                    lF.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/2);
+                    lB.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/2);
+                    rF.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/2);
+                    rB.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/2);
                 }
                 else {
                     lF.setPower(gamepad1.left_stick_y);
@@ -68,13 +68,13 @@ public class RandomThingy extends OpMode{
         telemetry.addData("ExpState", ExpState);
 
         if (ExpState){
-            lF.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/10);
-            lB.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/10);
-            rF.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/10);
-            rB.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/10);
+            lF.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/2);
+            lB.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/2);
+            rF.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/2);
+            rB.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/2);
 
-            telemetry.addData("leftPower", Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/10);
-            telemetry.addData("rightPower", Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/10);
+            telemetry.addData("leftPower", Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/2);
+            telemetry.addData("rightPower", Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/2);
         }
         else {
             lF.setPower(gamepad1.left_stick_y);
