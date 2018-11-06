@@ -32,10 +32,10 @@ public class Encoders {
 
             for (DcMotor motor : motors) {
                 diff = Math.abs(motor.getCurrentPosition() - -distance);
-                if (diff > 400) {
+                if (diff > 500) {
                     runPower = power;
                 } else {
-                    runPower = power * Math.pow(1 - Math.pow(diff / 400, 2), 1 / 2);
+                    runPower = power * Math.pow(1 - Math.pow(diff / 500, 2), 1 / 2);
                 }
 
                 motor.setPower(runPower);
