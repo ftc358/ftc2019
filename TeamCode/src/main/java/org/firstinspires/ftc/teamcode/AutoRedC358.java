@@ -35,10 +35,6 @@ public class AutoRedC358 extends LinearOpMode{
         motorArrayList.add(lB);
         motorArrayList.add(rF);
         motorArrayList.add(rB);
-        lF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        lB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         state358 = state.EXTEND;
         waitForStart();
@@ -52,7 +48,7 @@ public class AutoRedC358 extends LinearOpMode{
 
                 case EXTEND:
 
-                    Encoders.Forward(motorArrayList, 0.5, 500);
+                    Encoders.Forward(motorArrayList, 0.25, 1000);
                     state358 = state.DETECT;
                     break;
 

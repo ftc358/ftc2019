@@ -8,6 +8,9 @@ public class Encoders {
 
     public static void Forward(ArrayList<DcMotor> motorArray, double power, int distance) {
 
+        int diff = 0;
+        double runPower = power;
+
         ArrayList<DcMotor> motors = new ArrayList<>();
 
         for (DcMotor motor : motorArray) {
@@ -26,6 +29,17 @@ public class Encoders {
 
         while (allMotorStatus(motors)) {
             //Wait Until Target Position is Reached
+
+            for (DcMotor motor : motors) {
+                diff = Math.abs(motor.getCurrentPosition() - -distance);
+                if (diff > 400) {
+                    runPower = power;
+                } else {
+                    runPower = power * Math.pow(1 - Math.pow(diff / 400, 2), 1 / 2);
+                }
+
+                motor.setPower(runPower);
+            }
         }
 
         //Stop and Change Mode back to Normal
@@ -34,7 +48,7 @@ public class Encoders {
 
     public static void Turn(ArrayList<DcMotor> motorArray, double power, int distance) {
 
-        /**
+        /**h
          * Please enter left motors on odd positions in the motorArray and right motors on even positions.
          */
 
@@ -43,6 +57,8 @@ public class Encoders {
 
         for (DcMotor motor : motorArray) {
 
+            //Use Encoders
+            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             //Reset Encoders
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             //Set to RUN_TO_POSITION mode
@@ -50,7 +66,7 @@ public class Encoders {
             //Set Target Position
             //Negative distance to turn left; positive distance to turn right
             if ((i % 2) == 0) {
-                motor.setTargetPosition(distance);
+                motor.setTargetPosition(-distance);
             } else {
                 motor.setTargetPosition(-distance);
             }
