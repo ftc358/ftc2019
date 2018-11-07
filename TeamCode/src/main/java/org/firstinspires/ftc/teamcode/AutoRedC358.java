@@ -41,7 +41,7 @@ public class AutoRedC358 extends LinearOpMode{
 
         while (opModeIsActive()) {
 
-            telemetry.addData("Going into state: ", state358);
+            telemetry.addData("Going into state", state358);
             telemetry.update();
 
             switch(state358) {
