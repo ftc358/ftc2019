@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import java.util.ArrayList;
 
 @Autonomous
 public class AutoRedC358 extends LinearOpMode{
@@ -29,6 +30,13 @@ public class AutoRedC358 extends LinearOpMode{
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
 
+//        ArrayList<DcMotor> motorArrayList = new ArrayList<DcMotor>();
+//        motorArrayList.add(lF);
+//        motorArrayList.add(lB);
+//        motorArrayList.add(rF);
+//        motorArrayList.add(rB);
+
+        state358 = state.EXTEND;
         waitForStart();
 
         while (opModeIsActive()) {
@@ -40,9 +48,10 @@ public class AutoRedC358 extends LinearOpMode{
 
                 case EXTEND:
 
-                    // do something
+                    Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
                     state358 = state.DETECT;
                     break;
+
                 case DETECT:
 
                     // do something

@@ -51,10 +51,10 @@ public class TeleOp358 extends OpMode{
             ExpState = !ExpState;
             while (gamepad1.right_bumper){
                 if (ExpState){
-                    lF.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/10);
-                    lB.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/10);
-                    rF.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/10);
-                    rB.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/10);
+                    lF.setPower(Math.pow(gamepad1.left_stick_y, 3));
+                    lB.setPower(Math.pow(gamepad1.left_stick_y, 3));
+                    rF.setPower(Math.pow(gamepad1.right_stick_y, 3));
+                    rB.setPower(Math.pow(gamepad1.right_stick_y, 3));
                 }
                 else {
                     lF.setPower(gamepad1.left_stick_y);
@@ -66,10 +66,10 @@ public class TeleOp358 extends OpMode{
         }
 
         if (ExpState){
-            lF.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/10);
-            lB.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/10);
-            rF.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/10);
-            rB.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/10);
+            lF.setPower(Math.pow(gamepad1.left_stick_y, 3));
+            lB.setPower(Math.pow(gamepad1.left_stick_y, 3));
+            rF.setPower(Math.pow(gamepad1.right_stick_y, 3));
+            rB.setPower(Math.pow(gamepad1.right_stick_y, 3));
         }
         else {
             lF.setPower(gamepad1.left_stick_y);
