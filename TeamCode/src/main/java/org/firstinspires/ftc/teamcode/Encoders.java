@@ -35,7 +35,7 @@ public class Encoders {
                 if (diff > 500) {
                     runPower = power;
                 } else {
-                    runPower = power * Math.pow(1 - Math.pow(diff / 500, 2), 1 / 2);
+                    runPower = power * Math.pow(1 - Math.pow(1- diff / 500, 2), 1 / 2);
                 }
 
                 motor.setPower(runPower);
