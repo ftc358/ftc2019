@@ -82,7 +82,7 @@ public class HookArm extends OpMode {
             if (diff > 400) {
                 runPower = power;
             } else {
-                runPower = power * Math.pow(1 - Math.pow(diff / 400, 2), 1 / 2);
+                runPower = power * Math.pow(1 - Math.pow(1 - diff / 400, 2), 1 / 2);
             }
 
             hookArmMotor.setPower(runPower);
