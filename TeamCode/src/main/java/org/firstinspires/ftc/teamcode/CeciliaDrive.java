@@ -27,5 +27,4 @@ public class CeciliaDrive extends OpMode {
             rightMotor.setPower(((Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y)/3)/2);
         }
     }
-
 }

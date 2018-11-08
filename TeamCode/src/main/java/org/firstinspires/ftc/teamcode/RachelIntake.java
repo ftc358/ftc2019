@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 public class RachelIntake extends OpMode{
     DcMotor motor;
     public void init() {
-        motor = hardwareMap.dcMotor.get("left_motor");
+        motor = hardwareMap.dcMotor.get("motor");
     }
 
     public void loop(){
