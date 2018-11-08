@@ -30,11 +30,11 @@ public class AutoRedC358 extends LinearOpMode{
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
 
-//        ArrayList<DcMotor> motorArrayList = new ArrayList<DcMotor>();
-//        motorArrayList.add(lF);
-//        motorArrayList.add(lB);
-//        motorArrayList.add(rF);
-//        motorArrayList.add(rB);
+        ArrayList<DcMotor> motorArrayList = new ArrayList<DcMotor>();
+        motorArrayList.add(lF);
+        motorArrayList.add(lB);
+        motorArrayList.add(rF);
+        motorArrayList.add(rB);
 
         state358 = state.EXTEND;
         waitForStart();
@@ -48,13 +48,13 @@ public class AutoRedC358 extends LinearOpMode{
 
                 case EXTEND:
 
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
+//                    Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
+                    Encoders.Forward(motorArrayList, 0.25, 1000);
                     state358 = state.DETECT;
                     break;
 
                 case DETECT:
 
-                    Vuforia_TeleOp_Thingy.
                     state358 = state.KNOCK;
                     break;
                 case KNOCK:
