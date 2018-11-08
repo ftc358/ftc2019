@@ -54,7 +54,7 @@ public class AutoRedC358 extends LinearOpMode{
 
                 case DETECT:
 
-                    // do something
+                    Vuforia_TeleOp_Thingy.
                     state358 = state.KNOCK;
                     break;
                 case KNOCK:
