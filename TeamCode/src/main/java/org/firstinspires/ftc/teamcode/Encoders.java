@@ -20,10 +20,10 @@ public class Encoders{
         motor4.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //Set Target Position
-        motor1.setTargetPosition(distance);
-        motor2.setTargetPosition(distance);
-        motor3.setTargetPosition(distance);
-        motor4.setTargetPosition(distance);
+        motor1.setTargetPosition(-distance);
+        motor2.setTargetPosition(-distance);
+        motor3.setTargetPosition(-distance);
+        motor4.setTargetPosition(-distance);
 
         //Set Drive Power
         motor1.setPower(power);
@@ -58,10 +58,10 @@ public class Encoders{
         motor4.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //Set Target Position
-        motor1.setTargetPosition(distance);
-        motor2.setTargetPosition(distance);
-        motor3.setTargetPosition(-distance);
-        motor4.setTargetPosition(-distance);
+        motor1.setTargetPosition(-distance);
+        motor2.setTargetPosition(-distance);
+        motor3.setTargetPosition(distance);
+        motor4.setTargetPosition(distance);
 
         //Set Drive Power
         motor1.setPower(power);
