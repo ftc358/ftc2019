@@ -32,9 +32,5 @@ public class IntakeSystem extends OpMode{
             intakeServo.setPower(0);
 
         }
-
-
-
     }
-
 }

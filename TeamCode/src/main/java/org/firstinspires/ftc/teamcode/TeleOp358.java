@@ -42,7 +42,6 @@ public class TeleOp358 extends OpMode{
             lB.setPower(((Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y)/3)/2);
             rF.setPower(((Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y)/3)/2);
             rB.setPower(((Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y)/3)/2);
-
         }
 
         */
