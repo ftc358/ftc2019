@@ -71,7 +71,7 @@ public class AutoRedC358 extends LinearOpMode{
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
-                    sleep(10000);
+                    sleep(5000);
 
                     state358 = state.EXTEND;
                     break;
@@ -162,9 +162,9 @@ public class AutoRedC358 extends LinearOpMode{
                         if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                             position = 1;
                         } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-                            position = 2;
-                        } else {
                             position = 3;
+                        } else {
+                            position = 2;
                         }
                     }
                 }
