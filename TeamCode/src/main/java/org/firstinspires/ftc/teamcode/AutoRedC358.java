@@ -21,6 +21,7 @@ public class AutoRedC358 extends LinearOpMode{
     DcMotor rF;
     DcMotor rB;
     state state358;
+    int detected = 0;
 
     private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
 
@@ -38,7 +39,7 @@ public class AutoRedC358 extends LinearOpMode{
 
     enum state {
 
-        EXTEND, DETECT, KNOCK, STOP
+        DETECT, EXTEND, KNOCK, STOP
 
     }
 
@@ -52,7 +53,7 @@ public class AutoRedC358 extends LinearOpMode{
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
 
-        state358 = state.EXTEND;
+        state358 = state.DETECT;
         waitForStart();
 
         while (opModeIsActive()) {
@@ -62,24 +63,36 @@ public class AutoRedC358 extends LinearOpMode{
 
             switch(state358) {
 
-                case EXTEND:
-
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
-                    state358 = state.DETECT;
-                    break;
-
                 case DETECT:
+
                     initVuforiaThingy();
                     initTfod();
-                    int detected = lookForThings();
+                    detected = lookForThings();
+                    // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
-                    sleep(2000);
+                    telemetry.update();
+                    sleep(10000);
 
-                    state358 = state.KNOCK;
+                    state358 = state.EXTEND;
                     break;
-                case KNOCK:
+
+                case EXTEND:
 
                     // do something
+                    state358 = state.KNOCK;
+                    break;
+
+                case KNOCK:
+
+                    if(detected == 1){
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
+                    }
+                    else if(detected == 2){
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
+                    }
+                    else if(detected == 3){
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
+                    }
                     state358 = state.STOP;
                     break;
 
