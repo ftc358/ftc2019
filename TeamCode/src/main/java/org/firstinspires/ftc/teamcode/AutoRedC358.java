@@ -146,11 +146,11 @@ public class AutoRedC358 extends LinearOpMode {
                     int silverMineral2X = -1;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getTop();
+                            goldMineralX = (int) recognition.getLeft();
                         } else if (silverMineral1X == -1) {
-                            silverMineral1X = (int) recognition.getTop();
+                            silverMineral1X = (int) recognition.getLeft();
                         } else {
-                            silverMineral2X = (int) recognition.getTop();
+                            silverMineral2X = (int) recognition.getLeft();
                         }
                     }
                     if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
