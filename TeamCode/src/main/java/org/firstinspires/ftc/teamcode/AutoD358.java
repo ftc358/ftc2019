@@ -67,7 +67,7 @@ public class AutoD358 extends LinearOpMode {
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
-                    state358 = state.TURN;
+                    state358 = state.KNOCK;
                     break;
 
                 case TURN:
