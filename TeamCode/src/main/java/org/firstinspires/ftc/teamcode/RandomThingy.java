@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
-public class RandomThingy extends OpMode{
+public class RandomThingy extends OpMode {
 
     DcMotor lF;
     DcMotor lB;
@@ -13,7 +13,7 @@ public class RandomThingy extends OpMode{
     DcMotor rB;
     boolean ExpState = false;
 
-    public void init(){
+    public void init() {
 
         lF = hardwareMap.dcMotor.get("lF");
         lB = hardwareMap.dcMotor.get("lB");
@@ -25,7 +25,7 @@ public class RandomThingy extends OpMode{
 
     }
 
-    public void loop(){
+    public void loop() {
 
         /*
 
@@ -47,16 +47,15 @@ public class RandomThingy extends OpMode{
 
         */
 
-        if (gamepad1.right_bumper){
+        if (gamepad1.right_bumper) {
             ExpState = !(ExpState);
-            while (gamepad1.right_bumper){
-                if (ExpState){
-                    lF.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/2);
-                    lB.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/2);
-                    rF.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/2);
-                    rB.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/2);
-                }
-                else {
+            while (gamepad1.right_bumper) {
+                if (ExpState) {
+                    lF.setPower(Math.abs(gamepad1.left_stick_y) * gamepad1.left_stick_y / 2);
+                    lB.setPower(Math.abs(gamepad1.left_stick_y) * gamepad1.left_stick_y / 2);
+                    rF.setPower(Math.abs(gamepad1.right_stick_y) * gamepad1.right_stick_y / 2);
+                    rB.setPower(Math.abs(gamepad1.right_stick_y) * gamepad1.right_stick_y / 2);
+                } else {
                     lF.setPower(gamepad1.left_stick_y);
                     lB.setPower(gamepad1.left_stick_y);
                     rF.setPower(gamepad1.right_stick_y);
@@ -67,16 +66,15 @@ public class RandomThingy extends OpMode{
 
         telemetry.addData("ExpState", ExpState);
 
-        if (ExpState){
-            lF.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/2);
-            lB.setPower(Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/2);
-            rF.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/2);
-            rB.setPower(Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/2);
+        if (ExpState) {
+            lF.setPower(Math.abs(gamepad1.left_stick_y) * gamepad1.left_stick_y / 2);
+            lB.setPower(Math.abs(gamepad1.left_stick_y) * gamepad1.left_stick_y / 2);
+            rF.setPower(Math.abs(gamepad1.right_stick_y) * gamepad1.right_stick_y / 2);
+            rB.setPower(Math.abs(gamepad1.right_stick_y) * gamepad1.right_stick_y / 2);
 
-            telemetry.addData("leftPower", Math.abs(gamepad1.left_stick_y)*gamepad1.left_stick_y/2);
-            telemetry.addData("rightPower", Math.abs(gamepad1.right_stick_y)*gamepad1.right_stick_y/2);
-        }
-        else {
+            telemetry.addData("leftPower", Math.abs(gamepad1.left_stick_y) * gamepad1.left_stick_y / 2);
+            telemetry.addData("rightPower", Math.abs(gamepad1.right_stick_y) * gamepad1.right_stick_y / 2);
+        } else {
             lF.setPower(gamepad1.left_stick_y);
             lB.setPower(gamepad1.left_stick_y);
             rF.setPower(gamepad1.right_stick_y);

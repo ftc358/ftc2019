@@ -65,8 +65,7 @@ public class HookArm extends OpMode {
                         target = 2000;
                     }
                 }
-            }
-            else if (gamepad1.b) {
+            } else if (gamepad1.b) {
                 target = target - 200;
                 while (gamepad1.b) {
                     if (target < 0) {

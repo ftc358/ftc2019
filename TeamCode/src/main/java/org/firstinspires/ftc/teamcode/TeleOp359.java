@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
-public class TeleOp359 extends OpMode{
+public class TeleOp359 extends OpMode {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
@@ -21,7 +21,7 @@ public class TeleOp359 extends OpMode{
 
     double maxPower;
 
-    public void init(){
+    public void init() {
 
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");

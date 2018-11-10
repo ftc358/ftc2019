@@ -5,11 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 @TeleOp
-public class IntakeSystem extends OpMode{
+public class IntakeSystem extends OpMode {
 
     CRServo intakeServo;
 
-    public void init(){
+    public void init() {
 
         intakeServo = hardwareMap.crservo.get("intakeServo");
 
@@ -17,17 +17,15 @@ public class IntakeSystem extends OpMode{
 
     public void loop() {
 
-        if (gamepad1.a){
+        if (gamepad1.a) {
 
             intakeServo.setPower(1);
 
-        }
-        else if (gamepad1.b){
+        } else if (gamepad1.b) {
 
             intakeServo.setPower(-1);
 
-        }
-        else{
+        } else {
 
             intakeServo.setPower(0);
 

@@ -2,10 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Encoders{
+public class Encoders {
 
 
-    public static void Forward (DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
+    public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
 
         //Reset Encoders
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -31,8 +31,7 @@ public class Encoders{
         motor3.setPower(power);
         motor4.setPower(power);
 
-        while (motor1.isBusy() && motor2.isBusy() && motor3.isBusy() && motor4.isBusy())
-        {
+        while (motor1.isBusy() && motor2.isBusy() && motor3.isBusy() && motor4.isBusy()) {
             //Wait Until Target Position is Reached
         }
 
@@ -43,7 +42,7 @@ public class Encoders{
         motor4.setPower(0);
     }
 
-    public static void Turn (DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
+    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
 
         //Reset Encoders
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -69,8 +68,7 @@ public class Encoders{
         motor3.setPower(power);
         motor4.setPower(power);
 
-        while (motor1.isBusy() && motor2.isBusy() && motor3.isBusy() && motor4.isBusy())
-        {
+        while (motor1.isBusy() && motor2.isBusy() && motor3.isBusy() && motor4.isBusy()) {
             //Wait Until Target Position is Reached
         }
 

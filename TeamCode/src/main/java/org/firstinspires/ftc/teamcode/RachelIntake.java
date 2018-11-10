@@ -1,25 +1,24 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
-public class RachelIntake extends OpMode{
+public class RachelIntake extends OpMode {
     DcMotor motor;
+
     public void init() {
         motor = hardwareMap.dcMotor.get("motor");
     }
 
-    public void loop(){
-        if(gamepad1.a){
+    public void loop() {
+        if (gamepad1.a) {
             motor.setPower(0.3);
-        }
-        else{
-            if(gamepad1.b){
+        } else {
+            if (gamepad1.b) {
                 motor.setPower(0.3);
-            }
-            else{
+            } else {
                 motor.setPower(0);
             }
         }

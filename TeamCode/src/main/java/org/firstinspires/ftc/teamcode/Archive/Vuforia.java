@@ -13,15 +13,15 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Using the Vuforia localizer to determine positioning and orientation of robot on the FTC field.
@@ -49,14 +49,12 @@ public class Vuforia extends LinearOpMode {
     private static final float mmPerInch = 25.4f;
     private static final float mmFTCFieldWidth = (12 * 6) * mmPerInch;       // the width of the FTC field (from the center point to the outer panels)
     private static final float mmTargetHeight = (6) * mmPerInch;          // the height of the center of the target image above the floor
-    private double rotation;         //heading rotation of image
     // Using back camera
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-
+    VuforiaLocalizer vuforia;
+    private double rotation;         //heading rotation of image
     private OpenGLMatrix lastLocation = null;
     private boolean targetVisible = false;
-
-    VuforiaLocalizer vuforia;
 
     @Override
     public void runOpMode() {
