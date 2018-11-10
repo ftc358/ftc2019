@@ -101,8 +101,8 @@ public class AutoD358 extends LinearOpMode {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
                         Encoders.Turn(lF,lB,rF,rB,0.25,1000);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 500);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1800);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, 400);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
                         //Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
                     }
                     state358 = state.DRIVE;
@@ -111,16 +111,16 @@ public class AutoD358 extends LinearOpMode {
                 case DRIVE:
 
                     //Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, -900);
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, 1500);
+                    Encoders.Turn(lF, lB, rF, rB, 0.25, -750);
+                    Encoders.Forward(lF, lB, rF, rB, 0.25, 1800);
                     rL.setPower(0.4);
-                    sleep(1000);
+                    sleep(800);
                     rL.setPower(0);
-                    sleep(1000);
+                    sleep(800);
                     rL.setPower(-0.4);
                     sleep(1000);
                     rL.setPower(0);
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, -3600);
+                    Encoders.Forward(lF, lB, rF, rB, 0.25, -4500);
                     rL.setPower(0.4);
                     sleep(2000);
                     rL.setPower(0);

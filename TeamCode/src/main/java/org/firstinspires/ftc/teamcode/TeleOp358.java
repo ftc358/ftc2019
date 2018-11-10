@@ -51,17 +51,17 @@ public class TeleOp358 extends OpMode {
             rL.setPower(0);
         }
          **/
-        rL.setPower(-gamepad2.right_stick_y/2);
+        rL.setPower(-gamepad2.right_stick_y/1.25);
         if (ExpState) {
-            lF.setPower(Math.pow(gamepad1.left_stick_y, 5));
-            lB.setPower(Math.pow(gamepad1.left_stick_y, 5));
-            rF.setPower(Math.pow(gamepad1.right_stick_y, 5));
-            rB.setPower(Math.pow(gamepad1.right_stick_y, 5));
+            lF.setPower(Math.pow(-gamepad1.right_stick_y, 5));
+            lB.setPower(Math.pow(-gamepad1.right_stick_y, 5));
+            rF.setPower(Math.pow(-gamepad1.left_stick_y, 5));
+            rB.setPower(Math.pow(-gamepad1.left_stick_y, 5));
         } else {
-            lF.setPower(gamepad1.left_stick_y);
-            lB.setPower(gamepad1.left_stick_y);
-            rF.setPower(gamepad1.right_stick_y);
-            rB.setPower(gamepad1.right_stick_y);
+            lF.setPower(-gamepad1.right_stick_y);
+            lB.setPower(-gamepad1.right_stick_y);
+            rF.setPower(-gamepad1.left_stick_y);
+            rB.setPower(-gamepad1.left_stick_y);
         }
     }
 }
