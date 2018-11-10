@@ -28,8 +28,6 @@ public class TeleOp358 extends OpMode {
         rB.setDirection(DcMotor.Direction.REVERSE);
         rL.setDirection(DcMotor.Direction.REVERSE);
 
-
-
     }
 
     public void loop() {
