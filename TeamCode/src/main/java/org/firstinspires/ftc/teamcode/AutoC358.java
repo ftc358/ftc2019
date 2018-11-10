@@ -26,7 +26,7 @@ public class AutoC358 extends LinearOpMode {
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
-    DcMotor lL;         // left lift
+    //DcMotor lL;         // left lift
     DcMotor rL;         // right lift
     state state358;
     int detected = 0;
@@ -40,7 +40,7 @@ public class AutoC358 extends LinearOpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
-        lL = hardwareMap.dcMotor.get("lL");
+        //lL = hardwareMap.dcMotor.get("lL");
         rL = hardwareMap.dcMotor.get("rL");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
@@ -95,8 +95,8 @@ public class AutoC358 extends LinearOpMode {
                         Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
 
                     } else if (detected == 2) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -2000);
+                        //Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
                     } else if (detected == 3) {
                         Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
@@ -108,11 +108,12 @@ public class AutoC358 extends LinearOpMode {
 
                 case DRIVE:
 
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, 9000);
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
-                    rL.setPower(-0.15);
-                    lL.setPower(-0.15);
-                    sleep(2000);
+                    //Encoders.Turn(lF, lB, rF, rB, 0.25, 9000);
+                    //Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
+                    rL.setPower(0.4);
+                    //lL.setPower(0.4);
+                    sleep(2500);
+                    state358 = state.STOP;
                     break;
 
                 case STOP:
@@ -121,6 +122,8 @@ public class AutoC358 extends LinearOpMode {
                     lB.setPower(0);
                     rF.setPower(0);
                     rB.setPower(0);
+                    rL.setPower(0);
+                    //lL.setPower(0);
                     sleep(30000);
 
             }
