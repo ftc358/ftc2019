@@ -1,9 +1,8 @@
-package org.firstinspires.ftc.teamcode.Archive;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Disabled
 public class EncoderWithOnlyTwoFrontMotors {
 
     public static void Forward(DcMotor motor1, DcMotor motor2, double power, int distance) {
