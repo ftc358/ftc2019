@@ -1,17 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
-import java.util.ArrayList;
+
 @Autonomous
 
 
-
-public class LetsTestThis extends LinearOpMode{
-
+public class LetsTestThis extends LinearOpMode {
 
 
     DcMotor lF;
@@ -22,12 +18,6 @@ public class LetsTestThis extends LinearOpMode{
 
     state state358;
 
-
-
-    enum state {
-        EXTEND, DETECT, KNOCK, STOP
-    }
-
     public void runOpMode() throws InterruptedException {
 
         lF = hardwareMap.dcMotor.get("lF");
@@ -37,11 +27,6 @@ public class LetsTestThis extends LinearOpMode{
         rB = hardwareMap.dcMotor.get("rB");
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
-
-
-
-
-
 
 
 //        ArrayList<DcMotor> motorArrayList = new ArrayList<DcMotor>();
@@ -57,10 +42,9 @@ public class LetsTestThis extends LinearOpMode{
         while (opModeIsActive()) {
 
 
-
             telemetry.addData("Going into state", state358);
             telemetry.update();
-            switch(state358) {
+            switch (state358) {
 
                 case EXTEND:
                     Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
@@ -69,7 +53,6 @@ public class LetsTestThis extends LinearOpMode{
                     break;
                 case DETECT:
                     // do something
-
 
 
                     state358 = state.KNOCK;
@@ -85,7 +68,6 @@ public class LetsTestThis extends LinearOpMode{
                     lB.setPower(0);
 
 
-
                     rF.setPower(0);
 
                     rB.setPower(0);
@@ -96,9 +78,9 @@ public class LetsTestThis extends LinearOpMode{
 
     }
 
-
-
-
+    enum state {
+        EXTEND, DETECT, KNOCK, STOP
+    }
 
 
 }
