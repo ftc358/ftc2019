@@ -11,6 +11,8 @@ public class TeleOp358 extends OpMode{
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
+    DcMotor lL;         // left lift
+    DcMotor rL;         // right lift
     boolean ExpState = false;
 
     public void init(){
@@ -19,9 +21,12 @@ public class TeleOp358 extends OpMode{
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
+        lL = hardwareMap.dcMotor.get("lL");
+        rL = hardwareMap.dcMotor.get("rL");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
+        rL.setDirection(DcMotor.Direction.REVERSE);
 
     }
 
