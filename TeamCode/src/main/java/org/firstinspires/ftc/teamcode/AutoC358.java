@@ -26,6 +26,8 @@ public class AutoC358 extends LinearOpMode {
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
+    DcMotor lL;         // left lift
+    DcMotor rL;         // right lift
     state state358;
     int detected = 0;
     VuforiaLocalizer vuforia;
@@ -38,9 +40,12 @@ public class AutoC358 extends LinearOpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
+        lL = hardwareMap.dcMotor.get("lL");
+        rL = hardwareMap.dcMotor.get("rL");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
+        rL.setDirection(DcMotor.Direction.REVERSE);
 
         state358 = state.DETECT;
         waitForStart();
@@ -61,11 +66,22 @@ public class AutoC358 extends LinearOpMode {
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
+                    state358 = state.TURN;
+                    break;
 
+                case TURN:
+
+                    if (detected == 1) {
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, -100);
+                    } else if (detected == 3) {
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, 100);
+                    }
+                    state358 = state.EXTEND;
+                    break;
 
                 case EXTEND:
 
-                    // do something
+                    EncoderWithOnlyTwoFrontMotors.Forward(lL, rL, 0.1, -720);
                     state358 = state.KNOCK;
                     break;
 
@@ -163,7 +179,7 @@ public class AutoC358 extends LinearOpMode {
 
     enum state {
 
-        DETECT, EXTEND, KNOCK, STOP
+        DETECT, TURN, EXTEND, KNOCK, STOP
 
     }
 
