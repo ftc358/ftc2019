@@ -40,7 +40,7 @@ public class AutoD358 extends LinearOpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
-        lL = hardwareMap.dcMotor.get("lL");
+        //lL = hardwareMap.dcMotor.get("lL");
         rL = hardwareMap.dcMotor.get("rL");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
@@ -101,8 +101,8 @@ public class AutoD358 extends LinearOpMode {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
                         Encoders.Turn(lF,lB,rF,rB,0.25,1000);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, 500);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1500);
                         //Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
                     }
                     state358 = state.DRIVE;
@@ -111,8 +111,8 @@ public class AutoD358 extends LinearOpMode {
                 case DRIVE:
 
                     //Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, 4000);
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, -6000);
+                    Encoders.Turn(lF, lB, rF, rB, 0.25, 2000);
+                    Encoders.Forward(lF, lB, rF, rB, 0.25, -3000);
                     rL.setPower(0.4);
                     sleep(1000);
                     rL.setPower(0);
@@ -120,8 +120,8 @@ public class AutoD358 extends LinearOpMode {
                     rL.setPower(-0.4);
                     sleep(1000);
                     rL.setPower(0);
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, 12000);
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, 9000);
+                    Encoders.Forward(lF, lB, rF, rB, 0.25, 6000);
+                    Encoders.Turn(lF, lB, rF, rB, 0.25, 4000);
                     rL.setPower(0.4);
                     sleep(3000);
                     rL.setPower(0);
@@ -134,7 +134,7 @@ public class AutoD358 extends LinearOpMode {
                     lB.setPower(0);
                     rF.setPower(0);
                     rB.setPower(0);
-                    lL.setPower(0);
+                    //lL.setPower(0);
                     rL.setPower(0);
                     sleep(30000);
 
