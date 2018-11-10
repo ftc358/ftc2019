@@ -6,8 +6,6 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.hardware.Servo;
-
 
 @TeleOp
 public class TeleOp359 extends OpMode{
@@ -41,35 +39,33 @@ public class TeleOp359 extends OpMode{
             leftLatch.setPower(1);
             rightLatch.setPower(1);
         }
-
-        if (gamepad2.right_bumper) {
+        else if (gamepad2.right_bumper) {
             leftLatch.setPower(-1);
             rightLatch.setPower(-1);
         }
-
-        if (gamepad2.a) {
-            Intake.setPower(0.5);
+        else {
+            leftLatch.setPower(0);
+            rightLatch.setPower(0);
         }
 
-        if (gamepad2.b) {
-            Intake.setPower(-0.5);
+        if (gamepad2.a) {
+            Intake.setPower(1);
+        }
+        else if (gamepad2.b) {
+            Intake.setPower(-1);
+        }
+        else {
+            Intake.setPower(0);
         }
 
         if (gamepad2.dpad_up) {
-            intakeRotation.setPower(1);
+            intakeRotation.setPower(0.5);
         }
-
-        if (gamepad2.dpad_down) {
-            intakeRotation.setPower(-1);
+        else if (gamepad2.dpad_down) {
+            intakeRotation.setPower(-0.5);
         }
-
-        else{
-            leftMotor.setPower(0);
-            rightMotor.setPower(0);
-            leftLatch.setPower(0);
-            rightLatch.setPower(0);
+        else {
             intakeRotation.setPower(0);
-            Intake.setPower(0);
         }
 
     }
