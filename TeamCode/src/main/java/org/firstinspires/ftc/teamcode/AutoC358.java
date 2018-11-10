@@ -14,7 +14,7 @@ import java.util.List;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous
-public class AutoRedC358 extends LinearOpMode {
+public class AutoC358 extends LinearOpMode {
 
     DcMotor lF;
     DcMotor lB;
@@ -83,11 +83,11 @@ public class AutoRedC358 extends LinearOpMode {
                 case KNOCK:
 
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
                     } else if (detected == 2) {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
                     }
                     state358 = state.STOP;
                     break;
