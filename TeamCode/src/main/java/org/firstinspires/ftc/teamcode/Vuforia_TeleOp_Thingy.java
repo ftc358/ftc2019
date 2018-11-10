@@ -16,8 +16,6 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.firstinspires.ftc.teamcode.Vuforia_Stuffs;
-
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
@@ -26,7 +24,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
 
-@TeleOp (name = "oVeRlAp?")
+@TeleOp(name = "oVeRlAp?")
 
 public class Vuforia_TeleOp_Thingy extends LinearOpMode {
 
@@ -35,20 +33,14 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode {
     private static final float mmPerInch = 25.4f;
     private static final float mmFTCFieldWidth = 72 * mmPerInch;
     private static final float mmTargetHeight = 6 * mmPerInch;
-    private double rotation;
-
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-
-    private OpenGLMatrix lastLocation = null;
-
-    VuforiaLocalizer vuforia;
-
-    double[] list = {0, 0, 0, 0, 0, 0, 0};
-
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
-
+    VuforiaLocalizer vuforia;
+    double[] list = {0, 0, 0, 0, 0, 0, 0};
+    private double rotation;
+    private OpenGLMatrix lastLocation = null;
     /**
      * {@link #tfod} is the variable we will use to store our instance of the Tensor Flow Object
      * Detection engine.
@@ -206,7 +198,6 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode {
     }
 
 
-
     /**
      * Initialize the Tensor Flow Object Detection engine.
      */
@@ -218,9 +209,9 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode {
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
 
-    public int lookForThings(){
+    public int lookForThings() {
 
-        int position=0;
+        int position = 0;
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -239,7 +230,7 @@ public class Vuforia_TeleOp_Thingy extends LinearOpMode {
         if (tfod != null) {
             // getUpdatedRecognitions() will return null if no new information is available since
             // the last time that call was made.
-            while (position==0){
+            while (position == 0) {
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                 if (updatedRecognitions != null) {
                     if (updatedRecognitions.size() == 3) {

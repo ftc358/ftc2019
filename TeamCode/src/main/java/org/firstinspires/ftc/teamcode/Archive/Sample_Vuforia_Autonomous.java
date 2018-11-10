@@ -1,8 +1,8 @@
 package archive;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -14,15 +14,15 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.firstinspires.ftc.robotcore.external.navigation.AngleUnit.DEGREES;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Using the Vuforia localizer to determine positioning and orientation of robot on the FTC field.
@@ -52,14 +52,11 @@ public class Sample_Vuforia_Autonomous extends LinearOpMode {
 
     // Using back camera
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-
-    private OpenGLMatrix lastLocation = null;
-    private boolean targetVisible = false;
-
     VuforiaLocalizer vuforia;
-
     DcMotor Left;
     DcMotor Right;
+    private OpenGLMatrix lastLocation = null;
+    private boolean targetVisible = false;
 
     @Override
     public void runOpMode() {
@@ -269,27 +266,27 @@ public class Sample_Vuforia_Autonomous extends LinearOpMode {
 }
 
 
-#include <iostream>
-#include <algorithm>
-#include <string>
+#include<iostream>
+#include<algorithm>
+#include<string>
 
-void Homecoming(std::string &ans);
+void Homecoming(std::string&ans);
 
         int main()
         {
         std::string answer;
-        do {
+        do{
         Date(answer);
-        } while (answer != "yes");
-        std::cout << "See you on Monday at 7?";	// final message
+        }while(answer!="yes");
+        std::cout<<"See you on Monday at 7?";    // final message
         return 0;
         }
 
-        void Date(std::string &ans)
+        void Date(std::string&ans)
         {
-        std::cout << "Will you come out for a date with me? ";
-        std::cin >> ans;
-        std::transform(ans.begin(), ans.end(), ans.begin(), ::tolower);
-        if (ans != "yes")
-        std::cout << "****** Error, answer not accepted, try again!" << std::endl;
+        std::cout<<"Will you come out for a date with me? ";
+        std::cin>>ans;
+        std::transform(ans.begin(),ans.end(),ans.begin(),::tolower);
+        if(ans!="yes")
+        std::cout<<"****** Error, answer not accepted, try again!"<<std::endl;
         }

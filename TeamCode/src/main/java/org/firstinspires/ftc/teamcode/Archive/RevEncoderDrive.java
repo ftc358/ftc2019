@@ -3,9 +3,10 @@ package archive;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.*;
-
-import static java.lang.Math.*;
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 
 @Disabled
 

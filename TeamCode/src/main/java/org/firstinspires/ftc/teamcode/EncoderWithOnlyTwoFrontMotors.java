@@ -19,8 +19,7 @@ public class EncoderWithOnlyTwoFrontMotors {
         motor2.setPower(power);
 
 
-        while (motor1.isBusy() && motor2.isBusy())
-        {
+        while (motor1.isBusy() && motor2.isBusy()) {
             //Wait Until Target Position is Reached
         }
 
@@ -30,7 +29,7 @@ public class EncoderWithOnlyTwoFrontMotors {
 
     }
 
-    public static void Turn (DcMotor motor1, DcMotor motor2, double power, int distance) {
+    public static void Turn(DcMotor motor1, DcMotor motor2, double power, int distance) {
 
         //Reset Encoders
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -48,8 +47,7 @@ public class EncoderWithOnlyTwoFrontMotors {
         motor1.setPower(power);
         motor2.setPower(power);
 
-        while (motor1.isBusy() && motor2.isBusy())
-        {
+        while (motor1.isBusy() && motor2.isBusy()) {
             //Wait Until Target Position is Reached
         }
 

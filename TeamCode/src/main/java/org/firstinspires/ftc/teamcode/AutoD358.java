@@ -14,34 +14,22 @@ import java.util.List;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous
-public class AutoRedC358 extends LinearOpMode{
+public class AutoD358 extends LinearOpMode {
 
+    private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
+    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
+    private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
+    private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
+    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
     DcMotor lF;
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
     state state358;
     int detected = 0;
-
-    private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
-
-    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-
     VuforiaLocalizer vuforia;
-    private TFObjectDetector tfod;
-
     double[] list = {0, 0, 0, 0, 0, 0, 0};
-
-    private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
-    private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
-    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
-
-
-    enum state {
-
-        DETECT, EXTEND, KNOCK, STOP
-
-    }
+    private TFObjectDetector tfod;
 
     public void runOpMode() throws InterruptedException {
 
@@ -61,20 +49,18 @@ public class AutoRedC358 extends LinearOpMode{
             telemetry.addData("Going into state", state358);
             telemetry.update();
 
-            switch(state358) {
+            switch (state358) {
 
                 case DETECT:
 
                     initVuforiaThingy();
                     initTfod();
                     detected = lookForThings();
+                    onVFEvent();
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
-                    sleep(5000);
 
-                    state358 = state.EXTEND;
-                    break;
 
                 case EXTEND:
 
@@ -84,14 +70,12 @@ public class AutoRedC358 extends LinearOpMode{
 
                 case KNOCK:
 
-                    if(detected == 1){
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
-                    }
-                    else if(detected == 2){
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
-                    }
-                    else if(detected == 3){
+                    if (detected == 1) {
                         Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
+                    } else if (detected == 2) {
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
+                    } else if (detected == 3) {
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
                     }
                     state358 = state.STOP;
                     break;
@@ -116,7 +100,7 @@ public class AutoRedC358 extends LinearOpMode{
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
 
-    public void initVuforiaThingy(){
+    public void initVuforiaThingy() {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
@@ -132,17 +116,16 @@ public class AutoRedC358 extends LinearOpMode{
         }
     }
 
-    public int lookForThings(){
+    public int lookForThings() {
         int position = 0;
         if (this.tfod != null) {
             tfod.activate();
-        }
-        else {
+        } else {
             return 0;
         }
         // getUpdatedRecognitions() will return null if no new information is available since
         // the last time that call was made.
-        while (position==0){
+        while (position == 0) {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             if (updatedRecognitions != null) {
                 if (updatedRecognitions.size() == 3) {
@@ -171,6 +154,16 @@ public class AutoRedC358 extends LinearOpMode{
             }
         }
         return position;
+    }
+
+    public void onVFEvent() {
+        state358 = state.EXTEND;
+    }
+
+    enum state {
+
+        DETECT, EXTEND, KNOCK, STOP
+
     }
 
 

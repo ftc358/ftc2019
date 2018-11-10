@@ -8,20 +8,19 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @Disabled
 @TeleOp
 
-public class CeciliaSpinning extends OpMode{
+public class CeciliaSpinning extends OpMode {
     DcMotor motor;
     //final static double maxSpeed =1;
 
-    public void init(){
-        motor=hardwareMap.dcMotor.get("motor");
+    public void init() {
+        motor = hardwareMap.dcMotor.get("motor");
     }
 
-    public void loop(){
-        if(gamepad1.a){
+    public void loop() {
+        if (gamepad1.a) {
             motor.setPower(0.3);
             motor.setTargetPosition(96);
-        }
-        else{
+        } else {
             motor.setPower(0);
         }
     }

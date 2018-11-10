@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.util.SparseBooleanArray;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous
@@ -24,12 +21,12 @@ public class CeciliaIntake extends LinearOpMode {
         rightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForStart();
-
-        while(gamepad1.dpad_up){
-            EncoderWithOnlyTwoFrontMotors.Forward(leftMotor,rightMotor,0.1,336);
-        }
-        while(gamepad1.dpad_down){
-                EncoderWithOnlyTwoFrontMotors.Forward(leftMotor,rightMotor,0.18,-336);
+        while (opModeIsActive()) {
+            if (gamepad1.dpad_up) {
+                EncoderWithOnlyTwoFrontMotors.Forward(leftMotor, rightMotor, 0.1, 720);
+            } else if (gamepad1.dpad_down) {
+                EncoderWithOnlyTwoFrontMotors.Forward(leftMotor, rightMotor, 0.1, -720);
+            }
         }
     }
 }
