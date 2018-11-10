@@ -42,11 +42,16 @@ public class TeleOp358 extends OpMode {
         if (gamepad1.right_bumper) {
             ExpState = !ExpState;
         }
-        if (gamepad2.right_bumper) {
-            rL.setPower(0.5);
-        } else if (gamepad2.left_bumper) {
-            rL.setPower(-0.5);
+        /**
+        if (gamepad1.dpad_down) {
+            rL.setPower(0.4);
+        } else if (gamepad1.dpad_up) {
+            rL.setPower(-0.4);
+        } else if (gamepad1.dpad_left) {
+            rL.setPower(0);
         }
+         **/
+        rL.setPower(-gamepad2.right_stick_y/2);
         if (ExpState) {
             lF.setPower(Math.pow(gamepad1.left_stick_y, 5));
             lB.setPower(Math.pow(gamepad1.left_stick_y, 5));
