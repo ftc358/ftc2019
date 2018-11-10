@@ -28,6 +28,8 @@ public class TeleOp358 extends OpMode {
         rB.setDirection(DcMotor.Direction.REVERSE);
         rL.setDirection(DcMotor.Direction.REVERSE);
 
+
+
     }
 
     public void loop() {
@@ -62,6 +64,23 @@ public class TeleOp358 extends OpMode {
             lB.setPower(gamepad1.left_stick_y);
             rF.setPower(gamepad1.right_stick_y);
             rB.setPower(gamepad1.right_stick_y);
+        }
+
+        if (gamepad1.y) {
+            if (gamepad1.left_bumper) {
+                Encoders359.Forward(lL, rL, 0.4, -60);
+            }
+            else if (gamepad1.right_bumper) {
+                Encoders359.Forward(lL, rL, 0.4, 60);
+            }
+        }
+        else {
+            if (gamepad1.left_bumper) {
+                Encoders359.Forward(lL, rL, 0.4,-240);
+            }
+            else if (gamepad1.right_bumper) {
+                Encoders359.Forward(lL, rL, 0.4,240);
+            }
         }
     }
 }
