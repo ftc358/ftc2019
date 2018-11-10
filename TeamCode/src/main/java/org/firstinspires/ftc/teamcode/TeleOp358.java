@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 public class TeleOp358 extends OpMode {
@@ -11,7 +12,7 @@ public class TeleOp358 extends OpMode {
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
-    DcMotor lL;         // left lift
+    //DcMotor lL;         // left lift
     DcMotor rL;         // right lift
     boolean ExpState = false;
 
@@ -21,11 +22,12 @@ public class TeleOp358 extends OpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
-        lL = hardwareMap.dcMotor.get("lL");
+        //lL = hardwareMap.dcMotor.get("lL");
         rL = hardwareMap.dcMotor.get("rL");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
+        //lL.setDirection(DcMotor.Direction.REVERSE);
         rL.setDirection(DcMotor.Direction.REVERSE);
 
     }
@@ -37,6 +39,7 @@ public class TeleOp358 extends OpMode {
 
         if (gamepad1.right_bumper) {
             ExpState = !ExpState;
+            //TODO: bug, fix!
             while (gamepad1.right_bumper) {
                 if (ExpState) {
                     lF.setPower(Math.pow(gamepad1.left_stick_y, 5));
@@ -66,18 +69,32 @@ public class TeleOp358 extends OpMode {
 
         if (gamepad1.y) {
             if (gamepad1.left_bumper) {
-                Encoders359.Forward(lL, rL, 0.4, -60);
+                //goes down
+                rL.setPower(0.5);
+                //lL.setPower(0.25);
+                //Encoders359.Forward(lL, rL, 0.4, -60);
             }
             else if (gamepad1.right_bumper) {
-                Encoders359.Forward(lL, rL, 0.4, 60);
+                //goes up
+                rL.setPower(-0.5);
+                //lL.setPower(-0.25);
+                //Encoders359.Forward(lL, rL, 0.4, 60);
             }
         }
         else {
             if (gamepad1.left_bumper) {
-                Encoders359.Forward(lL, rL, 0.4,-240);
+                //rL.setPower(0.25);
+                //lL.setPower(0.25);
+                //Encoders359.Forward(lL, rL, 0.4,-240);
             }
             else if (gamepad1.right_bumper) {
-                Encoders359.Forward(lL, rL, 0.4,240);
+                //rL.setPower(-0.25);
+                //lL.setPower(-0.25);
+                //Encoders359.Forward(lL, rL, 0.4,240);
+            }
+            else {
+                rL.setPower(0);
+                //lL.setPower(0);
             }
         }
     }

@@ -59,10 +59,11 @@ public class AutoC358 extends LinearOpMode {
 
                 case DETECT:
 
-                    initVuforiaThingy();
-                    initTfod();
-                    detected = lookForThings();
-                    onVFEvent();
+                    //initVuforiaThingy();
+                    //initTfod();
+                    //detected = lookForThings();
+                    detected = 2;
+                    //onVFEvent();
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
@@ -72,16 +73,16 @@ public class AutoC358 extends LinearOpMode {
                 case TURN:
 
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, -100);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, -200);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 100);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, 200);
                     }
                     state358 = state.EXTEND;
                     break;
 
                 case EXTEND:
 
-                    EncoderWithOnlyTwoFrontMotors.Forward(lL, rL, 0.1, -720);
+                    //EncoderWithOnlyTwoFrontMotors.Forward(lL, rL, 0.1, -720);
                     state358 = state.KNOCK;
                     break;
 
@@ -89,12 +90,29 @@ public class AutoC358 extends LinearOpMode {
 
                     if (detected == 1) {
                         Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
+
                     } else if (detected == 2) {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
                     } else if (detected == 3) {
                         Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
                     }
-                    state358 = state.STOP;
+                    state358 = state.DRIVE;
+                    break;
+
+                case DRIVE:
+
+                    Encoders.Turn(lF, lB, rF, rB, 0.25, 9000);
+                    Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
+                    rL.setPower(-0.15);
+                    lL.setPower(-0.15);
+                    sleep(2000);
                     break;
 
                 case STOP:
@@ -179,7 +197,7 @@ public class AutoC358 extends LinearOpMode {
 
     enum state {
 
-        DETECT, TURN, EXTEND, KNOCK, STOP
+        DETECT, TURN, EXTEND, KNOCK, DRIVE, STOP
 
     }
 
