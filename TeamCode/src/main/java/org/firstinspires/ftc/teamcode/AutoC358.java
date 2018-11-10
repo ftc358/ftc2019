@@ -112,7 +112,7 @@ public class AutoC358 extends LinearOpMode {
                     //Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
                     rL.setPower(0.4);
                     //lL.setPower(0.4);
-                    sleep(2500);
+                    sleep(2000);
                     state358 = state.STOP;
                     break;
 
