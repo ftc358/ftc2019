@@ -2,12 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Encoders359 {
-
+public class Encoders359{
 
     public static void Forward(DcMotor motor1, DcMotor motor2, double power, int distance) {
 
-        //Reset Encoders
+        //Reset Encoders\\
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
