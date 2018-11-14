@@ -12,7 +12,6 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
 @Autonomous
 public class AutoD358 extends LinearOpMode {
@@ -63,7 +62,7 @@ public class AutoD358 extends LinearOpMode {
                     //initTfod();
                     //detected = lookForThings();
                     detected = 3;
-                    //onVFEvent();
+                    state358 = state.EXTEND;
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
@@ -93,16 +92,16 @@ public class AutoD358 extends LinearOpMode {
                         Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 4000);
                         Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
-                        Encoders.Turn(lF,lB,rF,rB,0.25,2000);
-
-
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, 2000);
                     } else if (detected == 2) {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 4000);
                         Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
-                        Encoders.Turn(lF,lB,rF,rB,0.25,1000);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 400);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 400);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 22);
+                        telemetry.addData("lF Current Postion", lF.getCurrentPosition());
+                        telemetry.addData("lF Target Postion", lF.getTargetPosition());
                         //Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
                     }
                     state358 = state.DRIVE;
@@ -111,20 +110,20 @@ public class AutoD358 extends LinearOpMode {
                 case DRIVE:
 
                     //Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, -750);
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, 1800);
-                    rL.setPower(0.4);
-                    sleep(800);
-                    rL.setPower(0);
-                    sleep(800);
-                    rL.setPower(-0.4);
-                    sleep(1000);
-                    rL.setPower(0);
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, -4500);
-                    rL.setPower(0.4);
-                    sleep(2000);
-                    rL.setPower(0);
-                    state358 = state.STOP;
+//                    Encoders.Turn(lF, lB, rF, rB, 0.25, -750);
+//                    Encoders.Forward(lF, lB, rF, rB, 0.25, 1800);
+//                    rL.setPower(0.4);
+//                    sleep(800);
+//                    rL.setPower(0);
+//                    sleep(800);
+//                    rL.setPower(-0.4);
+//                    sleep(1000);
+//                    rL.setPower(0);
+//                    Encoders.Forward(lF, lB, rF, rB, 0.25, -4500);
+//                    rL.setPower(0.4);
+//                    sleep(2000);
+//                    rL.setPower(0);
+//                    state358 = state.STOP;
                     break;
 
                 case STOP:
@@ -165,6 +164,8 @@ public class AutoD358 extends LinearOpMode {
         }
     }
 
+    //TODO: Can modify this part should we be unable to enhance the camera's FOV
+
     public int lookForThings() {
         int position = 0;
         if (this.tfod != null) {
@@ -204,10 +205,6 @@ public class AutoD358 extends LinearOpMode {
         }
         return position;
     }
-
-//    public void onVFEvent() {
-//        state358 = state.EXTEND;
-//    }
 
     enum state {
 
