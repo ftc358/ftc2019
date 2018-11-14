@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-public class Drive_Code_15444 extends OpMode{
+public class drive_code_15444 extends OpMode{
 
     DcMotor leftMotor;
     DcMotor rightMotor;
