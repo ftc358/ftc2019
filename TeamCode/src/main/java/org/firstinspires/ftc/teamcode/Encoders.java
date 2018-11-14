@@ -9,7 +9,7 @@ public class Encoders {
 
         //Distance is in inches!
 
-        int ticks = (int)(distance/(4*Math.PI)*746.667+0.5);
+        int ticks = (int)(((distance/(4*Math.PI)*720))*1.07+0.5);
 
         //Reset Encoders
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

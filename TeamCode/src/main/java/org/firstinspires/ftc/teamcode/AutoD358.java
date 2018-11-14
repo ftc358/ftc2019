@@ -99,7 +99,7 @@ public class AutoD358 extends LinearOpMode {
                         Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
                     } else if (detected == 3) {
 //                        Encoders.Turn(lF, lB, rF, rB, 0.25, 400);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 22);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 60);
                         telemetry.addData("lF Current Postion", lF.getCurrentPosition());
                         telemetry.addData("lF Target Postion", lF.getTargetPosition());
                         //Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
