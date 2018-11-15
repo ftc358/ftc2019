@@ -73,35 +73,35 @@ public class AutoC358 extends LinearOpMode {
                 case TURN:
 
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, -200);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -200);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 200);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 200);
                     }
                     state358 = state.EXTEND;
                     break;
 
                 case EXTEND:
 
-                    //EncoderWithOnlyTwoFrontMotors.Forward(lL, rL, 0.1, -720);
+                    //EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.1, -720);
                     state358 = state.KNOCK;
                     break;
 
                 case KNOCK:
 
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
+//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
+//                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
 
                     } else if (detected == 2) {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, -2000);
                         //Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
+//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
+//                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
                     }
                     state358 = state.DRIVE;
                     break;
