@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Encoders {
 
+    enum Direction{left, right}
+
 
     public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
 
@@ -48,13 +50,17 @@ public class Encoders {
         motor4.setPower(0);
     }
 
-    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, double degrees) {
+    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, Direction direction, double degrees) {
 
         /**
          Angle in degrees!
          */
 
         int ticks = (int)(degrees/180*2000+0.5);
+
+        if (direction == Direction.left) {
+            ticks = -ticks;
+        }
 
 
         //Reset Encoders

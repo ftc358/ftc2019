@@ -69,13 +69,11 @@ public class AutoD358 extends LinearOpMode {
                     break;
 
                 case TURN:
-                    /*
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, -200);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -200);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 200);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 200);
                     }
-                    */
                     state358 = state.EXTEND;
                     break;
 
@@ -88,20 +86,18 @@ public class AutoD358 extends LinearOpMode {
                 case KNOCK:
 
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 4000);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 2000);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
+//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 4000);
+//                        Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 2000);
                     } else if (detected == 2) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 4000);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
+//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 4000);
+//                        Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 45);
-                        sleep(100);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, -60);
-                        sleep(100);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, 180);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 45);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -60);
+//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 180);
 //                        Encoders.Turn(lF, lB, rF, rB, 0.25, -2100);
 //                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1050);
 //                        Encoders.Forward(lF, lB, rF, rB, 0.25, 60);
