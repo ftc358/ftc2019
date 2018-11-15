@@ -7,7 +7,9 @@ public class Encoders {
 
     public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
 
-        //Distance is in inches!
+        /**
+         Distance is in inches!
+         */
 
         int ticks = (int)(((distance/(4*Math.PI)*720))*1.07+0.5);
 
@@ -46,11 +48,13 @@ public class Encoders {
         motor4.setPower(0);
     }
 
-    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, double distance) {
+    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, double degrees) {
 
-        //Distance is in inches!
+        /**
+         Angle in degrees!
+         */
 
-        int ticks = (int)(distance/(4*Math.PI)*720+0.5);
+        int ticks = (int)(degrees/180*2000+0.5);
 
 
         //Reset Encoders
