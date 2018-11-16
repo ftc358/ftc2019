@@ -39,7 +39,7 @@ public class AutoD358 extends LinearOpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
-        //lL = hardwareMap.dcMotor.get("lL");
+        lL = hardwareMap.dcMotor.get("lL");
         rL = hardwareMap.dcMotor.get("rL");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
@@ -60,69 +60,53 @@ public class AutoD358 extends LinearOpMode {
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-                    detected = 3;
-                    state358 = state.EXTEND;
+                    detected = 2;
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state358 = state.KNOCK;
                     break;
 
-                case TURN:
+                case KNOCK:
                     if (detected == 1) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -200);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 43);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 70);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 20);
+                    } else if (detected == 2) {
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 45);
                     } else if (detected == 3) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 200);
+
                     }
                     state358 = state.EXTEND;
                     break;
 
                 case EXTEND:
-
-                    //EncoderWithOnlyTwoFrontMotors.Forward(lL, rL, 0.1, -720);
-                    state358 = state.KNOCK;
+                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 3);
+                    state358 = state.POSITION;
                     break;
 
-                case KNOCK:
-
+                case POSITION:
                     if (detected == 1) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 4000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 2000);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -8);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 135);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -33);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 60);
                     } else if (detected == 2) {
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 4000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -15);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 45);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 22);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 90);
                     } else if (detected == 3) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 45);
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -60);
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 180);
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -2100);
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1050);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 60);
-                        //Encoders.Forward(lF, lB, rF, rB, 0.25, -4000);
+
                     }
                     state358 = state.DRIVE;
                     break;
 
                 case DRIVE:
-
-                    //Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
-//                    Encoders.Turn(lF, lB, rF, rB, 0.25, -750);
-//                    Encoders.Forward(lF, lB, rF, rB, 0.25, 1800);
-//                    rL.setPower(0.4);
-//                    sleep(800);
-//                    rL.setPower(0);
-//                    sleep(800);
-//                    rL.setPower(-0.4);
-//                    sleep(1000);
-//                    rL.setPower(0);
-//                    Encoders.Forward(lF, lB, rF, rB, 0.25, -4500);
-//                    rL.setPower(0.4);
-//                    sleep(2000);
-//                    rL.setPower(0);
-//                    state358 = state.STOP;
+                    Encoders.Forward(lF, lB, rF, rB, 0.25, -52);
+                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 7);
+                    state358 = state.STOP;
                     break;
 
                 case STOP:
@@ -131,10 +115,8 @@ public class AutoD358 extends LinearOpMode {
                     lB.setPower(0);
                     rF.setPower(0);
                     rB.setPower(0);
-                    //lL.setPower(0);
+                    lL.setPower(0);
                     rL.setPower(0);
-                    sleep(30000);
-
             }
         }
     }
@@ -207,7 +189,7 @@ public class AutoD358 extends LinearOpMode {
 
     enum state {
 
-        DETECT, TURN, EXTEND, KNOCK, DRIVE, STOP
+        DETECT, KNOCK, EXTEND, POSITION, DRIVE, STOP
 
     }
 
