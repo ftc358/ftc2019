@@ -60,8 +60,8 @@ public class AutoD358 extends LinearOpMode {
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-//                    detected = 2;
-                    detected = rotateAndCheck();
+                    detected = 3;
+//                    detected = rotateAndCheck();
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
@@ -77,7 +77,10 @@ public class AutoD358 extends LinearOpMode {
                     } else if (detected == 2) {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 45);
                     } else if (detected == 3) {
-
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 45);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 60);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 10);
                     }
                     state358 = state.EXTEND;
                     break;
@@ -99,7 +102,7 @@ public class AutoD358 extends LinearOpMode {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 22);
                         Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 90);
                     } else if (detected == 3) {
-
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -10);
                     }
                     state358 = state.DRIVE;
                     break;
