@@ -216,10 +216,6 @@ public class AutoC358 extends LinearOpMode {
         return position;
     }
 
-    public void onVFEvent() {
-        state358 = state.EXTEND;
-    }
-
     public int rotateAndCheck() {
         int result = 0;
         initVuforiaThingy();
