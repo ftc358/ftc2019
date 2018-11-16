@@ -62,7 +62,9 @@ public class AutoC358 extends LinearOpMode {
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-                    detected = 2;
+
+                    //this supposedly rotates the robot and checks each indiv mineral
+                    detected = rotateAndCheck();
                     //onVFEvent();
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
@@ -189,6 +191,26 @@ public class AutoC358 extends LinearOpMode {
                         }
                     }
                 }
+                else {
+                    boolean goldVisible = false;
+                    double coord = 0;
+                    if (updatedRecognitions != null) {
+                        for (Recognition recognition : updatedRecognitions) {
+                            if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                                goldVisible = true;
+                                coord = (recognition.getLeft()+ recognition.getRight())/2;
+                            }
+                        }
+                        if (goldVisible) {
+                            // idk if we need actual position
+                            // maybe that helps us be more accurate if we can see 2 at the same time.
+                            position = -(int)(100*coord) -1;
+                        }
+                        // silver
+                        // i think i'm writing bad logic things
+                        else position = 4;
+                    }
+                }
             }
         }
         return position;
@@ -197,6 +219,34 @@ public class AutoC358 extends LinearOpMode {
     public void onVFEvent() {
         state358 = state.EXTEND;
     }
+
+    public int rotateAndCheck() {
+        int result = 0;
+        initVuforiaThingy();
+        initTfod();
+        //WOW update degrees to actual degrees after u measure
+        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left,30);
+        result = lookForThings();
+        //suppose we actually test this we could limit detected a bit more to avoid incorrectly seeing middle mineral
+        if (result < 0) {
+            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right,30);
+            return 1;
+        }
+        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right,30);
+        result = lookForThings();
+        if (result < 0) {
+            return 2;
+        }
+        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right,30);
+        result = lookForThings();
+        if (result < 0) {
+            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left,30);
+            return 3;
+        }
+        return 2;
+    }
+
+
 
     enum state {
 
