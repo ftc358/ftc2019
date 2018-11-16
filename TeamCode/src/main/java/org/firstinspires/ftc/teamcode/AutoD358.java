@@ -186,7 +186,7 @@ public class AutoD358 extends LinearOpMode {
                 else {
                     boolean goldVisible = false;
                     double coord = 0;
-                    if (updatedRecognitions != null) {
+                    if (updatedRecognitions != null && updatedRecognitions.size() > 0) {
                         for (Recognition recognition : updatedRecognitions) {
                             if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
                                 goldVisible = true;
@@ -202,6 +202,7 @@ public class AutoD358 extends LinearOpMode {
                         // i think i'm writing bad logic things
                         else position = 4;
                     }
+                    telemetry.addData("seeeeeing", position);
                 }
             }
         }
