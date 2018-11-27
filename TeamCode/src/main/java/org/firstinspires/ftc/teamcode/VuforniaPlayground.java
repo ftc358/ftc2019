@@ -8,7 +8,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
@@ -58,7 +57,6 @@ public class VuforniaPlayground extends LinearOpMode {
     //TODO: Can modify this part should we be unable to enhance the camera's FOV
 
     public void lookForThings() {
-        int position = 0;
         if (this.tfod != null) {
             tfod.activate();
         } else {
@@ -66,16 +64,21 @@ public class VuforniaPlayground extends LinearOpMode {
         }
         // getUpdatedRecognitions() will return null if no new information is available since
         // the last time that call was made.
-        while (position == 0) {
+        while (true) {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-//            telemetry.addData("updatedRecognitions", updatedRecognitions);
-            List<String> labels = Arrays.asList("");
             if (updatedRecognitions != null) {
-                for (Recognition recognition : updatedRecognitions) {
-                    labels.add(recognition.getLabel());
-                }
+                telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
+                telemetry.addData("", "\n");
+                telemetry.update();
             }
-            telemetry.addData("labels", labels);
+        }
+//        List<String> labels = Arrays.asList("");
+//        if (updatedRecognitions != null) {
+//            for (Recognition recognition : updatedRecognitions) {
+//                labels.add(recognition.getLabel());
+//            }
+//        }
+//        telemetry.addData("labels", labels);
 //            List<String> labels = Arrays.asList("");
 //            if (updatedRecognitions != null) {
 //                for (Recognition recognition : updatedRecognitions) {
@@ -128,7 +131,6 @@ public class VuforniaPlayground extends LinearOpMode {
 //                    }
 //                }
 //            }
-        }
-//        return position;
     }
+//        return position;
 }

@@ -166,7 +166,7 @@ public class AutoD358 extends LinearOpMode {
                 if (updatedRecognitions.size() == 3) {
                     int goldMineralX = -1;
                     int silverMineral1X = -1;
-                    int silverMineral2X = -1;
+                    int silverMineral2X =   -1;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
                             goldMineralX = (int) recognition.getLeft();
