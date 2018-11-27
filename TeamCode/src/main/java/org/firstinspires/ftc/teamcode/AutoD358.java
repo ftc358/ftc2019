@@ -57,11 +57,10 @@ public class AutoD358 extends LinearOpMode {
 
                 case DETECT:
 
-                    //initVuforiaThingy();
-                    //initTfod();
+                    initVuforiaThingy();
+                    initTfod();
                     //detected = lookForThings();
-                    detected = 3;
-//                    detected = rotateAndCheck();
+                    detected = rotateAndCheck();
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
@@ -163,6 +162,8 @@ public class AutoD358 extends LinearOpMode {
         while (position == 0) {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             if (updatedRecognitions != null) {
+                telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
+                telemetry.update();
                 if (updatedRecognitions.size() == 3) {
                     int goldMineralX = -1;
                     int silverMineral1X = -1;
@@ -185,21 +186,20 @@ public class AutoD358 extends LinearOpMode {
                             position = 2;
                         }
                     }
-                }
-                else {
+                } else {
                     boolean goldVisible = false;
                     double coord = 0;
                     if (updatedRecognitions != null && updatedRecognitions.size() > 0) {
                         for (Recognition recognition : updatedRecognitions) {
                             if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
                                 goldVisible = true;
-                                coord = (recognition.getLeft()+ recognition.getRight())/2;
+                                coord = (recognition.getLeft() + recognition.getRight()) / 2;
                             }
                         }
                         if (goldVisible) {
                             // idk if we need actual position
                             // maybe that helps us be more accurate if we can see 2 at the same time.
-                            position = -(int)(100*coord) -1;
+                            position = -(int) (100 * coord) - 1;
                         }
                         // silver
                         // i think i'm writing bad logic things
@@ -216,24 +216,18 @@ public class AutoD358 extends LinearOpMode {
     public int rotateAndCheck() {
         int result = 0;
         initVuforiaThingy();
-        initTfod();
         //WOW update degrees to actual degrees after u measure
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left,30);
+        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 40);
         result = lookForThings();
         //suppose we actually test this we could limit detected a bit more to avoid incorrectly seeing middle mineral
         if (result < 0) {
-            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right,30);
+            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 40);
             return 1;
         }
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right,30);
+        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 80);
         result = lookForThings();
         if (result < 0) {
-            return 2;
-        }
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right,30);
-        result = lookForThings();
-        if (result < 0) {
-            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left,30);
+            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 40);
             return 3;
         }
         return 2;
