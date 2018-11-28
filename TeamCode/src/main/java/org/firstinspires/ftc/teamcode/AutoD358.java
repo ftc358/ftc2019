@@ -60,7 +60,7 @@ public class AutoD358 extends LinearOpMode {
                     initVuforiaThingy();
                     initTfod();
                     //detected = lookForThings();
-                    detected = rotateAndCheck();
+                    detected = lookForwardAndCheck();
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
@@ -150,7 +150,7 @@ public class AutoD358 extends LinearOpMode {
 
     //TODO: Can modify this part should we be unable to enhance the camera's FOV
 
-    public int lookForThings() {
+    public int lookForThings(boolean wantingTheLeftSide) {
         int position = 0;
         if (this.tfod != null) {
             tfod.activate();
@@ -186,6 +186,23 @@ public class AutoD358 extends LinearOpMode {
                             position = 2;
                         }
                     }
+                } else if (updatedRecognitions.size() == 2) {
+                    int theGoldOne = -1;
+                    int theSilverOne = -1;
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                            theGoldOne = (int) recognition.getLeft();
+                        } else if (theSilverOne == -1) {
+                            theSilverOne = (int) recognition.getLeft();
+                        } else {
+                            return 4;
+                        }
+                    }
+                    if ((theGoldOne <= theSilverOne) == wantingTheLeftSide) {
+                        position = -1;
+                    } else {
+                        position = 4;
+                    }
                 } else {
                     boolean goldVisible = false;
                     double coord = 0;
@@ -212,22 +229,58 @@ public class AutoD358 extends LinearOpMode {
         return position;
     }
 
+    public int lookForwardAndCheck() {
+        int position = 0;
+        if (this.tfod != null) {
+            tfod.activate();
+        } else {
+            return 0;
+        }
+        // getUpdatedRecognitions() will return null if no new information is available since
+        // the last time that call was made.
+        while (position == 0) {
+            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            if (updatedRecognitions != null) {
+                telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
+                telemetry.update();
+                if (updatedRecognitions.size() == 2) {
+                    int goldMineralX = -1;
+                    int silverMineralX = -1;
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                            goldMineralX = (int) recognition.getLeft();
+                        } else if (silverMineralX == -1) {
+                            silverMineralX = (int) recognition.getLeft();
+                        } else {
+                            return 3;
+                        }
+                    }
+                    if (goldMineralX<silverMineralX) {
+                        position = 1;
+                    } else {
+                        position = 2;
+                    }
+                }
+            }
+        }
+        return position;
+    }
 
     public int rotateAndCheck() {
         int result = 0;
         initVuforiaThingy();
         //WOW update degrees to actual degrees after u measure
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 40);
-        result = lookForThings();
+        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 35);
+        result = lookForThings(true);
         //suppose we actually test this we could limit detected a bit more to avoid incorrectly seeing middle mineral
         if (result < 0) {
-            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 40);
+            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 35);
             return 1;
         }
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 80);
-        result = lookForThings();
+        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 70);
+        result = lookForThings(false);
         if (result < 0) {
-            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 40);
+            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 70);
             return 3;
         }
         return 2;
