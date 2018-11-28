@@ -57,8 +57,8 @@ public class AutoD358 extends LinearOpMode {
 
                 case DETECT:
 
-                    initVuforiaThingy();
-                    initTfod();
+                    //initVuforiaThingy();
+                    //initTfod();
                     //detected = lookForThings();
                     detected = lookForwardAndCheck();
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
@@ -231,6 +231,7 @@ public class AutoD358 extends LinearOpMode {
 
     public int lookForwardAndCheck() {
         int position = 0;
+        initVuforiaThingy();
         if (this.tfod != null) {
             tfod.activate();
         } else {
