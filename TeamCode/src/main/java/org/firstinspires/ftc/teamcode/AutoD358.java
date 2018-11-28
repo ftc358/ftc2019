@@ -229,6 +229,7 @@ public class AutoD358 extends LinearOpMode {
         return position;
     }
 
+    //TODO: Not working when starts with two whites on the left
     public int lookForwardAndCheck() {
         int position = 0;
         initVuforiaThingy();
