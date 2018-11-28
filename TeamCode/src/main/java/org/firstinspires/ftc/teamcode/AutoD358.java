@@ -237,6 +237,7 @@ public class AutoD358 extends LinearOpMode {
         } else {
             return 0;
         }
+        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 15);
         // getUpdatedRecognitions() will return null if no new information is available since
         // the last time that call was made.
         while (position == 0) {
@@ -264,6 +265,7 @@ public class AutoD358 extends LinearOpMode {
                 }
             }
         }
+        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 15);
         return position;
     }
 
