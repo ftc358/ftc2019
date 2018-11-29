@@ -150,88 +150,7 @@ public class AutoD358 extends LinearOpMode {
         }
     }
 
-    //TODO: Can modify this part should we be unable to enhance the camera's FOV
 
-    public int lookForThings(boolean wantingTheLeftSide) {
-        int position = 0;
-        if (this.tfod != null) {
-            tfod.activate();
-        } else {
-            return 0;
-        }
-        // getUpdatedRecognitions() will return null if no new information is available since
-        // the last time that call was made.
-        while (position == 0) {
-            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-            if (updatedRecognitions != null) {
-                telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
-                telemetry.update();
-                if (updatedRecognitions.size() == 3) {
-                    int goldMineralX = -1;
-                    int silverMineral1X = -1;
-                    int silverMineral2X = -1;
-                    for (Recognition recognition : updatedRecognitions) {
-                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getLeft();
-                        } else if (silverMineral1X == -1) {
-                            silverMineral1X = (int) recognition.getLeft();
-                        } else {
-                            silverMineral2X = (int) recognition.getLeft();
-                        }
-                    }
-                    if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
-                        if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
-                            position = 1;
-                        } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-                            position = 3;
-                        } else {
-                            position = 2;
-                        }
-                    }
-                } else if (updatedRecognitions.size() == 2) {
-                    int theGoldOne = -1;
-                    int theSilverOne = -1;
-                    for (Recognition recognition : updatedRecognitions) {
-                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            theGoldOne = (int) recognition.getLeft();
-                        } else if (theSilverOne == -1) {
-                            theSilverOne = (int) recognition.getLeft();
-                        } else {
-                            return 4;
-                        }
-                    }
-                    if ((theGoldOne <= theSilverOne) == wantingTheLeftSide) {
-                        position = -1;
-                    } else {
-                        position = 4;
-                    }
-                } else {
-                    boolean goldVisible = false;
-                    double coord = 0;
-                    if (updatedRecognitions != null && updatedRecognitions.size() > 0) {
-                        for (Recognition recognition : updatedRecognitions) {
-                            if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                                goldVisible = true;
-                                coord = (recognition.getLeft() + recognition.getRight()) / 2;
-                            }
-                        }
-                        if (goldVisible) {
-                            // idk if we need actual position
-                            // maybe that helps us be more accurate if we can see 2 at the same time.
-                            position = -(int) (100 * coord) - 1;
-                        }
-                        // silver
-                        // i think i'm writing bad logic things
-                        else position = 4;
-                    }
-                    telemetry.addData("seeeeeing", position);
-                }
-            }
-        }
-        return position;
-    }
-
-    //TODO: Not working when starts with two whites on the left
     public int lookForwardAndCheck() {
         int position = 0;
         initVuforiaThingy();
@@ -259,7 +178,7 @@ public class AutoD358 extends LinearOpMode {
                             return 3;
                         }
                     }
-                    if (goldMineralX<silverMineralX) {
+                    if (goldMineralX < silverMineralX) {
                         position = 1;
                     } else {
                         position = 2;
@@ -268,26 +187,6 @@ public class AutoD358 extends LinearOpMode {
             }
         }
         return position;
-    }
-
-    public int rotateAndCheck() {
-        int result = 0;
-        initVuforiaThingy();
-        //WOW update degrees to actual degrees after u measure
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 35);
-        result = lookForThings(true);
-        //suppose we actually test this we could limit detected a bit more to avoid incorrectly seeing middle mineral
-        if (result < 0) {
-            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 35);
-            return 1;
-        }
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 70);
-        result = lookForThings(false);
-        if (result < 0) {
-            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 70);
-            return 3;
-        }
-        return 2;
     }
 
 
