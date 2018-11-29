@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
 
-public class LatchingMechanism358 extends OpMode{
+public class IntakeMechanism358 extends OpMode{
     DcMotor Motor;
 
     public void init() {
