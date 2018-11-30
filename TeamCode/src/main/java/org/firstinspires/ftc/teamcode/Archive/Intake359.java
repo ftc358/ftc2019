@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 @TeleOp
 
 public class Intake359 extends LinearOpMode {
-    CRServo servo = null;
+    CRServo servo;
 
     public void runOpMode() throws InterruptedException {
 
