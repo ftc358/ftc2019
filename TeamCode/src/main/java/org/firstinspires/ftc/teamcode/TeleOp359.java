@@ -15,19 +15,20 @@ public class TeleOp359 extends OpMode{
     DcMotor leftLatch;
     DcMotor rightLatch;
     DcMotor intakeRotation;
-    CRServo Intake;
+    DcMotor drawerSlide;
+    CRServo intake;
 
     public void init() {
-        leftMotor = hardwareMap.dcMotor.get("leftMotor");
-        rightMotor = hardwareMap.dcMotor.get("rightMotor");
-        leftLatch = hardwareMap.dcMotor.get("leftLatch");
-        rightLatch = hardwareMap.dcMotor.get("rightLatch");
-        intakeRotation = hardwareMap.dcMotor.get("intakeRotation");
-        Intake = hardwareMap.crservo.get("Intake");
+        leftMotor=hardwareMap.dcMotor.get("lM");
+        rightMotor=hardwareMap.dcMotor.get("rM");
+        leftLatch=hardwareMap.dcMotor.get("lL");
+        rightLatch=hardwareMap.dcMotor.get("rL");
+        intakeRotation=hardwareMap.dcMotor.get("iR");
+        drawerSlide=hardwareMap.dcMotor.get("dS");
+        intake = hardwareMap.crservo.get("i");
 
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
     }
 
     public void loop() {
@@ -49,13 +50,13 @@ public class TeleOp359 extends OpMode{
         }
 
         if (gamepad2.a) {
-            Intake.setPower(1);
+            intake.setPower(1);
         }
         else if (gamepad2.b) {
-            Intake.setPower(-1);
+            intake.setPower(-1);
         }
         else {
-            Intake.setPower(0);
+            intake.setPower(0);
         }
 
         if (gamepad2.dpad_up) {

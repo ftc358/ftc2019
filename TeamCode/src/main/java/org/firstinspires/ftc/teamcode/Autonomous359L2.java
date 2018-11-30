@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous
-public class Autonomous359L1 extends LinearOpMode {
+public class Autonomous359L2 extends LinearOpMode {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
