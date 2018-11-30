@@ -1,25 +1,21 @@
 package org.firstinspires.ftc.teamcode.Archive;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 
-@Autonomous
+@TeleOp
 public class Latching358 extends LinearOpMode {
-    Servo servo;
+    CRServo servo358;
 
-    public void runOpMode() throws InterruptedException{
-        servo = hardwareMap.servo.get("servo");
+    public void runOpMode() {
+        servo358 = hardwareMap.crservo.get("servo358");
 
         waitForStart();
         while (opModeIsActive()) {
-            if (gamepad1.a) {
-                servo.setPosition(0.5);
-            } else if(gamepad1.b){
-                servo.setPosition(-0.5);
-            }else{
-                servo.setPosition(0);
-            }
+
+            servo358.setPower(gamepad1.left_stick_y);
+
         }
     }
 }
