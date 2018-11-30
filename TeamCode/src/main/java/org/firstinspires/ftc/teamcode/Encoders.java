@@ -4,8 +4,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Encoders {
 
+    enum Direction{left, right}
+
 
     public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
+
+        /**
+         * Distance is in inches!
+         */
+
+        int ticks = (int)(((distance/(4*Math.PI)*720))*1.07+0.5);
 
         //Reset Encoders
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -20,10 +28,10 @@ public class Encoders {
         motor4.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //Set Target Position
-        motor1.setTargetPosition(-distance);
-        motor2.setTargetPosition(-distance);
-        motor3.setTargetPosition(-distance);
-        motor4.setTargetPosition(-distance);
+        motor1.setTargetPosition(-ticks);
+        motor2.setTargetPosition(-ticks);
+        motor3.setTargetPosition(-ticks);
+        motor4.setTargetPosition(-ticks);
 
         //Set Drive Power
         motor1.setPower(power);
@@ -42,7 +50,18 @@ public class Encoders {
         motor4.setPower(0);
     }
 
-    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
+    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, Direction direction, double degrees) {
+
+        /**
+         Angle in degrees!
+         */
+
+        int ticks = (int)(degrees/180*2000+0.5);
+
+        if (direction == Direction.left) {
+            ticks = -ticks;
+        }
+
 
         //Reset Encoders
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -57,10 +76,10 @@ public class Encoders {
         motor4.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //Set Target Position
-        motor1.setTargetPosition(-distance);
-        motor2.setTargetPosition(-distance);
-        motor3.setTargetPosition(distance);
-        motor4.setTargetPosition(distance);
+        motor1.setTargetPosition(-ticks);
+        motor2.setTargetPosition(-ticks);
+        motor3.setTargetPosition(ticks);
+        motor4.setTargetPosition(ticks);
 
         //Set Drive Power
         motor1.setPower(power);

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.EncoderWithOnlyTwoFrontMotors;
+import org.firstinspires.ftc.teamcode.EncoderWithOnlyTwoMotors;
 
 @Disabled
 @Autonomous
@@ -27,9 +27,9 @@ public class CeciliaIntake extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
             if (gamepad1.dpad_up) {
-                EncoderWithOnlyTwoFrontMotors.Forward(leftMotor, rightMotor, 0.1, 720);
+                EncoderWithOnlyTwoMotors.Forward(leftMotor, rightMotor, 0.1, 720);
             } else if (gamepad1.dpad_down) {
-                EncoderWithOnlyTwoFrontMotors.Forward(leftMotor, rightMotor, 0.1, -720);
+                EncoderWithOnlyTwoMotors.Forward(leftMotor, rightMotor, 0.1, -720);
             }
         }
     }

@@ -135,6 +135,17 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
                                 }
                             }
                         }
+                        boolean goldVisible = false;
+                        double coord = 0;
+                        for (Recognition recognition : updatedRecognitions) {
+                            if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                                goldVisible = true;
+                                coord = (recognition.getLeft()+ recognition.getRight())/2;
+                            }
+                        }
+                        if (goldVisible) {
+                            telemetry.addData("Gold Mineral coordinate", coord);
+                        }
                         telemetry.update();
                     }
                 }
