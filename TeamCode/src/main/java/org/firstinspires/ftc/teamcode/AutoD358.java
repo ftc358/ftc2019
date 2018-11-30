@@ -25,8 +25,8 @@ public class AutoD358 extends LinearOpMode {
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
-    DcMotor lL;         // left lift
-    DcMotor rL;         // right lift
+//    DcMotor lL;         // left lift
+//    DcMotor rL;         // right lift
     state state358;
     int detected = 0;
     VuforiaLocalizer vuforia;
@@ -39,12 +39,12 @@ public class AutoD358 extends LinearOpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
-        lL = hardwareMap.dcMotor.get("lL");
-        rL = hardwareMap.dcMotor.get("rL");
+//        lL = hardwareMap.dcMotor.get("lL");
+//        rL = hardwareMap.dcMotor.get("rL");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
-        rL.setDirection(DcMotor.Direction.REVERSE);
+//        rL.setDirection(DcMotor.Direction.REVERSE);
 
         state358 = state.DETECT;
         waitForStart();
@@ -87,7 +87,7 @@ public class AutoD358 extends LinearOpMode {
                     break;
 
                 case DROP:
-                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 3);
+//                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 3);
                     state358 = state.POSITION;
                     break;
 
@@ -110,7 +110,7 @@ public class AutoD358 extends LinearOpMode {
 
                 case DRIVE:
                     Encoders.Forward(lF, lB, rF, rB, 0.25, -52);
-                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 7);
+//                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 7);
                     state358 = state.STOP;
                     break;
 
@@ -120,8 +120,8 @@ public class AutoD358 extends LinearOpMode {
                     lB.setPower(0);
                     rF.setPower(0);
                     rB.setPower(0);
-                    lL.setPower(0);
-                    rL.setPower(0);
+//                    lL.setPower(0);
+//                    rL.setPower(0);
             }
         }
     }
