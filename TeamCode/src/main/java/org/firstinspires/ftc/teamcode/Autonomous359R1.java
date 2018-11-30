@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous
-public class Autonomous359L1 extends LinearOpMode {
+public class Autonomous359R1 extends LinearOpMode {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
@@ -34,11 +34,11 @@ public class Autonomous359L1 extends LinearOpMode {
 
         while (opModeIsActive()){
 
-            Encoders359.Forward(leftLatch,rightLatch,1,-3000);      //Move the robot down
+            //Move the robot down
             //Move the hook
-            Encoders359.Forward(leftMotor,rightMotor,0.3,5000);     //Move Forward to get rid of the hook
-            Encoders359.Turn(leftMotor,rightMotor,0.3,888);         //Turn toward the mineral
-            Encoders359.Forward(leftMotor,rightMotor,0.3,1000);     //Go forward and knock the mineral
+            Encoders359.Forward(leftMotor,rightMotor,0.25,300);     //Get rid of the hook
+            Encoders359.Turn(leftMotor,rightMotor,0.25,300);        //Turn toward the mineral
+            Encoders359.Forward(leftMotor,rightMotor,0.25,1000);    //Move forward and knock the mineral
         }
     }
 }
