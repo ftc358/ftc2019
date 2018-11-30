@@ -83,10 +83,10 @@ public class AutoD358 extends LinearOpMode {
                         Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 75);
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 10);
                     }
-                    state358 = state.EXTEND;
+                    state358 = state.DROP;
                     break;
 
-                case EXTEND:
+                case DROP:
                     EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 3);
                     state358 = state.POSITION;
                     break;
@@ -192,7 +192,7 @@ public class AutoD358 extends LinearOpMode {
 
     enum state {
 
-        DETECT, KNOCK, EXTEND, POSITION, DRIVE, STOP
+        DETECT, KNOCK, DROP, POSITION, DRIVE, STOP
 
     }
 
