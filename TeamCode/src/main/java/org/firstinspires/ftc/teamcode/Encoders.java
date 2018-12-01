@@ -13,7 +13,7 @@ public class Encoders {
          Angle in degrees!
          */
 
-        int ticks = (int)(degrees/180*2000+0.5);
+        int ticks = (int)(degrees/180*3850+0.5);
 
         if (direction == Direction.left) {
             ticks = -ticks;
@@ -61,7 +61,7 @@ public class Encoders {
          * Distance is in inches!
          */
 
-        int ticks = (int)(((distance/(4*Math.PI)*720))*1.07+0.5);
+        int ticks = (int)(((distance/(4*Math.PI)*1130))*1.05+0.5);
 
         //Reset Encoders
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

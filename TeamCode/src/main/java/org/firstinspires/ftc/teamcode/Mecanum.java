@@ -15,6 +15,7 @@ public class Mecanum extends LinearOpMode {
     DcMotor bL;
     DcMotor fR;
     DcMotor bR;
+    double SCALE = 2;
 
     //This function finds the magnitude of the left stick of a gamepad.
     private Double magnitudeLeftStick(Gamepad gamepad){
@@ -59,10 +60,10 @@ public class Mecanum extends LinearOpMode {
             telemetry.update();
 
             //Sets the power for all the drive motors.
-            fL.setPower(POWER * flPower / maxPower);
-            bL.setPower(POWER * blPower / maxPower);
-            fR.setPower(POWER * frPower / maxPower);
-            bR.setPower(POWER * brPower / maxPower);
+            fL.setPower((POWER * flPower / maxPower)/SCALE);
+            bL.setPower((POWER * blPower / maxPower)/SCALE);
+            fR.setPower((POWER * frPower / maxPower)/SCALE);
+            bR.setPower((POWER * brPower / maxPower)/SCALE);
 
         }
     }
