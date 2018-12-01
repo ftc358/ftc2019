@@ -34,11 +34,9 @@ public class Autonomous359L2 extends LinearOpMode {
 
         while (opModeIsActive()){
 
-        /*Encoders359.Forward(leftLatch, rightLaunch, 0.5,8888);  //Launch down
-        Encoders359.Turn(leftMotor,rightMotor,0.2,233);        //Turn to get rid of the hook*/
-
-            Encoders359.Forward(leftLatch,rightLatch,1,-5000);      //Latch mechanism up
+            //Move the robot down
             //Move the hook
+            Encoders359.Forward(leftMotor,rightMotor,0.25,1000);    //Move forward and knock the mineral
         }
     }
 }
