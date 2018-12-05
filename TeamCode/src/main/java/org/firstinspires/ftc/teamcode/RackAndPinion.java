@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-public class RackAndPinion extends OpMode{
+public class RackAndPinion extends OpMode {
 
     DcMotor leftLatch;
     DcMotor rightLatch;

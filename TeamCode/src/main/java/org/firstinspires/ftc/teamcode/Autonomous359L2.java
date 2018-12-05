@@ -19,12 +19,12 @@ public class Autonomous359L2 extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
 
-        leftMotor=hardwareMap.dcMotor.get("lM");
-        rightMotor=hardwareMap.dcMotor.get("rM");
-        leftLatch=hardwareMap.dcMotor.get("lL");
-        rightLatch=hardwareMap.dcMotor.get("rL");
-        intakeRotation=hardwareMap.dcMotor.get("iR");
-        drawerSlide=hardwareMap.dcMotor.get("dS");
+        leftMotor = hardwareMap.dcMotor.get("lM");
+        rightMotor = hardwareMap.dcMotor.get("rM");
+        leftLatch = hardwareMap.dcMotor.get("lL");
+        rightLatch = hardwareMap.dcMotor.get("rL");
+        intakeRotation = hardwareMap.dcMotor.get("iR");
+        drawerSlide = hardwareMap.dcMotor.get("dS");
         intake = hardwareMap.crservo.get("i");
 
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -32,11 +32,11 @@ public class Autonomous359L2 extends LinearOpMode {
 
         waitForStart();
 
-        while (opModeIsActive()){
+        while (opModeIsActive()) {
 
             //Move the robot down
             //Move the hook
-            Encoders359.Forward(leftMotor,rightMotor,0.25,1000);    //Move forward and knock the mineral
+            Encoders359.Forward(leftMotor, rightMotor, 0.25, 1000);    //Move forward and knock the mineral
         }
     }
 }

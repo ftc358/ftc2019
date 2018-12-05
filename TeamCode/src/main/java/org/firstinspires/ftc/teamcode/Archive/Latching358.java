@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 public class Latching358 extends LinearOpMode {
     CRServo servo358;
 
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
         servo358 = hardwareMap.crservo.get("servo358");
 
         waitForStart();

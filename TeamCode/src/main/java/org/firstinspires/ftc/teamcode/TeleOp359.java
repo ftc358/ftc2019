@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
-public class TeleOp359 extends OpMode{
+public class TeleOp359 extends OpMode {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
@@ -19,12 +19,12 @@ public class TeleOp359 extends OpMode{
     CRServo intake;
 
     public void init() {
-        leftMotor=hardwareMap.dcMotor.get("lM");
-        rightMotor=hardwareMap.dcMotor.get("rM");
-        leftLatch=hardwareMap.dcMotor.get("lL");
-        rightLatch=hardwareMap.dcMotor.get("rL");
-        intakeRotation=hardwareMap.dcMotor.get("iR");
-        drawerSlide=hardwareMap.dcMotor.get("dS");
+        leftMotor = hardwareMap.dcMotor.get("lM");
+        rightMotor = hardwareMap.dcMotor.get("rM");
+        leftLatch = hardwareMap.dcMotor.get("lL");
+        rightLatch = hardwareMap.dcMotor.get("rL");
+        intakeRotation = hardwareMap.dcMotor.get("iR");
+        drawerSlide = hardwareMap.dcMotor.get("dS");
         intake = hardwareMap.crservo.get("i");
 
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -39,33 +39,27 @@ public class TeleOp359 extends OpMode{
         if (gamepad2.left_bumper) {
             leftLatch.setPower(1);
             rightLatch.setPower(1);
-        }
-        else if (gamepad2.right_bumper) {
+        } else if (gamepad2.right_bumper) {
             leftLatch.setPower(-1);
             rightLatch.setPower(-1);
-        }
-        else {
+        } else {
             leftLatch.setPower(0);
             rightLatch.setPower(0);
         }
 
         if (gamepad2.a) {
             intake.setPower(1);
-        }
-        else if (gamepad2.b) {
+        } else if (gamepad2.b) {
             intake.setPower(-1);
-        }
-        else {
+        } else {
             intake.setPower(0);
         }
 
         if (gamepad2.dpad_up) {
             intakeRotation.setPower(0.5);
-        }
-        else if (gamepad2.dpad_down) {
+        } else if (gamepad2.dpad_down) {
             intakeRotation.setPower(-0.5);
-        }
-        else {
+        } else {
             intakeRotation.setPower(0);
         }
 

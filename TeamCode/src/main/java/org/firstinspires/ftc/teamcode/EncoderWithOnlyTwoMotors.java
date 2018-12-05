@@ -4,9 +4,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class EncoderWithOnlyTwoMotors {
 
-    enum Direction {left, right}
-
-
     public static void Forward(DcMotor motor1, DcMotor motor2, double power, int distance) {
 
         /**
@@ -82,4 +79,6 @@ public class EncoderWithOnlyTwoMotors {
         motor2.setPower(0);
 
     }
+
+    enum Direction {left, right}
 }

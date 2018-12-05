@@ -25,7 +25,7 @@ public class AutoD358 extends LinearOpMode {
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
-//    DcMotor lL;         // left lift
+    //    DcMotor lL;         // left lift
 //    DcMotor rL;         // right lift
     state state358;
     int detected = 0;
@@ -71,9 +71,9 @@ public class AutoD358 extends LinearOpMode {
 
                 case KNOCK:
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 28);
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 43);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 70);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 75);
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 20);
                     } else if (detected == 2) {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, 45);
@@ -95,8 +95,8 @@ public class AutoD358 extends LinearOpMode {
                     if (detected == 1) {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, -8);
                         Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 135);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -33);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 60);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -25);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 45);
                     } else if (detected == 2) {
                         Encoders.Forward(lF, lB, rF, rB, 0.25, -15);
                         Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 45);
