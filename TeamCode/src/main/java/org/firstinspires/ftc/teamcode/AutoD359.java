@@ -64,9 +64,9 @@ public class AutoD359 extends LinearOpMode {
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-                    Encoders359.Turn(leftMotor,rightMotor, 0.25, 15);
+                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     detected = lookForwardAndCheck();
-                    Encoders359.Turn(leftMotor,rightMotor, 0.25, 15);
+                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
@@ -75,11 +75,11 @@ public class AutoD359 extends LinearOpMode {
 
                 case KNOCK:
                     if (detected == 1) {
-                    //Codes to knock the mineral at the left
+                        //Codes to knock the mineral at the left
                     } else if (detected == 2) {
-                    //Codes to knock the mineral at the center
+                        //Codes to knock the mineral at the center
                     } else if (detected == 3) {
-                    //Codes to knock the mineral at the right
+                        //Codes to knock the mineral at the right
                     }
                     state359 = state.DROP;
                     break;
@@ -91,11 +91,11 @@ public class AutoD359 extends LinearOpMode {
 
                 case DRIVE:
                     if (detected == 1) {
-                    //Codes to go to the crater after knocking at the left
+                        //Codes to go to the crater after knocking at the left
                     } else if (detected == 2) {
-                    //Codes to go to the crater after knocking at the center
+                        //Codes to go to the crater after knocking at the center
                     } else if (detected == 3) {
-                    //Codes to go to the crater after knocking at the right
+                        //Codes to go to the crater after knocking at the right
                     }
                     state359 = state.DRIVE;
                     break;

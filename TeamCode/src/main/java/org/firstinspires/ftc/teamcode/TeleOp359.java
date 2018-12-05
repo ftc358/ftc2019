@@ -7,8 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
-public class TeleOp359 extends OpMode
-{
+public class TeleOp359 extends OpMode {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
@@ -18,8 +17,7 @@ public class TeleOp359 extends OpMode
     DcMotor slideExtend;
     DcMotor slideRetract;
 
-    public void init()
-    {
+    public void init() {
         leftMotor = hardwareMap.dcMotor.get("lM");
         rightMotor = hardwareMap.dcMotor.get("rM");
         leftLatch = hardwareMap.dcMotor.get("lL");
@@ -33,8 +31,7 @@ public class TeleOp359 extends OpMode
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
-    public void loop()
-    {
+    public void loop() {
 
         leftMotor.setPower(Range.clip(((gamepad1.left_stick_y) * Math.abs(gamepad1.left_stick_y)), -1, 1));
         rightMotor.setPower(Range.clip(((gamepad1.right_stick_y) * Math.abs(gamepad1.right_stick_y)), -1, 1)); //let the chassis move according to the function y=x^2 or -x^2 depending on the value of x//
@@ -43,52 +40,37 @@ public class TeleOp359 extends OpMode
         {
             leftLatch.setPower(1);
             rightLatch.setPower(1);
-        }
-        else if (gamepad1.right_bumper)
-        {
+        } else if (gamepad1.right_bumper) {
             leftLatch.setPower(-1);
             rightLatch.setPower(-1);
-        }
-        else
-        {
+        } else {
             leftLatch.setPower(0);
             rightLatch.setPower(0);
         }
 
 
-
         if (gamepad2.dpad_up)                   //Slide Rotation
         {
             Rotation.setPower(0.3);
-        }
-        else if (gamepad2.dpad_down)
-        {
+        } else if (gamepad2.dpad_down) {
             Rotation.setPower(-0.3);
-        }
-        else
-        {
+        } else {
             Rotation.setPower(0);
         }
-
 
 
         if (gamepad2.left_bumper)                                   //Slide Extend
         {
             slideExtend.setPower(0.5);
-        }
-        else
-        {
+        } else {
             slideExtend.setPower(0);
         }
-
 
 
         if (gamepad2.right_bumper)                                   //Slide Retract
         {
             slideRetract.setPower(0.5);
-        }
-        else
-        {
+        } else {
             slideRetract.setPower(0);
         }
     }
