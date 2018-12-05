@@ -12,7 +12,7 @@ public class TeleOp358 extends OpMode {
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
-    //DcMotor lL;         // left lift
+    //DcMotor lL;       // left lift
     DcMotor rL;         // right lift
     boolean ExpState = false;
 
