@@ -9,16 +9,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class ExpansionHubTest extends LinearOpMode {
 
     DcMotor Motor;
-    CRServo Servo;
+   // CRServo Servo;
 
     public void runOpMode() {
-        Motor = hardwareMap.dcMotor.get("left_motor");
+        Motor = hardwareMap.dcMotor.get("motor");
 
         waitForStart();
         while (opModeIsActive()) {
 
             Motor.setPower(gamepad1.left_stick_y);
-            Servo.setPower(gamepad1.right_stick_y);
+            //Servo.setPower(gamepad1.right_stick_y);
         }
     }
 }
