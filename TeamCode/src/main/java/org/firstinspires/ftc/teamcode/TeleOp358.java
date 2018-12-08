@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
 public class TeleOp358 extends OpMode {
@@ -12,8 +11,8 @@ public class TeleOp358 extends OpMode {
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
-    //DcMotor lL;         // left lift
-    DcMotor rL;         // right lift
+    //DcMotor lL;       // left lift
+//    DcMotor latch;         // right lift
     boolean ExpState = false;
 
     public void init() {
@@ -22,15 +21,15 @@ public class TeleOp358 extends OpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
-        //lL = hardwareMap.dcMotor.get("lL");
-        rL = hardwareMap.dcMotor.get("rL");
+//        lL = hardwareMap.dcMotor.get("lL");
+//        latch = hardwareMap.dcMotor.get("latch");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
         //lL.setDirection(DcMotor.Direction.REVERSE);
-        rL.setDirection(DcMotor.Direction.REVERSE);
+//        latch.setDirection(DcMotor.Direction.REVERSE);
 
-        rL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//        latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 
@@ -42,16 +41,8 @@ public class TeleOp358 extends OpMode {
         if (gamepad1.right_bumper) {
             ExpState = !ExpState;
         }
-        /**
-        if (gamepad1.dpad_down) {
-            rL.setPower(0.4);
-        } else if (gamepad1.dpad_up) {
-            rL.setPower(-0.4);
-        } else if (gamepad1.dpad_left) {
-            rL.setPower(0);
-        }
-         **/
-        rL.setPower(-gamepad2.right_stick_y/1.25);
+
+
         if (ExpState) {
             lF.setPower(Math.pow(-gamepad1.right_stick_y, 5));
             lB.setPower(Math.pow(-gamepad1.right_stick_y, 5));

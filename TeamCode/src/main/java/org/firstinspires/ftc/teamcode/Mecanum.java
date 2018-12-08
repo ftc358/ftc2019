@@ -5,7 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
-import static java.lang.Math.*;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 
 @TeleOp
 
@@ -18,16 +22,16 @@ public class Mecanum extends LinearOpMode {
     double SCALE = 2;
 
     //This function finds the magnitude of the left stick of a gamepad.
-    private Double magnitudeLeftStick(Gamepad gamepad){
+    private Double magnitudeLeftStick(Gamepad gamepad) {
         return sqrt(pow(gamepad.left_stick_x, 2) + pow(gamepad.left_stick_y, 2));
     }
 
     //This function finds the max value given 4 values.
-    private Double findMax(Double d1, Double d2, Double d3, Double d4){
+    private Double findMax(Double d1, Double d2, Double d3, Double d4) {
         return max(max(d1, d2), max(d3, d4));
     }
 
-    public void runOpMode() throws InterruptedException{
+    public void runOpMode() throws InterruptedException {
 
         fL = hardwareMap.dcMotor.get("lF");
         bL = hardwareMap.dcMotor.get("lB");
@@ -39,7 +43,7 @@ public class Mecanum extends LinearOpMode {
 
         waitForStart();
 
-        while(opModeIsActive()) {
+        while (opModeIsActive()) {
 
             //Defining drive, strafe, and rotation power.
             double drive = gamepad1.left_stick_y;
@@ -60,10 +64,10 @@ public class Mecanum extends LinearOpMode {
             telemetry.update();
 
             //Sets the power for all the drive motors.
-            fL.setPower((POWER * flPower / maxPower)/SCALE);
-            bL.setPower((POWER * blPower / maxPower)/SCALE);
-            fR.setPower((POWER * frPower / maxPower)/SCALE);
-            bR.setPower((POWER * brPower / maxPower)/SCALE);
+            fL.setPower((POWER * flPower / maxPower) / SCALE);
+            bL.setPower((POWER * blPower / maxPower) / SCALE);
+            fR.setPower((POWER * frPower / maxPower) / SCALE);
+            bR.setPower((POWER * brPower / maxPower) / SCALE);
 
         }
     }

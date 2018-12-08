@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Encoders359{
+public class Encoders359 {
 
     public static void Forward(DcMotor motor1, DcMotor motor2, double power, int distance) {
 

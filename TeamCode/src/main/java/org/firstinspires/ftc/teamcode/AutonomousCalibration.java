@@ -11,35 +11,13 @@ public class AutonomousCalibration extends LinearOpMode {
     DcMotor rF;
     DcMotor rB;
 
-    public void runOpMode() throws InterruptedException {
-
-        lF = hardwareMap.dcMotor.get("lF");
-        lB = hardwareMap.dcMotor.get("lB");
-        rF = hardwareMap.dcMotor.get("rF");
-        rB = hardwareMap.dcMotor.get("rB");
-//        lL = hardwareMap.dcMotor.get("lL");
-//        rL = hardwareMap.dcMotor.get("rL");
-
-        rF.setDirection(DcMotor.Direction.REVERSE);
-        rB.setDirection(DcMotor.Direction.REVERSE);
-//        rL.setDirection(DcMotor.Direction.REVERSE);
-
-        waitForStart();
-
-//        Forward(lF, lB, rF, rB, 0.25, 30);
-        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 180);
-        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 90);
-        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 45);
-
-    }
-
     public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
 
         /**
          * Distance is in inches!
          */
 
-        int ticks = (int)(((distance/(4*Math.PI)*1130))*1.05+0.5);
+        int ticks = (int) (((distance / (4 * Math.PI) * 1130)) * 1.05 + 0.5);
 
         //Reset Encoders
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -82,7 +60,7 @@ public class AutonomousCalibration extends LinearOpMode {
          Angle in degrees!
          */
 
-        int ticks = (int)(degrees/180*3850+0.5);
+        int ticks = (int) (degrees / 180 * 3850 + 0.5);
 
         if (direction == Encoders.Direction.left) {
             ticks = -ticks;
@@ -122,5 +100,27 @@ public class AutonomousCalibration extends LinearOpMode {
         motor2.setPower(0);
         motor3.setPower(0);
         motor4.setPower(0);
+    }
+
+    public void runOpMode() throws InterruptedException {
+
+        lF = hardwareMap.dcMotor.get("lF");
+        lB = hardwareMap.dcMotor.get("lB");
+        rF = hardwareMap.dcMotor.get("rF");
+        rB = hardwareMap.dcMotor.get("rB");
+//        lL = hardwareMap.dcMotor.get("lL");
+//        rL = hardwareMap.dcMotor.get("rL");
+
+        rF.setDirection(DcMotor.Direction.REVERSE);
+        rB.setDirection(DcMotor.Direction.REVERSE);
+//        rL.setDirection(DcMotor.Direction.REVERSE);
+
+        waitForStart();
+
+//        Forward(lF, lB, rF, rB, 0.25, 30);
+        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 180);
+        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 90);
+        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 45);
+
     }
 }
