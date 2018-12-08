@@ -77,7 +77,7 @@ public class AutoD359 extends LinearOpMode {
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state359 = state.KNOCK;
-                    telemetry.addData('state',state359);
+                    telemetry.addData("state", state359);
                     telemetry.update();
                     break;
 
