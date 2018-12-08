@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
@@ -27,9 +28,9 @@ public class AutoD359 extends LinearOpMode {
     DcMotor rightMotor;
     DcMotor leftLatch;
     DcMotor rightLatch;
-    DcMotor Rotation;
-    DcMotor slideExtend;
-    DcMotor slideRetract;
+    //DcMotor Rotation;
+    //DcMotor slideExtend;
+    //DcMotor slideRetract;
 
     state state359;
     int detected = 0;
@@ -43,9 +44,9 @@ public class AutoD359 extends LinearOpMode {
         rightMotor = hardwareMap.dcMotor.get("rM");
         leftLatch = hardwareMap.dcMotor.get("lL");
         rightLatch = hardwareMap.dcMotor.get("rL");
-        Rotation = hardwareMap.dcMotor.get("rotation");
-        slideExtend = hardwareMap.dcMotor.get("sE");
-        slideRetract = hardwareMap.dcMotor.get("sR");
+        //Rotation = hardwareMap.dcMotor.get("rotation");
+        //slideExtend = hardwareMap.dcMotor.get("sE");
+        //slideRetract = hardwareMap.dcMotor.get("sR");
 
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -59,11 +60,12 @@ public class AutoD359 extends LinearOpMode {
             telemetry.update();
             switch (state359) {
 
-                case DETECT:
+                /*case LATCH:
+                    //Encoders359.Forward(leftLatch,rightLatch,8000,1);
+                    state359 = state.DETECT;
+                    break;*/
 
-                    //initVuforiaThingy();
-                    //initTfod();
-                    //detected = lookForThings();
+                case DETECT:
                     Encoders359.Turn(leftMotor,rightMotor, 0.25, 15);
                     detected = lookForwardAndCheck();
                     Encoders359.Turn(leftMotor,rightMotor, 0.25, 15);
@@ -71,15 +73,21 @@ public class AutoD359 extends LinearOpMode {
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state359 = state.KNOCK;
+                    telemetry.addData('state',state359);
+                    telemetry.update();
                     break;
 
                 case KNOCK:
                     if (detected == 1) {
-                    //Codes to knock the mineral at the left
+                    Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go left
+                    Encoders359.Turn(leftMotor,rightMotor,0.25,300);
+
                     } else if (detected == 2) {
-                    //Codes to knock the mineral at the center
+                    Encoders359.Forward(leftMotor,rightMotor,0.25,1000);    //Go forward
+
                     } else if (detected == 3) {
-                    //Codes to knock the mineral at the right
+                    Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go right
+                    Encoders359.Turn(leftMotor,rightMotor,0.25,300);
                     }
                     state359 = state.DROP;
                     break;
@@ -105,9 +113,9 @@ public class AutoD359 extends LinearOpMode {
                     rightMotor.setPower(0);
                     leftLatch.setPower(0);
                     rightLatch.setPower(0);
-                    Rotation.setPower(0);
+                    /*Rotation.setPower(0);
                     slideExtend.setPower(0);
-                    slideRetract.setPower(0);
+                    slideRetract.setPower(0);*/
             }
         }
     }
@@ -178,8 +186,7 @@ public class AutoD359 extends LinearOpMode {
 
     enum state {
 
-        DETECT, KNOCK, DROP, DRIVE, STOP
+        LATCH, DETECT, KNOCK, DROP, DRIVE, STOP
 
     }
-
 }

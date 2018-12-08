@@ -14,9 +14,9 @@ public class TeleOp359 extends OpMode
     DcMotor rightMotor;
     DcMotor leftLatch;
     DcMotor rightLatch;
-    DcMotor Rotation;
+    /*DcMotor Rotation;
     DcMotor slideExtend;
-    DcMotor slideRetract;
+    DcMotor slideRetract;*/
 
     public void init()
     {
@@ -24,9 +24,9 @@ public class TeleOp359 extends OpMode
         rightMotor = hardwareMap.dcMotor.get("rM");
         leftLatch = hardwareMap.dcMotor.get("lL");
         rightLatch = hardwareMap.dcMotor.get("rL");
-        Rotation = hardwareMap.dcMotor.get("rotation");
+        /*Rotation = hardwareMap.dcMotor.get("rotation");
         slideExtend = hardwareMap.dcMotor.get("sE");
-        slideRetract = hardwareMap.dcMotor.get("sR");
+        slideRetract = hardwareMap.dcMotor.get("sR"); */
 
 
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -57,7 +57,7 @@ public class TeleOp359 extends OpMode
 
 
 
-        if (gamepad2.dpad_up)                   //Slide Rotation
+/*        if (gamepad2.dpad_up)                   //Slide Rotation
         {
             Rotation.setPower(0.3);
         }
@@ -90,6 +90,6 @@ public class TeleOp359 extends OpMode
         else
         {
             slideRetract.setPower(0);
-        }
+        }*/
     }
 }
