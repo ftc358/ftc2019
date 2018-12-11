@@ -1,58 +1,76 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.util.Range;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.pow;
+import static java.lang.Math.sqrt;
 
 @TeleOp
-public class TeleOp358 extends OpMode {
 
-    DcMotor lF;
-    DcMotor lB;
-    DcMotor rF;
-    DcMotor rB;
-    //DcMotor lL;       // left lift
-//    DcMotor latch;         // right lift
-    boolean ExpState = false;
+public class TeleOp358 extends LinearOpMode {
 
-    public void init() {
+    DcMotor fL;
+    DcMotor bL;
+    DcMotor fR;
+    DcMotor bR;
+    double SCALE = 2;
 
-        lF = hardwareMap.dcMotor.get("lF");
-        lB = hardwareMap.dcMotor.get("lB");
-        rF = hardwareMap.dcMotor.get("rF");
-        rB = hardwareMap.dcMotor.get("rB");
-//        lL = hardwareMap.dcMotor.get("lL");
-//        latch = hardwareMap.dcMotor.get("latch");
-
-        rF.setDirection(DcMotor.Direction.REVERSE);
-        rB.setDirection(DcMotor.Direction.REVERSE);
-        //lL.setDirection(DcMotor.Direction.REVERSE);
-//        latch.setDirection(DcMotor.Direction.REVERSE);
-
-//        latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+    //This function finds the magnitude of the left stick of a gamepad.
+    private Double magnitudeLeftStick(Gamepad gamepad) {
+        return sqrt(pow(gamepad.left_stick_x, 2) + pow(gamepad.left_stick_y, 2));
     }
 
-    public void loop() {
+    //This function finds the max value given 4 values.
+    private Double findMax(Double d1, Double d2, Double d3, Double d4) {
+        return max(max(d1, d2), max(d3, d4));
+    }
 
-        telemetry.addData("Exponential Drive State: ", ExpState);
-        telemetry.update();
+    public void runOpMode() throws InterruptedException {
 
-        if (gamepad1.right_bumper) {
-            ExpState = !ExpState;
-        }
+        fL = hardwareMap.dcMotor.get("lF");
+        bL = hardwareMap.dcMotor.get("lB");
+        fR = hardwareMap.dcMotor.get("rF");
+        bR = hardwareMap.dcMotor.get("rB");
 
+        fL.setDirection(DcMotor.Direction.REVERSE);
+        bL.setDirection(DcMotor.Direction.REVERSE);
 
-        if (ExpState) {
-            lF.setPower(Math.pow(-gamepad1.right_stick_y, 5));
-            lB.setPower(Math.pow(-gamepad1.right_stick_y, 5));
-            rF.setPower(Math.pow(-gamepad1.left_stick_y, 5));
-            rB.setPower(Math.pow(-gamepad1.left_stick_y, 5));
-        } else {
-            lF.setPower(-gamepad1.right_stick_y);
-            lB.setPower(-gamepad1.right_stick_y);
-            rF.setPower(-gamepad1.left_stick_y);
-            rB.setPower(-gamepad1.left_stick_y);
+        //latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+
+            //Defining drive, strafe, and rotation power.
+            double drive = gamepad1.left_stick_y;
+            double strafe = gamepad1.left_stick_x;
+            double rotate = gamepad1.right_stick_x;
+
+            //Defining the motor power distribution.
+            double flPower = drive - strafe - rotate;
+            double blPower = drive + strafe - rotate;
+            double frPower = drive + strafe + rotate;
+            double brPower = drive - strafe + rotate;
+
+            double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);
+            double POWER = -1 * joyStick * abs(joyStick);
+            telemetry.addData("POWER: ", POWER);
+            double maxPower = findMax(abs(flPower), abs(blPower), abs(frPower), abs(brPower)); // greatest value of all motor powers
+            telemetry.addData("maxPower: ", maxPower);
+            telemetry.update();
+
+            //Sets the power for all the drive motors.
+            fL.setPower((POWER * flPower / maxPower) / SCALE);
+            bL.setPower((POWER * blPower / maxPower) / SCALE);
+            fR.setPower((POWER * frPower / maxPower) / SCALE);
+            bR.setPower((POWER * brPower / maxPower) / SCALE);
+
         }
     }
 }
