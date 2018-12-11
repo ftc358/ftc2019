@@ -12,7 +12,7 @@ public class TeleOp358 extends OpMode {
     DcMotor rF;
     DcMotor rB;
     //DcMotor lL;       // left lift
-//    DcMotor latch;         // right lift
+    DcMotor latch;         // right lift
     boolean ExpState = false;
 
     public void init() {
@@ -21,15 +21,13 @@ public class TeleOp358 extends OpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
-//        lL = hardwareMap.dcMotor.get("lL");
-//        latch = hardwareMap.dcMotor.get("latch");
+        latch = hardwareMap.dcMotor.get("latch");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
-        //lL.setDirection(DcMotor.Direction.REVERSE);
-//        latch.setDirection(DcMotor.Direction.REVERSE);
+        latch.setDirection(DcMotor.Direction.REVERSE);
 
-//        latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
     }
 
@@ -40,6 +38,18 @@ public class TeleOp358 extends OpMode {
 
         if (gamepad1.right_bumper) {
             ExpState = !ExpState;
+        }
+
+        if (gamepad1.dpad_up) {
+            latch.setPower(0.5);
+        }
+
+        if (gamepad1.dpad_down) {
+            latch.setPower(-0.5);
+        }
+
+        if (gamepad1.dpad_right) {
+            latch.setPower(0);
         }
 
 
