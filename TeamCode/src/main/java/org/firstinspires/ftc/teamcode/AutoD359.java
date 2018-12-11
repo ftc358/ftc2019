@@ -65,13 +65,13 @@ public class AutoD359 extends LinearOpMode {
                     break;
 
                 case DETECT:
-                    Encoders359.Turn(leftMotor,rightMotor, 0.25, 15);
+//                    Encoders359.Turn(leftMotor,rightMotor, 0.25, 15);
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
+//                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     detected = lookForwardAndCheck();
-                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
+//                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
@@ -94,7 +94,8 @@ public class AutoD359 extends LinearOpMode {
 //                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
                         //Codes to knock the mineral at the left
                     }
-                    state359 = state.DROP;
+                    sleep(10000);
+//                    state359 = state.DROP;
                     break;
 
                 case DRIVE:
@@ -190,6 +191,7 @@ public class AutoD359 extends LinearOpMode {
 
   public int lookForwardAndCheck() {
       int position = 0;
+      initVuforiaThingy();
       if (this.tfod != null) {
           tfod.activate();
       } else {
@@ -200,50 +202,60 @@ public class AutoD359 extends LinearOpMode {
       while (position == 0) {
           List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
           if (updatedRecognitions != null) {
-              if (updatedRecognitions.size() == 3) {
+              telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
+              telemetry.update();
+
+
+              if (updatedRecognitions.size() == 2) {
                   int goldMineralX = -1;
-                  int silverMineral1X = -1;
-                  int silverMineral2X = -1;
+                  int silverMineralX = -1;
                   for (Recognition recognition : updatedRecognitions) {
                       if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
                           goldMineralX = (int) recognition.getLeft();
-                      } else if (silverMineral1X == -1) {
-                          silverMineral1X = (int) recognition.getLeft();
+                      } else if (silverMineralX == -1) {
+                          silverMineralX = (int) recognition.getLeft();
                       } else {
-                          silverMineral2X = (int) recognition.getLeft();
+                          return 3;
                       }
                   }
-                  if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
-                      if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
-                          position = 1;
-                      } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-                          position = 3;
-                      } else {
-                          position = 2;
-                      }
+                  if (goldMineralX < silverMineralX) {
+                      position = 1;
+                  } else {
+                      position = 2;
                   }
-              } else {
-                  boolean goldVisible = false;
-                  double coord = 0;
-                  if (updatedRecognitions != null && updatedRecognitions.size() > 0) {
-                      for (Recognition recognition : updatedRecognitions) {
-                          if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                              goldVisible = true;
-                              coord = (recognition.getLeft() + recognition.getRight()) / 2;
-                          }
-                      }
-                      if (goldVisible) {
-                          // idk if we need actual position
-                          // maybe that helps us be more accurate if we can see 2 at the same time.
-                          position = -(int) (100 * coord) - 1;
-                      }
-                      // silver
-                      // i think i'm writing bad logic things
-                      else position = 4;
-                  }
-                  telemetry.addData("seeeeeing", position);
               }
+
+
+
+//              if (updatedRecognitions.size() == 3) {
+//                  int goldMineralX = -1;
+//                  int silverMineral1X = -1;
+//                  int silverMineral2X = -1;
+//                  for (Recognition recognition : updatedRecognitions) {
+//                      if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+//                          goldMineralX = (int) recognition.getLeft();
+//                      } else if (silverMineral1X == -1) {
+//                          silverMineral1X = (int) recognition.getLeft();
+//                      } else {
+//                          silverMineral2X = (int) recognition.getLeft();
+//                      }
+//                  }
+//                  if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
+//                      if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
+//                          telemetry.addData("Gold Mineral Position", "Left");
+//                      } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
+//                          telemetry.addData("Gold Mineral Position", "Right");
+//                      } else {
+//                          telemetry.addData("Gold Mineral Position", "Center");
+//                      }
+//                  }
+//              }
           }
+
+//          telemetry.addData("position", position);
+//          telemetry.update();
+
+
       }
       return position;
   }
