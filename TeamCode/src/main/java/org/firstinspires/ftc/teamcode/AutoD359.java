@@ -77,21 +77,22 @@ public class AutoD359 extends LinearOpMode {
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state359 = state.KNOCK;
-                    telemetry.addData("state", state359);
-                    telemetry.update();
+//                    telemetry.addData("state", state359);
+//                    telemetry.update();
                     break;
 
                 case KNOCK:
+                    telemetry.addData("Detected", detected);
                     if (detected == 1) {
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go left
-                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
+//                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go left
+//                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
 
                     } else if (detected == 2) {
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,1000);    //Go forward
+//                        Encoders359.Forward(leftMotor,rightMotor,0.25,1000);    //Go forward
 
                     } else if (detected == 3) {
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go right
-                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
+//                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go right
+//                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
                         //Codes to knock the mineral at the left
                     }
                     state359 = state.DROP;
@@ -159,6 +160,7 @@ public class AutoD359 extends LinearOpMode {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             if (updatedRecognitions != null) {
                 telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
+                telemetry.addData("position", position);
                 telemetry.update();
                 if (updatedRecognitions.size() == 2) {
                     int goldMineralX = -1;
