@@ -35,7 +35,6 @@ public class AutoD359 extends LinearOpMode {
     state state359;
     int detected = 0;
     VuforiaLocalizer vuforia;
-    double[] list = {0, 0, 0, 0, 0, 0, 0};
     private TFObjectDetector tfod;
 
     public void runOpMode() throws InterruptedException {
@@ -146,6 +145,8 @@ public class AutoD359 extends LinearOpMode {
     }
 
 
+
+  /**
     public int lookForwardAndCheck() {
         int position = 0;
         initVuforiaThingy();
@@ -185,6 +186,67 @@ public class AutoD359 extends LinearOpMode {
         return position;
     }
 
+   */
+
+  public int lookForwardAndCheck() {
+      int position = 0;
+      if (this.tfod != null) {
+          tfod.activate();
+      } else {
+          return 0;
+      }
+      // getUpdatedRecognitions() will return null if no new information is available since
+      // the last time that call was made.
+      while (position == 0) {
+          List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+          if (updatedRecognitions != null) {
+              if (updatedRecognitions.size() == 3) {
+                  int goldMineralX = -1;
+                  int silverMineral1X = -1;
+                  int silverMineral2X = -1;
+                  for (Recognition recognition : updatedRecognitions) {
+                      if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                          goldMineralX = (int) recognition.getLeft();
+                      } else if (silverMineral1X == -1) {
+                          silverMineral1X = (int) recognition.getLeft();
+                      } else {
+                          silverMineral2X = (int) recognition.getLeft();
+                      }
+                  }
+                  if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
+                      if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
+                          position = 1;
+                      } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
+                          position = 3;
+                      } else {
+                          position = 2;
+                      }
+                  }
+              } else {
+                  boolean goldVisible = false;
+                  double coord = 0;
+                  if (updatedRecognitions != null && updatedRecognitions.size() > 0) {
+                      for (Recognition recognition : updatedRecognitions) {
+                          if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                              goldVisible = true;
+                              coord = (recognition.getLeft() + recognition.getRight()) / 2;
+                          }
+                      }
+                      if (goldVisible) {
+                          // idk if we need actual position
+                          // maybe that helps us be more accurate if we can see 2 at the same time.
+                          position = -(int) (100 * coord) - 1;
+                      }
+                      // silver
+                      // i think i'm writing bad logic things
+                      else position = 4;
+                  }
+                  telemetry.addData("seeeeeing", position);
+              }
+          }
+      }
+      return position;
+  }
 
     enum state {
 
