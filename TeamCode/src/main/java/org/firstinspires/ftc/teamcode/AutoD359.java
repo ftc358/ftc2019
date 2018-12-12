@@ -65,37 +65,35 @@ public class AutoD359 extends LinearOpMode {
                     break;
 
                 case DETECT:
-//                    Encoders359.Turn(leftMotor,rightMotor, 0.25, 15);
+                    Encoders359.Turn(leftMotor,rightMotor, 0.25, 15);
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-//                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
+                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     detected = lookForwardAndCheck();
-//                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
+                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state359 = state.KNOCK;
-//                    telemetry.addData("state", state359);
-//                    telemetry.update();
                     break;
 
                 case KNOCK:
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
-//                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go left
-//                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
+                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go left
+                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
 
                     } else if (detected == 2) {
-//                        Encoders359.Forward(leftMotor,rightMotor,0.25,1000);    //Go forward
+                        Encoders359.Forward(leftMotor,rightMotor,0.25,1000);    //Go forward
 
                     } else if (detected == 3) {
-//                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go right
-//                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
+                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go right
+                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
                         //Codes to knock the mineral at the left
                     }
-                    sleep(10000);
-//                    state359 = state.DROP;
+//                    sleep(10000);
+                    state359 = state.DROP;
                     break;
 
                 case DRIVE:
@@ -145,66 +143,24 @@ public class AutoD359 extends LinearOpMode {
         }
     }
 
-
-
-  /**
-    public int lookForwardAndCheck() {
-        int position = 0;
-        initVuforiaThingy();
-        if (this.tfod != null) {
-            tfod.activate();
-        } else {
-            return 0;
-        }
-        // getUpdatedRecognitions() will return null if no new information is available since
-        // the last time that call was made.
-        while (position == 0) {
-            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-            if (updatedRecognitions != null) {
-                telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
-                telemetry.addData("position", position);
-                telemetry.update();
-                if (updatedRecognitions.size() == 2) {
-                    int goldMineralX = -1;
-                    int silverMineralX = -1;
-                    for (Recognition recognition : updatedRecognitions) {
-                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getLeft();
-                        } else if (silverMineralX == -1) {
-                            silverMineralX = (int) recognition.getLeft();
-                        } else {
-                            return 3;
-                        }
-                    }
-                    if (goldMineralX < silverMineralX) {
-                        position = 1;
-                    } else {
-                        position = 2;
-                    }
-                }
-            }
-        }
-        return position;
-    }
-
-   */
-
   public int lookForwardAndCheck() {
       int position = 0;
       initVuforiaThingy();
+
       if (this.tfod != null) {
           tfod.activate();
       } else {
           return 0;
       }
+
       // getUpdatedRecognitions() will return null if no new information is available since
       // the last time that call was made.
+
       while (position == 0) {
           List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
           if (updatedRecognitions != null) {
               telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
               telemetry.update();
-
 
               if (updatedRecognitions.size() == 2) {
                   int goldMineralX = -1;
@@ -218,6 +174,7 @@ public class AutoD359 extends LinearOpMode {
                           return 3;
                       }
                   }
+
                   if (goldMineralX < silverMineralX) {
                       position = 1;
                   } else {
@@ -225,36 +182,7 @@ public class AutoD359 extends LinearOpMode {
                   }
               }
 
-
-
-//              if (updatedRecognitions.size() == 3) {
-//                  int goldMineralX = -1;
-//                  int silverMineral1X = -1;
-//                  int silverMineral2X = -1;
-//                  for (Recognition recognition : updatedRecognitions) {
-//                      if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-//                          goldMineralX = (int) recognition.getLeft();
-//                      } else if (silverMineral1X == -1) {
-//                          silverMineral1X = (int) recognition.getLeft();
-//                      } else {
-//                          silverMineral2X = (int) recognition.getLeft();
-//                      }
-//                  }
-//                  if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
-//                      if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
-//                          telemetry.addData("Gold Mineral Position", "Left");
-//                      } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-//                          telemetry.addData("Gold Mineral Position", "Right");
-//                      } else {
-//                          telemetry.addData("Gold Mineral Position", "Center");
-//                      }
-//                  }
-//              }
           }
-
-//          telemetry.addData("position", position);
-//          telemetry.update();
-
 
       }
       return position;
