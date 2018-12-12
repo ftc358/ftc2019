@@ -118,10 +118,10 @@ public class AutonomousCalibration extends LinearOpMode {
 
         waitForStart();
 
-//        Forward(lF, lB, rF, rB, 0.25, 30);
-        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 180);
-        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 90);
-        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 45);
+        Forward(lF, lB, rF, rB, 0.25, 60);
+//        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 180);
+//        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 90);
+//        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 45);
 
     }
 }
