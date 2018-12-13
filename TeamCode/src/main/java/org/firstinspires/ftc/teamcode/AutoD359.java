@@ -171,14 +171,14 @@ public class AutoD359 extends LinearOpMode {
                       } else if (silverMineralX == -1) {
                           silverMineralX = (int) recognition.getLeft();
                       } else {
-                          return 3;
+                          return 1;
                       }
                   }
 
                   if (goldMineralX < silverMineralX) {
-                      position = 1;
-                  } else {
                       position = 2;
+                  } else {
+                      position = 3;
                   }
               }
 
