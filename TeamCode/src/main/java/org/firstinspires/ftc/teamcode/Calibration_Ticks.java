@@ -1,24 +1,78 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous
-public class AutonomousCalibration extends LinearOpMode {
+@TeleOp
+public class Calibration_Ticks extends LinearOpMode {
 
     DcMotor lF;
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
 
-    public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
+    state calibrationMode;
 
-        /**
-         * Distance is in inches!
-         */
+    int ticksToRun = 1000;
 
-        int ticks = (int) (((distance / (4 * Math.PI) * 1130)) * 1.05 + 0.5);
+    enum state {
+
+        FORWARD, TURN
+
+    }
+
+    public void runOpMode() throws InterruptedException {
+        lF = hardwareMap.dcMotor.get("lF");
+        lB = hardwareMap.dcMotor.get("lB");
+        rF = hardwareMap.dcMotor.get("rF");
+        rB = hardwareMap.dcMotor.get("rB");
+
+        rF.setDirection(DcMotor.Direction.REVERSE);
+        rB.setDirection(DcMotor.Direction.REVERSE);
+
+        calibrationMode = state.FORWARD;
+
+        while (opModeIsActive()) {
+            if (gamepad1.left_bumper) {
+                switch (calibrationMode) {
+
+                    case FORWARD:
+                        calibrationMode = state.TURN;
+                        break;
+
+                    case TURN:
+                        calibrationMode = state.FORWARD;
+                        break;
+                }
+            }
+            ticksToRun += gamepad1.left_stick_y * 100;
+            ticksToRun += gamepad1.right_stick_y * 10;
+            if (gamepad1.a) {
+                ticksToRun += 1;
+            }
+            if (gamepad2.b) {
+                ticksToRun -= 1;
+            }
+            if (gamepad1.x) {
+                switch (calibrationMode) {
+
+                    case FORWARD:
+                        Forward(lF, lB, rF, rB, 0.25, ticksToRun);
+                        break;
+
+                    case TURN:
+                        Turn(lF, lB, rF, rB, 0.25, ticksToRun);
+                        break;
+                }
+            }
+            telemetry.addData("Mode:", calibrationMode.toString());
+            telemetry.addData("Ticks:", ticksToRun);
+            telemetry.update();
+        }
+    }
+
+    public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int ticks) {
 
         //Reset Encoders
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -55,17 +109,7 @@ public class AutonomousCalibration extends LinearOpMode {
         motor4.setPower(0);
     }
 
-    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, Encoders.Direction direction, int degrees) {
-
-        /**
-         Angle in degrees!
-         */
-
-        int ticks = (int) (degrees / 180 * 3850 + 0.5);
-
-        if (direction == Encoders.Direction.left) {
-            ticks = -ticks;
-        }
+    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int ticks) {
 
 
         //Reset Encoders
@@ -101,27 +145,5 @@ public class AutonomousCalibration extends LinearOpMode {
         motor2.setPower(0);
         motor3.setPower(0);
         motor4.setPower(0);
-    }
-
-    public void runOpMode() throws InterruptedException {
-
-        lF = hardwareMap.dcMotor.get("lF");
-        lB = hardwareMap.dcMotor.get("lB");
-        rF = hardwareMap.dcMotor.get("rF");
-        rB = hardwareMap.dcMotor.get("rB");
-//        lL = hardwareMap.dcMotor.get("lL");
-//        rL = hardwareMap.dcMotor.get("rL");
-
-        rF.setDirection(DcMotor.Direction.REVERSE);
-        rB.setDirection(DcMotor.Direction.REVERSE);
-//        rL.setDirection(DcMotor.Direction.REVERSE);
-
-        waitForStart();
-
-        Forward(lF, lB, rF, rB, 0.25, 60);
-//        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 180);
-//        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 90);
-//        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 45);
-
     }
 }
