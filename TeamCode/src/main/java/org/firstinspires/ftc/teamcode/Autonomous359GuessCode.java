@@ -14,7 +14,6 @@ public class Autonomous359GuessCode extends LinearOpMode {
     DcMotor rightLatch;
     DcMotor Rotation;
     DcMotor slideExtend;
-    DcMotor slideRetract;
 
     public void runOpMode() throws InterruptedException {
 
@@ -24,7 +23,6 @@ public class Autonomous359GuessCode extends LinearOpMode {
         rightLatch = hardwareMap.dcMotor.get("rL");
         Rotation = hardwareMap.dcMotor.get("rotation");
         slideExtend = hardwareMap.dcMotor.get("sE");
-        slideRetract = hardwareMap.dcMotor.get("sR");
 
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
