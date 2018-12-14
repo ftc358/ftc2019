@@ -85,19 +85,25 @@ public class AutoEC358 extends LinearOpMode {
                         }, 5, TimeUnit.SECONDS);
                     } catch (Exception e) {
                         telemetry.addData("Timed out detecting", "setting detected = 2");
+                        telemetry.update();
                         detected = 2;
                     }
                     Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 15);
+                    telemetry.addData("Position of the cube", detected);
+                    telemetry.update();
                     state358 = state.DRIVE;
                     break;
 
                 case KNOCK:                                    // knock gold block
-
+                    if (detected == 1) {
+                    } else if (detected == 2) {
+                    } else if (detected == 3) {
+                    }
                     state358 = state.STOP;
                     break;
 
                 case DROP:                                    // drive to depot & drop token
-
+                    extend(true);
                     state358 = state.STOP;
                     break;
 
@@ -184,6 +190,10 @@ public class AutoEC358 extends LinearOpMode {
 
     public void unlatchFromLander() {
         //TODO: implement descend from lander & move to starting position & heading compensation with gyro
+    }
+
+    public void extend(Boolean drop) {
+        //TODO: extend arm to either claim crater / drop token
     }
 
 
