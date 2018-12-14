@@ -1,7 +1,8 @@
-// Lingo: Auto Team Crater 358
-// Ends at own crater
+// Lingo: Auto Enemy Crater 358
+// Ends at other crater
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -12,11 +13,12 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous
-public class AutoTC358 extends LinearOpMode {
+public class AutoD358_L extends LinearOpMode {
 
     private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -28,6 +30,8 @@ public class AutoTC358 extends LinearOpMode {
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
+
+    BNO055IMU imu;
 
     state state358;
     int detected = 0;
@@ -45,6 +49,18 @@ public class AutoTC358 extends LinearOpMode {
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
 
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
+
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+
+        telemetry.addData("Initialization:", "done");
+        telemetry.update();
+
         state358 = state.UNLATCH;
         waitForStart();
 
@@ -53,23 +69,45 @@ public class AutoTC358 extends LinearOpMode {
             telemetry.addData("Going into state", state358);
             telemetry.update();
             switch (state358) {
-
                 case UNLATCH:                                   // unlatch and orient 90 degrees
-
-                    state358 = state.DETECTKNOCKPOSITION;
+                    unlatchFromLander();
+                    state358 = state.DETECT;
                     break;
 
-                case DETECTKNOCKPOSITION:                       // detect, knock gold block, and drive to depot
-
-                    state358 = state.DROP;
+                case DETECT:                       // detect
+                    Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 15);
+                    try {
+                        TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
+                            @Override
+                            public void run() {
+                                detected = lookForwardAndCheck();
+                            }
+                        }, 5, TimeUnit.SECONDS);
+                    } catch (Exception e) {
+                        telemetry.addData("Timed out detecting", "setting detected = 2");
+                        telemetry.update();
+                        detected = 2;
+                    }
+                    Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 15);
+                    telemetry.addData("Position of the cube", detected);
+                    telemetry.update();
+                    state358 = state.DRIVE;
                     break;
 
-                case DROP:                                      // drop team token in depot
-
-                    state358 = state.CRATER;
+                case KNOCK:                                    // knock gold block
+                    if (detected == 1) {
+                    } else if (detected == 2) {
+                    } else if (detected == 3) {
+                    }
+                    state358 = state.STOP;
                     break;
 
-                case CRATER:                                    // drive back to team crater
+                case DROP:                                    // drive to depot & drop token
+                    extend(true);
+                    state358 = state.STOP;
+                    break;
+
+                case DRIVE:                                    // drive to enemy crater
 
                     state358 = state.STOP;
                     break;
@@ -84,6 +122,8 @@ public class AutoTC358 extends LinearOpMode {
             }
         }
     }
+
+    // Vuforia related
 
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
@@ -148,10 +188,18 @@ public class AutoTC358 extends LinearOpMode {
         return position;
     }
 
+    public void unlatchFromLander() {
+        //TODO: implement descend from lander & move to starting position & heading compensation with gyro
+    }
+
+    public void extend(Boolean drop) {
+        //TODO: extend arm to either claim crater / drop token
+    }
+
 
     enum state {
 
-        UNLATCH, DETECTKNOCKPOSITION, DROP, CRATER, STOP
+        UNLATCH, DETECT, KNOCK, DROP, DRIVE, STOP
 
     }
 
