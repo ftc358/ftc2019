@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -28,8 +29,9 @@ public class AutoD359 extends LinearOpMode {
     DcMotor rightMotor;
     DcMotor leftLatch;
     DcMotor rightLatch;
-    //DcMotor Rotation;
-    //DcMotor slideExtend;
+    DcMotor Rotation;
+    DcMotor slideExtend;
+    CRServo Intake;
 
     state state359;
     int detected = 0;
@@ -42,8 +44,9 @@ public class AutoD359 extends LinearOpMode {
         rightMotor = hardwareMap.dcMotor.get("rM");
         leftLatch = hardwareMap.dcMotor.get("lL");
         rightLatch = hardwareMap.dcMotor.get("rL");
-        //Rotation = hardwareMap.dcMotor.get("rotation");
-        //slideExtend = hardwareMap.dcMotor.get("sE");
+        Rotation = hardwareMap.dcMotor.get("rotation");
+        slideExtend = hardwareMap.dcMotor.get("sE");
+        Intake = hardwareMap.crservo.get("intake");
 
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
