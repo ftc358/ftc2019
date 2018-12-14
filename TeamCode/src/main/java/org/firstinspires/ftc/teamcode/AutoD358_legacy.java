@@ -1,5 +1,3 @@
-// Lingo: Auto Team Crater 358
-// Ends at own crater
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -16,19 +14,19 @@ import java.util.List;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous
-public class AutoTC358 extends LinearOpMode {
+public class AutoD358_legacy extends LinearOpMode {
 
     private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
-
     DcMotor lF;
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
-
+    //    DcMotor lL;         // left lift
+//    DcMotor rL;         // right lift
     state state358;
     int detected = 0;
     VuforiaLocalizer vuforia;
@@ -41,11 +39,14 @@ public class AutoTC358 extends LinearOpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
+//        lL = hardwareMap.dcMotor.get("lL");
+//        rL = hardwareMap.dcMotor.get("rL");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
+//        rL.setDirection(DcMotor.Direction.REVERSE);
 
-        state358 = state.UNLATCH;
+        state358 = state.DETECT;
         waitForStart();
 
         while (opModeIsActive()) {
@@ -54,33 +55,73 @@ public class AutoTC358 extends LinearOpMode {
             telemetry.update();
             switch (state358) {
 
-                case UNLATCH:                                   // unlatch and orient 90 degrees
+                case DETECT:
 
-                    state358 = state.DETECTKNOCKPOSITION;
+                    //initVuforiaThingy();
+                    //initTfod();
+                    //detected = lookForThings();
+                    Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 15);
+                    detected = lookForwardAndCheck();
+                    Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 15);
+                    // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
+                    telemetry.addData("Position of the cube", detected);
+                    telemetry.update();
+                    state358 = state.KNOCK;
                     break;
 
-                case DETECTKNOCKPOSITION:                       // detect, knock gold block, and drive to depot
-
+                case KNOCK:
+                    if (detected == 1) {
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 28);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 43);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 75);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 20);
+                    } else if (detected == 2) {
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 45);
+                    } else if (detected == 3) {
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 47);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 75);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 10);
+                    }
                     state358 = state.DROP;
                     break;
 
-                case DROP:                                      // drop team token in depot
-
-                    state358 = state.CRATER;
+                case DROP:
+//                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 3);
+                    state358 = state.POSITION;
                     break;
 
-                case CRATER:                                    // drive back to team crater
+                case POSITION:
+                    if (detected == 1) {
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -8);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 135);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -25);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 45);
+                    } else if (detected == 2) {
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -15);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 45);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 22);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 90);
+                    } else if (detected == 3) {
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -10);
+                    }
+                    state358 = state.DRIVE;
+                    break;
 
+                case DRIVE:
+                    Encoders.Forward(lF, lB, rF, rB, 0.25, -52);
+//                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 7);
                     state358 = state.STOP;
                     break;
 
-                case STOP:                                      // self explanatory
+                case STOP:
 
                     lF.setPower(0);
                     lB.setPower(0);
                     rF.setPower(0);
                     rB.setPower(0);
-
+//                    lL.setPower(0);
+//                    rL.setPower(0);
             }
         }
     }
@@ -151,7 +192,7 @@ public class AutoTC358 extends LinearOpMode {
 
     enum state {
 
-        UNLATCH, DETECTKNOCKPOSITION, DROP, CRATER, STOP
+        DETECT, KNOCK, DROP, POSITION, DRIVE, STOP
 
     }
 
