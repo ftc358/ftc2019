@@ -91,24 +91,49 @@ public class AutoD358_L extends LinearOpMode {
                     Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 15);
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
-                    state358 = state.DRIVE;
+                    state358 = state.KNOCK;
                     break;
 
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 34);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 40);
                     } else if (detected == 2) {
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 31);
                     } else if (detected == 3) {
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 34);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 40);
                     }
-                    state358 = state.STOP;
+                    state358 = state.DROP;
                     break;
 
                 case DROP:                                    // drive to depot & drop token
                     extend(true);
-                    state358 = state.STOP;
+                    state358 = state.DRIVE;
                     break;
 
                 case DRIVE:                                    // drive to enemy crater
+                    if (detected == 1) {
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 130);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 25);
+                    } else if (detected == 2) {
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -15);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 90);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 33);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
+                    } else if (detected == 3) {
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, -15);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 80);
+                        Encoders.Forward(lF, lB, rF, rB, 0.25, 53);
+                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
+                    }
+                    state358 = state.CRATER;
+                    break;
 
+                case CRATER:
+                    extend(false);
                     state358 = state.STOP;
                     break;
 
@@ -118,7 +143,6 @@ public class AutoD358_L extends LinearOpMode {
                     lB.setPower(0);
                     rF.setPower(0);
                     rB.setPower(0);
-
             }
         }
     }
@@ -199,7 +223,7 @@ public class AutoD358_L extends LinearOpMode {
 
     enum state {
 
-        UNLATCH, DETECT, KNOCK, DROP, DRIVE, STOP
+        UNLATCH, DETECT, KNOCK, DROP, DRIVE, CRATER, STOP
 
     }
 
