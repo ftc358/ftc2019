@@ -30,7 +30,6 @@ public class AutoD359 extends LinearOpMode {
     DcMotor rightLatch;
     //DcMotor Rotation;
     //DcMotor slideExtend;
-    //DcMotor slideRetract;
 
     state state359;
     int detected = 0;
@@ -45,7 +44,6 @@ public class AutoD359 extends LinearOpMode {
         rightLatch = hardwareMap.dcMotor.get("rL");
         //Rotation = hardwareMap.dcMotor.get("rotation");
         //slideExtend = hardwareMap.dcMotor.get("sE");
-        //slideRetract = hardwareMap.dcMotor.get("sR");
 
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
