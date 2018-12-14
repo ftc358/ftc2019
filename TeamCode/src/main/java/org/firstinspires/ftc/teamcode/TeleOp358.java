@@ -19,6 +19,8 @@ public class TeleOp358 extends LinearOpMode {
     DcMotor bL;
     DcMotor fR;
     DcMotor bR;
+    DcMotor lift;
+    DcMotor scoreLift;
     double SCALE = 2;
 
     //This function finds the magnitude of the left stick of a gamepad.
@@ -37,6 +39,8 @@ public class TeleOp358 extends LinearOpMode {
         bL = hardwareMap.dcMotor.get("lB");
         fR = hardwareMap.dcMotor.get("rF");
         bR = hardwareMap.dcMotor.get("rB");
+        lift = hardwareMap.dcMotor.get("lift");
+        scoreLift = hardwareMap.dcMotor.get("scoreLift");
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         bL.setDirection(DcMotor.Direction.REVERSE);
@@ -70,6 +74,13 @@ public class TeleOp358 extends LinearOpMode {
             bL.setPower((POWER * blPower / maxPower) / SCALE);
             fR.setPower((POWER * frPower / maxPower) / SCALE);
             bR.setPower((POWER * brPower / maxPower) / SCALE);
+
+            if (gamepad1.dpad_up){
+                lift.setPower(0.5);
+            }
+            else if (gamepad1.dpad_down){
+                lift.setPower(-0.5);
+            }
 
         }
     }
