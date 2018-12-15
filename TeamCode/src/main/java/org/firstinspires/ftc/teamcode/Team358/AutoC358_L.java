@@ -1,6 +1,6 @@
-// Lingo: Auto Enemy Crater 358
-// Ends at other crater
-package org.firstinspires.ftc.teamcode;
+// Lingo: Auto Crater 358, Left (Enemy) Crater
+
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -18,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous
-public class AutoD358_L extends LinearOpMode {
+public class AutoC358_L extends LinearOpMode {
 
     private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -75,7 +76,7 @@ public class AutoD358_L extends LinearOpMode {
                     break;
 
                 case DETECT:                       // detect
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 15);
+                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 15);
                     try {
                         TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
                             @Override
@@ -88,7 +89,6 @@ public class AutoD358_L extends LinearOpMode {
                         telemetry.update();
                         detected = 2;
                     }
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 15);
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state358 = state.KNOCK;
@@ -96,39 +96,54 @@ public class AutoD358_L extends LinearOpMode {
 
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 34);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 40);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 15);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 26);
                     } else if (detected == 2) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 31);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 15);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 22);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 34);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 40);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 45);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 24);
+
                     }
                     state358 = state.DROP;
                     break;
 
                 case DROP:                                    // drive to depot & drop token
+                    if (detected == 1) {
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 85);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 46);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 30);
+                    } else if (detected == 2) {
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -10);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 90);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 45);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 45);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 14);
+                    } else if (detected == 3) {
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -10);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 120);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 52);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 45);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 14);
+                    }
                     extend(true);
                     state358 = state.DRIVE;
                     break;
 
                 case DRIVE:                                    // drive to enemy crater
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 130);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 25);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 30);
                     } else if (detected == 2) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -15);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 90);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 33);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
+
                     } else if (detected == 3) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -15);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 80);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 53);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
+
                     }
+                    Encoders358.Forward(lF, lB, rF, rB, 0.25, 13);
+                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 45);
+                    Encoders358.Forward(lF, lB, rF, rB, 0.25, 32);
+                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 45);
+                    Encoders358.Forward(lF, lB, rF, rB, 0.25, 38);
                     state358 = state.CRATER;
                     break;
 

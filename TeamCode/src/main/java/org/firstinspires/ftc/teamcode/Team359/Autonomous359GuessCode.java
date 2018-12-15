@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team359;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -14,6 +15,7 @@ public class Autonomous359GuessCode extends LinearOpMode {
     DcMotor rightLatch;
     DcMotor Rotation;
     DcMotor slideExtend;
+    CRServo Intake;
 
     public void runOpMode() throws InterruptedException {
 
@@ -23,6 +25,7 @@ public class Autonomous359GuessCode extends LinearOpMode {
         rightLatch = hardwareMap.dcMotor.get("rL");
         Rotation = hardwareMap.dcMotor.get("rotation");
         slideExtend = hardwareMap.dcMotor.get("sE");
+        Intake = hardwareMap.crservo.get("intake");
 
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);

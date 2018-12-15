@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.Encoders;
+import org.firstinspires.ftc.teamcode.Team358.Encoders358;
 
 @Disabled
 @Autonomous
@@ -51,7 +51,7 @@ public class LetsTestThis extends LinearOpMode {
             switch (state358) {
 
                 case EXTEND:
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
+                    Encoders358.Forward(lF, lB, rF, rB, 0.25, 1000);
                     state358 = state.DETECT;
 
                     break;

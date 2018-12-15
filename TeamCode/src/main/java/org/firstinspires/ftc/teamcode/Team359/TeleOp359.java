@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team359;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
@@ -15,6 +16,7 @@ public class TeleOp359 extends OpMode {
     DcMotor rightLatch;
     DcMotor Rotation;
     DcMotor slideExtend;
+    CRServo Intake;
 
     public void init() {
         leftMotor = hardwareMap.dcMotor.get("lM");
@@ -23,6 +25,7 @@ public class TeleOp359 extends OpMode {
         rightLatch = hardwareMap.dcMotor.get("rL");
         Rotation = hardwareMap.dcMotor.get("rotation");
         slideExtend = hardwareMap.dcMotor.get("sE");
+        Intake = hardwareMap.crservo.get("intake");
 
 
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);

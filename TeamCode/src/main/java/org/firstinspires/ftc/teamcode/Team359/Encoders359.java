@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team359;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -6,7 +6,7 @@ public class Encoders359 {
 
     public static void Forward(DcMotor motor1, DcMotor motor2, double power, int distance) {
 
-        //Reset Encoders\\
+        //Reset Encoders358\\
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -33,7 +33,7 @@ public class Encoders359 {
 
     public static void Turn(DcMotor motor1, DcMotor motor2, double power, int distance) {
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -60,7 +60,7 @@ public class Encoders359 {
 
     public static void Slide(DcMotor motor1, double power, int distance) {
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Set to RUN_TO_POSITION mode
@@ -83,7 +83,7 @@ public class Encoders359 {
 
     public static void Intake(DcMotor motor1, double power, int distance) {
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Set to RUN_TO_POSITION mode

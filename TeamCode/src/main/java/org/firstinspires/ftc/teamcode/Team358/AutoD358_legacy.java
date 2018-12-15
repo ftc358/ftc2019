@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -60,9 +60,9 @@ public class AutoD358_legacy extends LinearOpMode {
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 15);
+                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 15);
                     detected = lookForwardAndCheck();
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 15);
+                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 15);
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
@@ -71,17 +71,17 @@ public class AutoD358_legacy extends LinearOpMode {
 
                 case KNOCK:
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 28);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 43);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 75);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 20);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 28);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 43);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 75);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 20);
                     } else if (detected == 2) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 45);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 45);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 47);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 75);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 10);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 30);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 47);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 75);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 10);
                     }
                     state358 = state.DROP;
                     break;
@@ -93,23 +93,23 @@ public class AutoD358_legacy extends LinearOpMode {
 
                 case POSITION:
                     if (detected == 1) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -8);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 135);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -25);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 45);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -8);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 135);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -25);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 45);
                     } else if (detected == 2) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -15);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 45);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 22);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 90);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -15);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 45);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 22);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 90);
                     } else if (detected == 3) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -10);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -10);
                     }
                     state358 = state.DRIVE;
                     break;
 
                 case DRIVE:
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, -52);
+                    Encoders358.Forward(lF, lB, rF, rB, 0.25, -52);
 //                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 7);
                     state358 = state.STOP;
                     break;

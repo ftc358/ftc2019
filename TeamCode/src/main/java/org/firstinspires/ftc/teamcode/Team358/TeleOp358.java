@@ -1,9 +1,11 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import static java.lang.Math.abs;
@@ -20,7 +22,10 @@ public class TeleOp358 extends LinearOpMode {
     DcMotor fR;
     DcMotor bR;
     DcMotor lift;
-    DcMotor scoreLift;
+    DcMotor latch;
+    DcMotor extend;
+    CRServo intake;
+    Servo box;
     double SCALE = 2;
 
     //This function finds the magnitude of the left stick of a gamepad.
@@ -40,7 +45,10 @@ public class TeleOp358 extends LinearOpMode {
         fR = hardwareMap.dcMotor.get("rF");
         bR = hardwareMap.dcMotor.get("rB");
         lift = hardwareMap.dcMotor.get("lift");
-        scoreLift = hardwareMap.dcMotor.get("scoreLift");
+        latch = hardwareMap.dcMotor.get("latch");
+        extend = hardwareMap.dcMotor.get("extend");
+        intake = hardwareMap.crservo.get("intake");
+        box = hardwareMap.servo.get("box");
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         bL.setDirection(DcMotor.Direction.REVERSE);
@@ -50,6 +58,7 @@ public class TeleOp358 extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+
 
             //Defining drive, strafe, and rotation power.
             double drive = gamepad1.left_stick_y;
@@ -75,12 +84,48 @@ public class TeleOp358 extends LinearOpMode {
             fR.setPower((POWER * frPower / maxPower) / SCALE);
             bR.setPower((POWER * brPower / maxPower) / SCALE);
 
-            if (gamepad1.dpad_up){
-                lift.setPower(0.5);
+            if (gamepad1.left_trigger > 0.0){
+                latch.setPower(gamepad1.left_trigger);
             }
-            else if (gamepad1.dpad_down){
-                lift.setPower(-0.5);
+            else if (gamepad1.right_trigger > 0.0){
+                latch.setPower(-gamepad2.right_trigger);
             }
+            else{
+                latch.setPower(0);
+            }
+
+
+
+            lift.setPower(gamepad2.left_stick_y);
+
+            if (gamepad2.dpad_up){
+                extend.setPower(1);
+            }
+            else if (gamepad2.dpad_down){
+                extend.setPower(-1);
+            }
+            else {
+                extend.setPower(0);
+            }
+
+
+//            intake.setPower(gamepad2.right_stick_y);
+
+            if (gamepad2.left_bumper){
+                intake.setPower(1);
+            }
+            else if (gamepad2.right_bumper){
+                intake.setPower(-1);
+            }
+            else{
+                intake.setPower(0);
+            }
+
+//            box.setPosition(gamepad2.right_trigger);
+
+            box.setPosition(abs(gamepad2.right_stick_y));
+
+
 
         }
     }

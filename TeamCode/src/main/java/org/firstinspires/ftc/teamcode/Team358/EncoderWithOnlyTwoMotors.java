@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -12,7 +12,7 @@ public class EncoderWithOnlyTwoMotors {
 
         int ticks = (int) (((distance / (4 * Math.PI) * 720)) * 1.07 + 0.5);
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -54,7 +54,7 @@ public class EncoderWithOnlyTwoMotors {
         }
 
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
