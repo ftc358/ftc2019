@@ -26,6 +26,7 @@ public class TeleOp358 extends LinearOpMode {
     DcMotor extend;
     CRServo intake;
     Servo box;
+    boolean notDefaultBoxPosition = false;
     double SCALE = 2;
 
     //This function finds the magnitude of the left stick of a gamepad.
@@ -105,7 +106,7 @@ public class TeleOp358 extends LinearOpMode {
 //                extend.setPower(0);
 //            }
 
-            extend.setPower(gamepad2.right_stick_y);
+            extend.setPower(-gamepad2.right_stick_y);
 
 
 //            intake.setPower(gamepad2.right_stick_y);
@@ -118,7 +119,16 @@ public class TeleOp358 extends LinearOpMode {
                 intake.setPower(0);
             }
 
-            box.setPosition(.4+0.6*abs(gamepad2.right_trigger));
+            if (gamepad2.x) {
+                notDefaultBoxPosition = true;
+            }
+
+            if (notDefaultBoxPosition) {
+                box.setPosition(abs(gamepad2.right_trigger));
+                telemetry.addData("box servo position", abs(gamepad2.right_trigger));
+            } else {
+                box.setPosition(.4+0.6*abs(gamepad2.right_trigger));
+            }
 
 //            box.setPosition(abs(gamepad2.right_stick_y));
 

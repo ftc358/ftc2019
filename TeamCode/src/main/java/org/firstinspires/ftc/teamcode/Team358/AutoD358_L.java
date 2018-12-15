@@ -76,7 +76,7 @@ public class AutoD358_L extends LinearOpMode {
                     break;
 
                 case DETECT:                       // detect
-                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 15);
+                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 20);
                     try {
                         TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
                             @Override
@@ -89,7 +89,7 @@ public class AutoD358_L extends LinearOpMode {
                         telemetry.update();
                         detected = 2;
                     }
-                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 15);
+//                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 20);
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state358 = state.KNOCK;
@@ -97,18 +97,18 @@ public class AutoD358_L extends LinearOpMode {
 
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
-                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 15);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 10);
                         Encoders358.Forward(lF, lB, rF, rB, 0.25, 34);
                         Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 40);
                     } else if (detected == 2) {
-                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 15);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 20);
                         Encoders358.Forward(lF, lB, rF, rB, 0.25, 31);
                     } else if (detected == 3) {
-                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 45);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 50);
                         Encoders358.Forward(lF, lB, rF, rB, 0.25, 34);
                         Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 40);
                     }
-                    state358 = state.DROP;
+                    state358 = state.STOP;
                     break;
 
                 case DROP:                                    // drive to depot & drop token

@@ -133,7 +133,7 @@ public class AutonomousCalibration extends LinearOpMode {
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
 
-        latch = hardwareMap.dcMotor.get("lF");
+        latch = hardwareMap.dcMotor.get("latch");
 //        lL = hardwareMap.dcMotor.get("lL");
 //        rL = hardwareMap.dcMotor.get("rL");
 
@@ -143,7 +143,9 @@ public class AutonomousCalibration extends LinearOpMode {
 
         waitForStart();
 
-        Encoders358.runWithTicks1(latch, 1, 10000);
+        Encoders358.Forward(lF, lB, rF, rB, 0.25, 30);
+        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 180);
+        Encoders358.runWithTicks1(latch, 1, 5);
 
 //        Forward(lF, lB, rF, rB, 0.25, 1000);
 //        Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 180);
