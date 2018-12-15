@@ -85,10 +85,10 @@ public class TeleOp358 extends LinearOpMode {
             bR.setPower((POWER * brPower / maxPower) / SCALE);
 
             if (gamepad1.left_trigger > 0.0){
-                latch.setPower(gamepad1.left_trigger);
+                latch.setPower(-gamepad1.left_trigger);
             }
             else if (gamepad1.right_trigger > 0.0){
-                latch.setPower(-gamepad2.right_trigger);
+                latch.setPower(gamepad2.right_trigger);
             }
             else{
                 latch.setPower(0);
@@ -98,15 +98,17 @@ public class TeleOp358 extends LinearOpMode {
 
             lift.setPower(gamepad2.left_stick_y);
 
-            if (gamepad2.dpad_up){
-                extend.setPower(1);
-            }
-            else if (gamepad2.dpad_down){
-                extend.setPower(-1);
-            }
-            else {
-                extend.setPower(0);
-            }
+//            if (gamepad2.dpad_up){
+//                extend.setPower(1);
+//            }
+//            else if (gamepad2.dpad_down){
+//                extend.setPower(-1);
+//            }
+//            else {
+//                extend.setPower(0);
+//            }
+
+            extend.setPower(gamepad2.right_stick_y);
 
 
 //            intake.setPower(gamepad2.right_stick_y);
@@ -121,9 +123,9 @@ public class TeleOp358 extends LinearOpMode {
                 intake.setPower(0);
             }
 
-//            box.setPosition(gamepad2.right_trigger);
+            box.setPosition(gamepad2.right_trigger);
 
-            box.setPosition(abs(gamepad2.right_stick_y));
+//            box.setPosition(abs(gamepad2.right_stick_y));
 
 
 
