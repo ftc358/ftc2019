@@ -12,13 +12,13 @@ public class AutonomousCalibration extends LinearOpMode {
     DcMotor rF;
     DcMotor rB;
 
-    public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance) {
+    public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int ticks) {
 
         /**
          * Distance is in inches!
          */
 
-        int ticks = (int) (((distance / (4 * Math.PI) * 1130)) * 1.05 + 0.5);
+//        int ticks = (int) (((distance / (4 * Math.PI) * 1130)) * 1.05 + 0.5);
 
         //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -55,17 +55,17 @@ public class AutonomousCalibration extends LinearOpMode {
         motor4.setPower(0);
     }
 
-    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, Encoders358.Direction direction, int degrees) {
+    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, Encoders358.Direction direction, int ticks) {
 
         /**
          Angle in degrees!
          */
 
-        int ticks = (int) (degrees / 180 * 3850 + 0.5);
+//        int ticks = (int) (degrees / 180 * 3850 + 0.5);
 
-        if (direction == Encoders358.Direction.left) {
-            ticks = -ticks;
-        }
+//        if (direction == Encoders358.Direction.left) {
+//            ticks = -ticks;
+//        }
 
 
         //Reset Encoders358
@@ -118,7 +118,7 @@ public class AutonomousCalibration extends LinearOpMode {
 
         waitForStart();
 
-        Forward(lF, lB, rF, rB, 0.25, 60);
+        Forward(lF, lB, rF, rB, 0.25, 1000);
 //        Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 180);
 //        Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 90);
 //        Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 45);

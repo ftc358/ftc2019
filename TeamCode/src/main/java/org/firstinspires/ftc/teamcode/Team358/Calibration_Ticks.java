@@ -48,13 +48,15 @@ public class Calibration_Ticks extends LinearOpMode {
                         break;
                 }
             }
-            ticksToRun += gamepad1.left_stick_y * 100;
-            ticksToRun += gamepad1.right_stick_y * 10;
+//            ticksToRun += gamepad1.left_stick_y * 100;
+//            ticksToRun += gamepad1.right_stick_y * 10;
             if (gamepad1.a) {
                 ticksToRun += 1;
+                Thread.sleep(500);
             }
             if (gamepad2.b) {
                 ticksToRun -= 1;
+                Thread.sleep(500);
             }
             if (gamepad1.x) {
                 switch (calibrationMode) {
