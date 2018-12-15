@@ -84,11 +84,11 @@ public class TeleOp358 extends LinearOpMode {
             fR.setPower((POWER * frPower / maxPower) / SCALE);
             bR.setPower((POWER * brPower / maxPower) / SCALE);
 
-            if (gamepad1.left_trigger > 0.0){
-                latch.setPower(-gamepad1.left_trigger);
+            if (gamepad1.left_bumper){
+                latch.setPower(1);
             }
-            else if (gamepad1.right_trigger > 0.0){
-                latch.setPower(gamepad2.right_trigger);
+            else if (gamepad1.right_bumper){
+                latch.setPower(-1);
             }
             else{
                 latch.setPower(0);
