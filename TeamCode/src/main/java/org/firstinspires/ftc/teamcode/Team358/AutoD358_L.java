@@ -97,13 +97,14 @@ public class AutoD358_L extends LinearOpMode {
 
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
-                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 30);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 15);
                         Encoders358.Forward(lF, lB, rF, rB, 0.25, 34);
                         Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 40);
                     } else if (detected == 2) {
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 15);
                         Encoders358.Forward(lF, lB, rF, rB, 0.25, 31);
                     } else if (detected == 3) {
-                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 30);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 45);
                         Encoders358.Forward(lF, lB, rF, rB, 0.25, 34);
                         Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 40);
                     }
