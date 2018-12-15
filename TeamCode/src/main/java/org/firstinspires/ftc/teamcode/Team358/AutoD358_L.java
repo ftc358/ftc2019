@@ -1,5 +1,5 @@
-// Lingo: Auto Enemy Crater 358
-// Ends at other crater
+// Lingo: Auto Depot 358, Left (Enemy) Crater
+
 package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
