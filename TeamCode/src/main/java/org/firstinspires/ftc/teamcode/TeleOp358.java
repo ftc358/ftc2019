@@ -59,6 +59,7 @@ public class TeleOp358 extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+
             //Defining drive, strafe, and rotation power.
             double drive = gamepad1.left_stick_y;
             double strafe = gamepad1.left_stick_x;
@@ -83,9 +84,6 @@ public class TeleOp358 extends LinearOpMode {
             fR.setPower((POWER * frPower / maxPower) / SCALE);
             bR.setPower((POWER * brPower / maxPower) / SCALE);
 
-
-            latch.setPower(0);
-
             if (gamepad1.left_trigger > 0.0){
                 latch.setPower(gamepad1.left_trigger);
             }
@@ -96,19 +94,32 @@ public class TeleOp358 extends LinearOpMode {
                 latch.setPower(0);
             }
 
+
+
             lift.setPower(gamepad2.left_stick_y);
 
-            extend.setPower(gamepad2.right_stick_y);
+            if (gamepad2.dpad_up){
+                extend.setPower(1);
+            }
+            else if (gamepad2.dpad_down){
+                extend.setPower(-1);
+            }
+            else {
+                extend.setPower(0);
+            }
 
-            if (gamepad2.left_bumper){
-                intake.setPower(1);
-            }
-            else if (gamepad2.right_bumper){
-                intake.setPower(-1);
-            }
-            else{
-                intake.setPower(0);
-            }
+
+            intake.setPower(gamepad2.right_stick_y);
+
+//            if (gamepad2.left_bumper){
+//                intake.setPower(1);
+//            }
+//            else if (gamepad2.right_bumper){
+//                intake.setPower(-1);
+//            }
+//            else{
+//                intake.setPower(0);
+//            }
 
             box.setPosition(gamepad2.right_trigger);
 
