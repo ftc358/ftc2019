@@ -24,6 +24,8 @@ public class Calibration_Coef extends LinearOpMode {
 
         int distance = 10;
 
+        waitForStart();
+
         while (opModeIsActive()) {
 
             distance += gamepad1.left_stick_y * 100;

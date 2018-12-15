@@ -33,6 +33,8 @@ public class Calibration_Ticks extends LinearOpMode {
 
         calibrationMode = state.FORWARD;
 
+        waitForStart();
+
         while (opModeIsActive()) {
             if (gamepad1.left_bumper) {
                 switch (calibrationMode) {
