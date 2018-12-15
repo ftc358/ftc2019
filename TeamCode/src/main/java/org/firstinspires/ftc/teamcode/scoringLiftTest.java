@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class scoringLiftTest extends LinearOpMode {
 
     DcMotor lift;
+    double power = 0;
 
     public void runOpMode() throws InterruptedException {
 
@@ -18,13 +19,8 @@ public class scoringLiftTest extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            if (gamepad1.dpad_up){
-                lift.setPower(1);
-            }
-            else if (gamepad1.dpad_down){
-                lift.setPower(-1);
-            }
-            lift.setPower(0);
+            lift.setPower(gamepad1.left_stick_y);
+            telemetry.addData("joystick", gamepad1.left_stick_y);
 
         }
     }
