@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @Autonomous
 public class AutonomousCalibration extends LinearOpMode {
 
+    DcMotor latch;
+
     DcMotor lF;
     DcMotor lB;
     DcMotor rF;
@@ -103,12 +105,35 @@ public class AutonomousCalibration extends LinearOpMode {
         motor4.setPower(0);
     }
 
+    public static void runWithTicks1(DcMotor motor1, double power, int ticks) {
+        //Reset Encoders358
+        motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Set to RUN_TO_POSITION mode
+        motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //Set Target Position
+        motor1.setTargetPosition(-ticks);
+
+        //Set Drive Power
+        motor1.setPower(power);
+
+        while (motor1.isBusy()) {
+            //Wait Until Target Position is Reached
+        }
+
+        //Stop and Change Mode back to Normal
+        motor1.setPower(0);
+    }
+
     public void runOpMode() throws InterruptedException {
 
         lF = hardwareMap.dcMotor.get("lF");
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
+
+        latch = hardwareMap.dcMotor.get("lF");
 //        lL = hardwareMap.dcMotor.get("lL");
 //        rL = hardwareMap.dcMotor.get("rL");
 
@@ -118,7 +143,9 @@ public class AutonomousCalibration extends LinearOpMode {
 
         waitForStart();
 
-        Forward(lF, lB, rF, rB, 0.25, 1000);
+        Encoders358.runWithTicks1(latch, 1, 10000);
+
+//        Forward(lF, lB, rF, rB, 0.25, 1000);
 //        Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 180);
 //        Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 90);
 //        Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 45);

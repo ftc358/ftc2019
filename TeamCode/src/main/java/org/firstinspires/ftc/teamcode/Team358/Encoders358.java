@@ -131,5 +131,26 @@ public class Encoders358 {
         motor4.setPower(0);
     }
 
+    public static void runWithTicks1(DcMotor motor1, double power, int ticks) {
+        //Reset Encoders358
+        motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Set to RUN_TO_POSITION mode
+        motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //Set Target Position
+        motor1.setTargetPosition(-ticks);
+
+        //Set Drive Power
+        motor1.setPower(power);
+
+        while (motor1.isBusy()) {
+            //Wait Until Target Position is Reached
+        }
+
+        //Stop and Change Mode back to Normal
+        motor1.setPower(0);
+    }
+
     enum Direction {left, right}
 }
