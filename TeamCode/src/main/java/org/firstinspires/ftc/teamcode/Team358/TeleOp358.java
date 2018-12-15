@@ -95,7 +95,6 @@ public class TeleOp358 extends LinearOpMode {
             }
 
 
-
             lift.setPower(gamepad2.left_stick_y);
 
 //            if (gamepad2.dpad_up){
@@ -124,6 +123,8 @@ public class TeleOp358 extends LinearOpMode {
             }
 
             box.setPosition(gamepad2.right_trigger);
+            telemetry.addData("trigger", gamepad2.right_trigger);
+            telemetry.update();
 
 //            box.setPosition(abs(gamepad2.right_stick_y));
 
