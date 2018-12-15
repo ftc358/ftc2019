@@ -1,4 +1,4 @@
-// Lingo: Auto Depot 358, Left (Enemy) Crater
+// Lingo: Auto Depot 358, Right (Ally) Crater
 
 package org.firstinspires.ftc.teamcode.Team358;
 
