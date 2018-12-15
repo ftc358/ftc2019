@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -20,7 +20,7 @@ public class AutonomousCalibration extends LinearOpMode {
 
         int ticks = (int) (((distance / (4 * Math.PI) * 1130)) * 1.05 + 0.5);
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -55,7 +55,7 @@ public class AutonomousCalibration extends LinearOpMode {
         motor4.setPower(0);
     }
 
-    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, Encoders.Direction direction, int degrees) {
+    public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, Encoders358.Direction direction, int degrees) {
 
         /**
          Angle in degrees!
@@ -63,12 +63,12 @@ public class AutonomousCalibration extends LinearOpMode {
 
         int ticks = (int) (degrees / 180 * 3850 + 0.5);
 
-        if (direction == Encoders.Direction.left) {
+        if (direction == Encoders358.Direction.left) {
             ticks = -ticks;
         }
 
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -119,9 +119,9 @@ public class AutonomousCalibration extends LinearOpMode {
         waitForStart();
 
         Forward(lF, lB, rF, rB, 0.25, 60);
-//        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 180);
-//        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 90);
-//        Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 45);
+//        Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 180);
+//        Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 90);
+//        Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 45);
 
     }
 }

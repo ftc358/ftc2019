@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -112,7 +112,7 @@ public class TeleOp358 extends LinearOpMode {
 //            intake.setPower(gamepad2.right_stick_y);
 
             if (gamepad2.left_bumper){
-                intake.setPower(1);x
+                intake.setPower(1);
             }
             else if (gamepad2.right_bumper){
                 intake.setPower(-1);

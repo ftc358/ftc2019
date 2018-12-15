@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class Encoders {
+public class Encoders358 {
 
     public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, Direction direction, double degrees) {
 
@@ -17,7 +17,7 @@ public class Encoders {
         }
 
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -60,7 +60,7 @@ public class Encoders {
 
         int ticks = (int) (((distance / (4 * Math.PI) * 1130)) * 1.05 + 0.5);
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

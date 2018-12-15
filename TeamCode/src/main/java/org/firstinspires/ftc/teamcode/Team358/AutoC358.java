@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -74,9 +74,9 @@ public class AutoC358 extends LinearOpMode {
                 case TURN:
 
                     if (detected == 1) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -200);
+//                        Encoders358.Turn(lF, lB, rF, rB, 0.25, -200);
                     } else if (detected == 3) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 200);
+//                        Encoders358.Turn(lF, lB, rF, rB, 0.25, 200);
                     }
                     state358 = state.EXTEND;
                     break;
@@ -90,27 +90,27 @@ public class AutoC358 extends LinearOpMode {
                 case KNOCK:
 
                     if (detected == 1) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
+//                        Encoders358.Turn(lF, lB, rF, rB, 0.25, -1000);
+//                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 1000);
+//                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -1000);
+//                        Encoders358.Turn(lF, lB, rF, rB, 0.25, 1000);
 
                     } else if (detected == 2) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -2000);
-                        //Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -2000);
+                        //Encoders358.Forward(lF, lB, rF, rB, 0.25, -1000);
                     } else if (detected == 3) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
+//                        Encoders358.Turn(lF, lB, rF, rB, 0.25, 1000);
+//                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 1000);
+//                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -1000);
+//                        Encoders358.Turn(lF, lB, rF, rB, 0.25, -1000);
                     }
                     state358 = state.DRIVE;
                     break;
 
                 case DRIVE:
 
-                    //Encoders.Turn(lF, lB, rF, rB, 0.25, 9000);
-                    //Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
+                    //Encoders358.Turn(lF, lB, rF, rB, 0.25, 9000);
+                    //Encoders358.Forward(lF, lB, rF, rB, 0.25, 3000);
                     rL.setPower(0.4);
                     //lL.setPower(0.4);
                     sleep(2000);
@@ -220,22 +220,22 @@ public class AutoC358 extends LinearOpMode {
         initVuforiaThingy();
         initTfod();
         //WOW update degrees to actual degrees after u measure
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
+        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 30);
         result = lookForThings();
         //suppose we actually test this we could limit detected a bit more to avoid incorrectly seeing middle mineral
         if (result < 0) {
-            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
+            Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 30);
             return 1;
         }
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
+        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 30);
         result = lookForThings();
         if (result < 0) {
             return 2;
         }
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
+        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 30);
         result = lookForThings();
         if (result < 0) {
-            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
+            Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 30);
             return 3;
         }
         return 2;
