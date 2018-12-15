@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.Archive;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import java.util.ArrayList;
 
 //@Autonomous
+@Disabled
 public class CalvinEncoderTest extends LinearOpMode {
     DcMotor lF;
     DcMotor lB;
