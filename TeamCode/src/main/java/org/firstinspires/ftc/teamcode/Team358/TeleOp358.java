@@ -96,6 +96,8 @@ public class TeleOp358 extends LinearOpMode {
 
             lift.setPower(gamepad2.left_stick_y);
 
+            extend.setPower(-gamepad2.right_stick_y);
+
 //            if (gamepad2.dpad_up){
 //                extend.setPower(1);
 //            }
@@ -105,9 +107,6 @@ public class TeleOp358 extends LinearOpMode {
 //            else {
 //                extend.setPower(0);
 //            }
-
-            extend.setPower(-gamepad2.right_stick_y);
-
 
 //            intake.setPower(gamepad2.right_stick_y);
 
