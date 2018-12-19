@@ -4,5 +4,5 @@ import java.util.concurrent.Callable;
 
 public class RobotAction {
     boolean requireMultithreading;
-    Callable actionMethod;
+    Runnable actionMethod;
 }

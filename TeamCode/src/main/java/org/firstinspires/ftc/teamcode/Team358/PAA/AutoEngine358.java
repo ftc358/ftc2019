@@ -4,16 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AutoEngine358 {
-    public List<Runnable> robotActions = new ArrayList<>();
+    public List<RobotAction> robotActions = new ArrayList<>();
 
-    public void addRobotAction(Runnable actionMethod) {
+    public void addRobotAction(RobotAction actionMethod) {
         robotActions.add(actionMethod);
     }
 
     public void runRobotActions()
     {
-        for(Runnable aMethod : robotActions) {
-            aMethod.run();
+        for(RobotAction action : robotActions) {
+            if (action.requireMultithreading) {
+                new Thread(action.actionMethod).start();
+                // Probably creating a new thread for every action that requires this;
+                // I only run this for 30s so should probably get away from this
+            } else {
+                action.actionMethod.run();
+            }
         }
     }
 }

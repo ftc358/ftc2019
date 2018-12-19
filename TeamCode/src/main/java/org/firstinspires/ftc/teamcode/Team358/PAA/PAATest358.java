@@ -41,8 +41,8 @@ public class PAATest358 extends LinearOpMode {
         });
 
 
-        autoEngine.addRobotAction(forwardTest.actionMethod);
-        autoEngine.addRobotAction(backwardTest.actionMethod);
+        autoEngine.addRobotAction(forwardTest);
+        autoEngine.addRobotAction(backwardTest);
         autoEngine.runRobotActions();
     }
 }
