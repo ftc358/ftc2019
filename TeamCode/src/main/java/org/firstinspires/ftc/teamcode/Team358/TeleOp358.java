@@ -96,6 +96,8 @@ public class TeleOp358 extends LinearOpMode {
 
             lift.setPower(gamepad2.left_stick_y);
 
+            extend.setPower(-gamepad2.right_stick_y);
+
 //            if (gamepad2.dpad_up){
 //                extend.setPower(1);
 //            }
@@ -106,9 +108,6 @@ public class TeleOp358 extends LinearOpMode {
 //                extend.setPower(0);
 //            }
 
-            extend.setPower(-gamepad2.right_stick_y);
-
-
 //            intake.setPower(gamepad2.right_stick_y);
 
 //            if (gamepad2.left_bumper) {
@@ -117,6 +116,32 @@ public class TeleOp358 extends LinearOpMode {
 //                intake.setPower(-1);
 //            } else {
 //                intake.setPower(0);
+//            }
+
+//            if (gamepad2.left_bumper){
+//
+//                intake.setPower(1);
+//
+//                while (gamepad2.left_bumper) {
+//                    intake.setPower(1);
+//                }
+//            }
+//            else if (gamepad2.right_bumper){
+//
+//                intake.setPower(-1);
+//
+//                while (gamepad2.right_bumper) {
+//                    intake.setPower(-1);
+//                }
+//
+//            }
+//            else if (gamepad2.a){
+//
+//                intake.setPower(0);
+//
+//                while (gamepad2.a) {
+//                    intake.setPower(0);
+//                }
 //            }
 
             if (gamepad2.left_bumper){
@@ -144,7 +169,6 @@ public class TeleOp358 extends LinearOpMode {
                     intake.setPower(0);
                 }
             }
-
 
             if (gamepad2.x) {
                 notDefaultBoxPosition = true;
