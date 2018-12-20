@@ -11,4 +11,12 @@ public class MoveAction extends RobotAction {
         this.toPosition = toPosition;
         this.actionMethod = actionMethod;
     }
+
+    public Boolean getRequireMultithreading() {
+        return requireMultithreading;
+    }
+
+    public Runnable getActionMethod() {
+        return actionMethod;
+    }
 }

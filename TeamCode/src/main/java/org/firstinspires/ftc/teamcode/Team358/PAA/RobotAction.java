@@ -2,7 +2,9 @@ package org.firstinspires.ftc.teamcode.Team358.PAA;
 
 import java.util.concurrent.Callable;
 
-public class RobotAction {
-    boolean requireMultithreading;
-    Runnable actionMethod;
+public abstract class RobotAction {
+
+    abstract public Boolean getRequireMultithreading();
+
+    abstract public Runnable getActionMethod();
 }

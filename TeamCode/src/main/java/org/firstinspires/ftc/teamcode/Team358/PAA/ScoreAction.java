@@ -8,4 +8,12 @@ public class ScoreAction extends RobotAction {
         this.requireMultithreading = requireMultithreading;
         this.actionMethod = actionMethod;
     }
+
+    public Boolean getRequireMultithreading() {
+        return requireMultithreading;
+    }
+
+    public Runnable getActionMethod() {
+        return actionMethod;
+    }
 }
