@@ -25,44 +25,56 @@ public class RobotPosition {
      * 6 1 7
      */
 
-    public int getRelativePosition(RobotPosition nextPosition, RobotPosition currentPosition) {
-        int relativePosition = 8;
+    //TODO: change to actual headings
 
-        switch (nextPosition.x - currentPosition.x) {
+    public double getRelativeHeading(RobotPosition lastPosition) {
+        int relativeHeading = 0;
+
+        switch (this.x - lastPosition.x) {
             case 1:
-                switch (nextPosition.y - currentPosition.y) {
+                switch (this.y - lastPosition.y) {
                     case 1:
-                        relativePosition = 5;
+                        relativeHeading = 5;
+                        break;
                     case 0:
-                        relativePosition = 3;
+                        relativeHeading = 3;
+                        break;
                     case -1:
-                        relativePosition = 7;
+                        relativeHeading = 7;
+                        break;
                     default:
                         throw new IllegalArgumentException("Positions not adjacent");
                 }
+                break;
             case 0:
-                switch (nextPosition.y - currentPosition.y) {
+                switch (this.y - lastPosition.y) {
                     case 1:
-                        relativePosition = 0;
+                        relativeHeading = 0;
+                        break;
                     case 0:
                         throw new IllegalArgumentException("Is current position");
                     case -1:
-                        relativePosition = 1;
+                        relativeHeading = 1;
+                        break;
                     default:
                         throw new IllegalArgumentException("Positions not adjacent");
                 }
+                break;
             case -1:
-                switch (nextPosition.y - currentPosition.y) {
+                switch (this.y - lastPosition.y) {
                     case 1:
-                        relativePosition = 4;
+                        relativeHeading = 4;
+                        break;
                     case 0:
-                        relativePosition = 2;
+                        relativeHeading = 2;
+                        break;
                     case -1:
-                        relativePosition = 6;
+                        relativeHeading = 6;break;
                     default:
                         throw new IllegalArgumentException("Positions not adjacent");
                 }
+                break;
         }
-        return relativePosition;
+        return relativeHeading;
     }
 }
