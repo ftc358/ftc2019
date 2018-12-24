@@ -3,14 +3,6 @@ package org.firstinspires.ftc.teamcode.Team358.PAA;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.RobotLog;
 
-import org.firstinspires.ftc.teamcode.Team358.PAA.IMUTurner;
-import org.firstinspires.ftc.teamcode.Team358.PAA.Robot358Main;
-
-/*
- * An example linear op mode where the pushbot
- * will drive in a square pattern using sleep()
- * and a for loop.
- */
 @TeleOp(name = "TestTurner", group = "test")
 public class TestTurner extends Robot358Main {
     @Override
