@@ -135,13 +135,11 @@ public abstract class Robot358Main extends LinearOpMode {
             int positionC = bL.getCurrentPosition();
             int positionD = bR.getCurrentPosition();
 
-//            waitForNextHardwareCycle();
-
             double power = turner.getPower();
             double scaleFactor = turner.getScaleFactor();
 
-            RobotLog.d("OctobotMain::turn()::power: " + power);
-            RobotLog.d("OctobotMain::turn()::scaleFactor: " + scaleFactor);
+            RobotLog.d("Robot358Main::turn()::power: " + power);
+            RobotLog.d("Robot358Main::turn()::scaleFactor: " + scaleFactor);
 
             keepGoing = turner.keepGoing(0);
 
@@ -149,7 +147,7 @@ public abstract class Robot358Main extends LinearOpMode {
                 if (Double.isNaN(scaleFactor)) {
                     keepGoing = false;
                 } else {
-                    RobotLog.d("OctobotMain::turn()::power * scaleFactor: " + power * scaleFactor);
+                    RobotLog.d("Robot358Main::turn()::power * scaleFactor: " + power * scaleFactor);
 
                     fL.setPower(-power * scaleFactor);
                     fR.setPower(-power * scaleFactor);
