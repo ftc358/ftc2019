@@ -4,10 +4,10 @@ import android.graphics.Point;
 
 public class MoveAction extends RobotAction {
     Boolean requireMultithreading = false;
-    Point toPosition;
+    RobotPosition toPosition;
     Runnable actionMethod;
 
-    MoveAction(Point toPosition, Runnable actionMethod) {
+    MoveAction(RobotPosition toPosition, Runnable actionMethod) {
         this.toPosition = toPosition;
         this.actionMethod = actionMethod;
     }
