@@ -70,19 +70,17 @@ public class IMUTurner extends DefaultStopper implements TurnerIF {
         double difference = _degrees - heading;
         difference += (difference > 180) ? -360 : (difference < -180) ? 360 : 0;
 
-        if(Math.abs(difference) < _maxError) {
+        if (Math.abs(difference) < _maxError) {
             return Double.NaN;
-        }
-        else {
+        } else {
             double direction = difference > 0 ? 1 : -1;
 
             double factor;
 
-            if(Math.abs(difference) > _slowDifference) {
+            if (Math.abs(difference) > _slowDifference) {
                 // Go full speed if we are more than 10 degrees different from target angle
                 factor = 1;
-            }
-            else {
+            } else {
                 factor = (1.0 - _minFactor) * Math.pow(Math.abs(difference) / _slowDifference, _rampDown) + _minFactor;
             }
 
