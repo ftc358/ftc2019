@@ -1,15 +1,20 @@
 package org.firstinspires.ftc.teamcode.Team358.PAA;
 
-import android.graphics.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AutoEngine358 {
-//    public List<RobotAction> robotActions = new ArrayList<>();
+    public List<RobotAction> robotActions = new ArrayList<>();
 
-    RobotAction currentAction;
+    public RobotPosition currentPosition = new RobotPosition(0, 0);
 
-    public Point position = new Point(1, 1);
+    public void addRobotAction(RobotAction actionMethod) {
+        robotActions.add(actionMethod);
+    }
 
     public void runRobotActions() {
-        currentAction.getActionMethod().run();
+        for (RobotAction action : robotActions) {
+            action.getActionMethod().run();
+        }
     }
 }
