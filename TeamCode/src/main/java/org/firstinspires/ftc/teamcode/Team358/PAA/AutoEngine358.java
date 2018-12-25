@@ -52,7 +52,7 @@ public abstract class AutoEngine358 extends Robot358Main {
                 public void run() {
                     try {
                         turn(new IMUTurner(positionChange - currentHeading, power, _imu1, .25, null), runUsingEncoders, true);
-                        EncoderDrive.Forward(fL, bL, fR, bR, 0.5, 2);
+                        forward(0.5, 2);
                     } catch (InterruptedException e) {
                         RobotLog.d("This should not happen.");
                     }

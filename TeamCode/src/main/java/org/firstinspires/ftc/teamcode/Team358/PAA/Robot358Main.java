@@ -150,8 +150,8 @@ public abstract class Robot358Main extends LinearOpMode {
                     RobotLog.d("Robot358Main::turn()::power * scaleFactor: " + power * scaleFactor);
 
                     fL.setPower(-power * scaleFactor);
-                    fR.setPower(-power * scaleFactor);
-                    bL.setPower(power * scaleFactor);
+                    bL.setPower(-power * scaleFactor);
+                    fR.setPower(power * scaleFactor);
                     bR.setPower(power * scaleFactor);
                 }
 
@@ -166,5 +166,48 @@ public abstract class Robot358Main extends LinearOpMode {
         if (stopMotors) {
             stopMotors();
         }
+    }
+
+    public void forward(double power, int distance) {
+
+        /**
+         * Distance is in inches!
+         */
+
+        int ticks = (int) (((distance / (4 * Math.PI) * 1130)) * 1.41 + 0.5);
+
+        //Reset Encoders358
+        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Set to RUN_TO_POSITION mode
+        fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //Set Target Position
+        fL.setTargetPosition(-ticks);
+        bL.setTargetPosition(-ticks);
+        fR.setTargetPosition(-ticks);
+        bR.setTargetPosition(-ticks);
+
+        //Set Drive Power
+        fL.setPower(power);
+        bL.setPower(power);
+        fR.setPower(power);
+        bR.setPower(power);
+
+        while (fL.isBusy() && fR.isBusy() && bL.isBusy() && bR.isBusy()) {
+            //Wait Until Target Position is Reached
+        }
+
+        //Stop and Change Mode back to Normal
+        fL.setPower(0);
+        bL.setPower(0);
+        fR.setPower(0);
+        bR.setPower(0);
     }
 }
