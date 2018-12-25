@@ -83,20 +83,21 @@ public abstract class AutoEngine358 extends Robot358Main {
     }
 
     public List<RobotPosition> findingTurns(List<RobotPosition> positions) {
-        RobotPosition lastPosition = positions.get(0);
+//        RobotPosition lastPosition = positions.get(0);
         List<RobotPosition> processedRoute = new ArrayList<>();
-        processedRoute.add(lastPosition);
-        positions.remove(0);
-        for (RobotPosition position : positions) {
-            if (!((position.x == lastPosition.x) || (position.y == lastPosition.y) ||
-                    ((position.x == (lastPosition.x + 1)) && (position.y == (lastPosition.y + 1))) ||
-                    ((position.x == (lastPosition.x + 1)) && (position.y == (lastPosition.y - 1))) ||
-                    ((position.x == (lastPosition.x - 1)) && (position.y == (lastPosition.y + 1))) ||
-                    ((position.x == (lastPosition.x - 1)) && (position.y == (lastPosition.y - 1))))) {
-                position.isTurn = true;
-                processedRoute.add(position);
-            }
-        }
+//        processedRoute.add(lastPosition);
+//        positions.remove(0);
+//        for (RobotPosition position : positions) {
+//            if (!((position.x == lastPosition.x) || (position.y == lastPosition.y) ||
+//                    ((position.x == (lastPosition.x + 1)) && (position.y == (lastPosition.y + 1))) ||
+//                    ((position.x == (lastPosition.x + 1)) && (position.y == (lastPosition.y - 1))) ||
+//                    ((position.x == (lastPosition.x - 1)) && (position.y == (lastPosition.y + 1))) ||
+//                    ((position.x == (lastPosition.x - 1)) && (position.y == (lastPosition.y - 1))))) {
+//                position.isTurn = true;
+//                processedRoute.add(position);
+//            }
+//        }
         return processedRoute;
+        //TODO: bad, fix
     }
 }
