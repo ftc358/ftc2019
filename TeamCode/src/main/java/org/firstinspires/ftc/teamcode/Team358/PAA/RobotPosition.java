@@ -4,6 +4,8 @@ public class RobotPosition {
     int x;
     int y;
 
+    Boolean isTurn;
+
     //Initializer
     RobotPosition(int x, int y) {
         if (x < 39) {
@@ -17,13 +19,6 @@ public class RobotPosition {
             throw new IllegalArgumentException("X value is outside the field");
         }
     }
-
-    /**
-     * Relative position:
-     * 4 0 5
-     * 2 R 3
-     * 6 1 7
-     */
 
     //TODO: test actual headings
     //I have no idea if it works. According to the datasheet the heading increases clockwise from 0 to 360, but I do not remember it that way
