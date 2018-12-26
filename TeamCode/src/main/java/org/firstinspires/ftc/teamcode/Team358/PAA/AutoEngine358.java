@@ -5,9 +5,6 @@ import com.qualcomm.robotcore.util.RobotLog;
 import java.util.ArrayList;
 import java.util.List;
 
-import java8.util.stream.Collectors;
-import java8.util.stream.Stream;
-
 import static java.lang.Math.abs;
 
 public abstract class AutoEngine358 extends Robot358Main {
