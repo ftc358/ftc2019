@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.util.RobotLog;
 import java.util.ArrayList;
 import java.util.List;
 
+import java8.util.stream.Collectors;
+import java8.util.stream.Stream;
+
 import static java.lang.Math.abs;
 
 public abstract class AutoEngine358 extends Robot358Main {
@@ -82,22 +85,50 @@ public abstract class AutoEngine358 extends Robot358Main {
             return (180 - abs(abs(current - target) - 180));
     }
 
-    public List<RobotPosition> findingTurns(List<RobotPosition> positions) {
-//        RobotPosition lastPosition = positions.get(0);
-        List<RobotPosition> processedRoute = new ArrayList<>();
-//        processedRoute.add(lastPosition);
-//        positions.remove(0);
-//        for (RobotPosition position : positions) {
-//            if (!((position.x == lastPosition.x) || (position.y == lastPosition.y) ||
-//                    ((position.x == (lastPosition.x + 1)) && (position.y == (lastPosition.y + 1))) ||
-//                    ((position.x == (lastPosition.x + 1)) && (position.y == (lastPosition.y - 1))) ||
-//                    ((position.x == (lastPosition.x - 1)) && (position.y == (lastPosition.y + 1))) ||
-//                    ((position.x == (lastPosition.x - 1)) && (position.y == (lastPosition.y - 1))))) {
-//                position.isTurn = true;
-//                processedRoute.add(position);
-//            }
-//        }
-        return processedRoute;
-        //TODO: bad, fix
+//    public List<RobotPosition> findingTurns(final List<RobotPosition> positions) {
+////        List<Point> points = new ArrayList<Point>();
+////        points.add(createPoint("A", 1, 0));
+////        points.add(createPoint("B", 1, 1));
+////        points.add(createPoint("C", 1, 2));
+////        points.add(createPoint("D", 2, 2));
+////        points.add(createPoint("E", 3, 1));
+////        points.add(createPoint("F", 4, 1));
+////        points.add(createPoint("G", 5, 1));
+////        points.add(createPoint("H", 5, 2));
+//
+//        List<Integer> indices = computeTurningPointIndices(positions);
+//        System.out.println("Turning points are at " + indices);
+//
+////        List<RobotPosition> turningPoints = Stream.of(indices).map(i -> positions.get(i))
+////                .collect(Collectors.toList());
+//
+////        System.out.println("Collinear:");
+////        indices.add(0, 0);
+////        indices.add(positions.size() - 1);
+////        for (int i = 0; i < indices.size() - 1; i++)
+////        {
+////            int i0 = indices.get(i);
+////            int i1 = indices.get(i + 1);
+////            List<RobotPosition> collinear = positions.subList(i0, i1 + 1);
+////
+////            System.out.println("    " + collinear);
+////        }
+//    }
+
+    private static List<Integer> computeTurningPointIndices(List<RobotPosition> points) {
+        List<Integer> indices = new ArrayList<Integer>();
+        for (int i = 1; i < points.size() - 1; i++) {
+            RobotPosition prev = points.get(i - 1);
+            RobotPosition curr = points.get(i);
+            RobotPosition next = points.get(i + 1);
+            int dxPrev = prev.x - curr.x;
+            int dyPrev = prev.y - curr.y;
+            int dxNext = next.x - curr.x;
+            int dyNext = next.y - curr.y;
+            if (dxPrev != dxNext && dyPrev != dyNext) {
+                indices.add(i);
+            }
+        }
+        return indices;
     }
 }
