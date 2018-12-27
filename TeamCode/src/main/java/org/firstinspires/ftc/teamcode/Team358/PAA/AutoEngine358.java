@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.util.RobotLog;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.lang.Math.abs;
 
@@ -84,28 +83,29 @@ public abstract class AutoEngine358 extends Robot358Main {
             return (180 - abs(abs(current - target) - 180));
     }
 
-//    public List<RobotPosition> findingTurns(final List<RobotPosition> positions) {
+    public List<RobotPosition> calculateTurningPoints(List<RobotPosition> points) {
+        {
+            List<Integer> indices = computeTurningPointIndices(points);
+//            System.out.println("Turning points are at " + indices);
+
+            List<RobotPosition> turningPoints = indices.stream().map(i -> points.get(i))
+                    .collect(Collectors.toList());
+//            System.out.println("They are " + turningPoints);
+            return turningPoints;
+
+//            System.out.println("Collinear:");
+//            indices.add(0, 0);
+//            indices.add(points.size() - 1);
+//            for (int i = 0; i < indices.size() - 1; i++)
+//            {
+//                int i0 = indices.get(i);
+//                int i1 = indices.get(i + 1);
+//                List<RobotPosition> collinear = points.subList(i0, i1 + 1);
 //
-//        List<Integer> indices = computeTurningPointIndices(positions);
-//        System.out.println("Turning points are at " + indices);
-//
-//        List<RobotPosition> turningPoints = Stream.of(indices).map(i -> positions.get(i))
-//                .collect(Collectors.toList());
-//
-//        return turningPoints;
-//
-////        System.out.println("Collinear:");
-////        indices.add(0, 0);
-////        indices.add(positions.size() - 1);
-////        for (int i = 0; i < indices.size() - 1; i++)
-////        {
-////            int i0 = indices.get(i);
-////            int i1 = indices.get(i + 1);
-////            List<RobotPosition> collinear = positions.subList(i0, i1 + 1);
-////
-////            System.out.println("    " + collinear);
-////        }
-//    }
+//                System.out.println("    " + collinear);
+//            }
+        }
+    }
 
     private static List<Integer> computeTurningPointIndices(List<RobotPosition> points) {
         List<Integer> indices = new ArrayList<Integer>();
