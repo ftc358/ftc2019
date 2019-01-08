@@ -47,6 +47,8 @@ public abstract class Robot358Main extends LinearOpMode {
     float pitchAngle;
     float rollAngle;
 
+    state state358;
+
     public void initialize() throws InterruptedException {
         fL = hardwareMap.dcMotor.get("lF");
         fL.setDirection(DcMotor.Direction.REVERSE);
@@ -289,5 +291,11 @@ public abstract class Robot358Main extends LinearOpMode {
         } else {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
+    }
+
+    enum state {
+
+        UNLATCH, DETECT, KNOCK, DROP, DRIVE, CRATER, STOP
+
     }
 }
