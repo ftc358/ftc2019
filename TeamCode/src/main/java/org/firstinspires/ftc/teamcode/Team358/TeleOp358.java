@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.teamcode.Team358.AutoLegacy.Robot358Main;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
@@ -15,17 +16,18 @@ import static java.lang.Math.sqrt;
 
 @TeleOp
 
-public class TeleOp358 extends LinearOpMode {
+public class TeleOp358 extends Robot358Main {
 
-    DcMotor fL;
-    DcMotor bL;
-    DcMotor fR;
-    DcMotor bR;
-    DcMotor lift;
-    DcMotor latch;
-    DcMotor extend;
-    CRServo intake;
-    Servo box;
+//    DcMotor fL;
+//    DcMotor bL;
+//    DcMotor fR;
+//    DcMotor bR;
+//    DcMotor lift;
+//    DcMotor latch;
+//    DcMotor extend;
+//    CRServo intake;
+//    Servo box;
+
     boolean notDefaultBoxPosition = false;
     double SCALE = 2;
 
