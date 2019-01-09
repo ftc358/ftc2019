@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.Team358.PAA;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.RobotLog;
 
-@TeleOp(name = "TestTurner", group = "test")
+//@TeleOp(name = "TestTurner", group = "test")
+@Disabled
 public class TestTurner extends Robot358Main {
     @Override
     public void runOpMode() throws InterruptedException {
