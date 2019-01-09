@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 import java.util.concurrent.TimeUnit;
 
 @Autonomous
-public class AutoC358_L extends Robot358Main {
+public class AutoC358_R extends Robot358Main {
 
     int detected = 0;
 
@@ -89,7 +89,7 @@ public class AutoC358_L extends Robot358Main {
                     state358 = state.DRIVE;
                     break;
 
-                case DRIVE:                                    // drive to enemy crater
+                case DRIVE:                                    // drive to friendly crater
                     if (detected == 1) {
                         turn(new IMUTurner(-30, power, _imu1, .25, null), runUsingEncoders, true);
                     } else if (detected == 2) {
@@ -98,10 +98,8 @@ public class AutoC358_L extends Robot358Main {
 
                     }
                     forward(0.5, 13);
-                    turn(new IMUTurner(-45, power, _imu1, .25, null), runUsingEncoders, true);
-                    forward(0.5, 32);
-                    turn(new IMUTurner(-45, power, _imu1, .25, null), runUsingEncoders, true);
-                    forward(0.5, 38);
+                    turn(new IMUTurner(-180, power, _imu1, .25, null), runUsingEncoders, true);
+                    forward(0.5, -42);
                     state358 = state.CRATER;
                     break;
 
