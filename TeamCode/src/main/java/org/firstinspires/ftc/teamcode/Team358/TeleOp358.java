@@ -130,9 +130,6 @@ public class TeleOp358 extends LinearOpMode {
                 box.setPosition(.4+0.6*abs(gamepad2.right_trigger));
             }
 
-//            box.setPosition(abs(gamepad2.right_stick_y));
-
-
         }
     }
 }
