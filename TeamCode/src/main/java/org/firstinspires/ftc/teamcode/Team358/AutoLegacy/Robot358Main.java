@@ -131,7 +131,7 @@ public abstract class Robot358Main extends LinearOpMode {
         extend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    //TODO: test if this turns right with positive anngles
+    //TODO: test if this turns right with positive angles
 
     public void turn(TurnerIF turner, boolean runUsingEncoders, boolean stopMotors) throws InterruptedException {
         turner.start();
