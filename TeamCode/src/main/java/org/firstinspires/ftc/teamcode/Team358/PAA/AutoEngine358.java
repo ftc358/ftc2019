@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
 public abstract class AutoEngine358 extends Robot358Main {
 
@@ -52,20 +53,35 @@ public abstract class AutoEngine358 extends Robot358Main {
         for (RobotPosition position : positions) {
             final double currentHeading = getCurrentHeading();
             final double targetHeading = position.getRelativeHeading(lastPosition);
-
-            robotMoveActions.add(new MoveAction(position, new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 2);
-                    } catch (InterruptedException e) {
-                        RobotLog.d("This should not happen.");
+            if (targetHeading == 0 || targetHeading == 90 || targetHeading == 180 || targetHeading == 270) {
+                robotMoveActions.add(new MoveAction(position, new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), power, _imu1, .25, null), runUsingEncoders, true);
+                            forward(0.5, 2);
+                        } catch (InterruptedException e) {
+                            RobotLog.d("This should not happen.");
+                        }
                     }
-                }
-            }));
+                }));
 
-            lastPosition = position;
+                lastPosition = position;
+            } else {
+                robotMoveActions.add(new MoveAction(position, new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), power, _imu1, .25, null), runUsingEncoders, true);
+                            forward(0.5, sqrt(8));
+                        } catch (InterruptedException e) {
+                            RobotLog.d("This should not happen.");
+                        }
+                    }
+                }));
+
+                lastPosition = position;
+            }
         }
     }
 

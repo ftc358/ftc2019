@@ -186,7 +186,7 @@ public abstract class Robot358Main extends LinearOpMode {
         }
     }
 
-    public void forward(double power, int distance) {
+    public void forward(double power, double distance) {
 
         //Distance is in inches
 
