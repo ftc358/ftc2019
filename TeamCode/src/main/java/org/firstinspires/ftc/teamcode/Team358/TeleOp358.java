@@ -18,16 +18,6 @@ import static java.lang.Math.sqrt;
 
 public class TeleOp358 extends Robot358Main {
 
-//    DcMotor fL;
-//    DcMotor bL;
-//    DcMotor fR;
-//    DcMotor bR;
-//    DcMotor lift;
-//    DcMotor latch;
-//    DcMotor extend;
-//    CRServo intake;
-//    Servo box;
-
     boolean notDefaultBoxPosition = false;
     double SCALE = 2;
 
@@ -42,21 +32,6 @@ public class TeleOp358 extends Robot358Main {
     }
 
     public void runOpMode() throws InterruptedException {
-
-        fL = hardwareMap.dcMotor.get("lF");
-        bL = hardwareMap.dcMotor.get("lB");
-        fR = hardwareMap.dcMotor.get("rF");
-        bR = hardwareMap.dcMotor.get("rB");
-        lift = hardwareMap.dcMotor.get("lift");
-        latch = hardwareMap.dcMotor.get("latch");
-        extend = hardwareMap.dcMotor.get("extend");
-        intake = hardwareMap.crservo.get("intake");
-        box = hardwareMap.servo.get("box");
-
-        fL.setDirection(DcMotor.Direction.REVERSE);
-        bL.setDirection(DcMotor.Direction.REVERSE);
-
-        //latch.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
 
