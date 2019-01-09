@@ -97,7 +97,7 @@ public class TeleOp358 extends LinearOpMode {
 
             lift.setPower(gamepad2.left_stick_y);
 
-            //Hand
+            //Arm
             extend.setPower(-gamepad2.right_stick_y);
 
             //Fingers
