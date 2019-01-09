@@ -60,7 +60,7 @@ public class TeleOp358 extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            //Drive code :)                                                                                     //
+            //Drive code :) //////////////////////////////////////////////////////////////////////////////////////
             //Defining drive, strafe, and rotation power.                                                       //
             double drive = gamepad1.left_stick_y;                                                               //
             double strafe = gamepad1.left_stick_x;                                                              //
@@ -85,7 +85,7 @@ public class TeleOp358 extends LinearOpMode {
             bL.setPower((POWER * blPower / maxPower) / SCALE);                                                  //
             fR.setPower((POWER * frPower / maxPower) / SCALE);                                                  //
             bR.setPower((POWER * brPower / maxPower) / SCALE);                                                  //
-            //Drive code                                                                                        //
+            //Drive code /////////////////////////////////////////////////////////////////////////////////////////
 
             if (gamepad1.left_bumper) {
                 latch.setPower(1);
@@ -95,102 +95,40 @@ public class TeleOp358 extends LinearOpMode {
                 latch.setPower(0);
             }
 
-
             lift.setPower(gamepad2.left_stick_y);
 
+            //Arm
             extend.setPower(-gamepad2.right_stick_y);
 
-//            if (gamepad2.dpad_up){
-//                extend.setPower(1);
-//            }
-//            else if (gamepad2.dpad_down){
-//                extend.setPower(-1);
-//            }
-//            else {
-//                extend.setPower(0);
-//            }
-
-//            intake.setPower(gamepad2.right_stick_y);
-
-//            if (gamepad2.left_bumper) {
-//                intake.setPower(1);
-//            } else if (gamepad2.right_bumper) {
-//                intake.setPower(-1);
-//            } else {
-//                intake.setPower(0);
-//            }
-
-//            if (gamepad2.left_bumper){
-//
-//                intake.setPower(1);
-//
-//                while (gamepad2.left_bumper) {
-//                    intake.setPower(1);
-//                }
-//            }
-//            else if (gamepad2.right_bumper){
-//
-//                intake.setPower(-1);
-//
-//                while (gamepad2.right_bumper) {
-//                    intake.setPower(-1);
-//                }
-//
-//            }
-//            else if (gamepad2.a){
-//
-//                intake.setPower(0);
-//
-//                while (gamepad2.a) {
-//                    intake.setPower(0);
-//                }
-//            }
-
+            //Fingers
             if (gamepad2.left_bumper){
-
                 intake.setPower(1);
-
                 while (gamepad2.left_bumper) {
                     intake.setPower(1);
-                }
-            }
+                } }
             else if (gamepad2.right_bumper){
-
                 intake.setPower(-1);
-
                 while (gamepad2.right_bumper) {
                     intake.setPower(-1);
-                }
-
-            }
+                } }
             else if (gamepad2.a){
-
                 intake.setPower(0);
-
                 while (gamepad2.a) {
                     intake.setPower(0);
-                }
-            }
-
+                } }
             telemetry.addData("intakePower", intake.getPower());
             telemetry.update();
 
-
-
-
+            //Wrist
             if (gamepad2.x) {
                 notDefaultBoxPosition = true;
             }
-
             if (notDefaultBoxPosition) {
                 box.setPosition(abs(gamepad2.right_trigger));
                 telemetry.addData("box servo position", abs(gamepad2.right_trigger));
             } else {
                 box.setPosition(.4+0.6*abs(gamepad2.right_trigger));
             }
-
-//            box.setPosition(abs(gamepad2.right_stick_y));
-
 
         }
     }
