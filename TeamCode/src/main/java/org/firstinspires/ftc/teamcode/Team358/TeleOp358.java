@@ -58,10 +58,10 @@ public class TeleOp358 extends Robot358Main {
             telemetry.update();                                                                                 //
                                                                                                                 //
             //Sets the power for all the drive motors.                                                          //
-            fL.setPower((POWER * flPower / maxPower) / SCALE);                                                  //
-            bL.setPower((POWER * blPower / maxPower) / SCALE);                                                  //
-            fR.setPower((POWER * frPower / maxPower) / SCALE);                                                  //
-            bR.setPower((POWER * brPower / maxPower) / SCALE);                                                  //
+            fL.setPower(-(POWER * flPower / maxPower) / SCALE);                                                  //
+            bL.setPower(-(POWER * blPower / maxPower) / SCALE);                                                  //
+            fR.setPower(-(POWER * frPower / maxPower) / SCALE);                                                  //
+            bR.setPower(-(POWER * brPower / maxPower) / SCALE);                                                  //
             //Drive code /////////////////////////////////////////////////////////////////////////////////////////
 
             if (gamepad1.left_bumper) {
