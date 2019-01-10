@@ -205,10 +205,10 @@ public abstract class Robot358Main extends LinearOpMode {
         bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //Set Target Position
-        fL.setTargetPosition(-ticks);
-        bL.setTargetPosition(-ticks);
-        fR.setTargetPosition(-ticks);
-        bR.setTargetPosition(-ticks);
+        fL.setTargetPosition(ticks);
+        bL.setTargetPosition(ticks);
+        fR.setTargetPosition(ticks);
+        bR.setTargetPosition(ticks);
 
         //Set Drive Power
         fL.setPower(power);

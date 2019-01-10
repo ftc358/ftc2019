@@ -16,6 +16,8 @@ public class AutoC358_L extends Robot358Main {
 
     public void runOpMode() throws InterruptedException {
 
+        initialize();
+
         telemetry.addData("Initialization:", "done");
         telemetry.update();
         double power = .5;
