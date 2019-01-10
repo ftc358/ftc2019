@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team358.AutoLegacy;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.Team358.Encoders358;
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
 import java.util.concurrent.TimeUnit;
@@ -15,6 +12,8 @@ public class AutoC358_L extends Robot358Main {
     int detected = 0;
 
     public void runOpMode() throws InterruptedException {
+
+        initialize();
 
         telemetry.addData("Initialization:", "done");
         telemetry.update();
@@ -64,7 +63,7 @@ public class AutoC358_L extends Robot358Main {
                         turn(new IMUTurner(50, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 24);
                     }
-                    state358 = state.STOP;
+                    state358 = state.DROP;
                     break;
 
                 case DROP:                                    // drive to depot & drop token
@@ -115,6 +114,7 @@ public class AutoC358_L extends Robot358Main {
             }
         }
     }
+
     public void unlatchFromLander() {
         //TODO: implement descend from lander & move to starting position & heading compensation with gyro
     }

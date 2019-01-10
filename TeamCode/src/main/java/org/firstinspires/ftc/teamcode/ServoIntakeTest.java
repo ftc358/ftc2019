@@ -18,15 +18,14 @@ public class ServoIntakeTest extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            if (gamepad2.left_bumper){
+            if (gamepad2.left_bumper) {
 
                 intake.setPower(1);
 
                 while (gamepad2.left_bumper) {
                     intake.setPower(1);
                 }
-            }
-            else if (gamepad2.right_bumper){
+            } else if (gamepad2.right_bumper) {
 
                 intake.setPower(-1);
 
@@ -34,8 +33,7 @@ public class ServoIntakeTest extends LinearOpMode {
                     intake.setPower(-1);
                 }
 
-            }
-            else if (gamepad2.a){
+            } else if (gamepad2.a) {
 
                 intake.setPower(0);
 

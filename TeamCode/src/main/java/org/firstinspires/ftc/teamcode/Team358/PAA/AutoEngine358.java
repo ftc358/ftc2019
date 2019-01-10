@@ -18,15 +18,30 @@ public abstract class AutoEngine358 extends Robot358Main {
     public List<RobotAction> robotActions = new ArrayList<>();
 
     public List<MoveAction> robotMoveActions;
-
+    public RobotPosition currentPosition;
     /**
      * Config
      */
 
     double power = .5;
     boolean runUsingEncoders = true;
-    public RobotPosition currentPosition;
 
+    private static List<Integer> computeTurningPointIndices(List<RobotPosition> points) {
+        List<Integer> indices = new ArrayList<Integer>();
+        for (int i = 1; i < points.size() - 1; i++) {
+            RobotPosition prev = points.get(i - 1);
+            RobotPosition curr = points.get(i);
+            RobotPosition next = points.get(i + 1);
+            int dxPrev = prev.x - curr.x;
+            int dyPrev = prev.y - curr.y;
+            int dxNext = next.x - curr.x;
+            int dyNext = next.y - curr.y;
+            if (dxPrev != dxNext && dyPrev != dyNext) {
+                indices.add(i);
+            }
+        }
+        return indices;
+    }
 
     /**
      * Engine Functions
@@ -121,22 +136,5 @@ public abstract class AutoEngine358 extends Robot358Main {
 //                System.out.println("    " + collinear);
 //            }
         }
-    }
-
-    private static List<Integer> computeTurningPointIndices(List<RobotPosition> points) {
-        List<Integer> indices = new ArrayList<Integer>();
-        for (int i = 1; i < points.size() - 1; i++) {
-            RobotPosition prev = points.get(i - 1);
-            RobotPosition curr = points.get(i);
-            RobotPosition next = points.get(i + 1);
-            int dxPrev = prev.x - curr.x;
-            int dyPrev = prev.y - curr.y;
-            int dxNext = next.x - curr.x;
-            int dyNext = next.y - curr.y;
-            if (dxPrev != dxNext && dyPrev != dyNext) {
-                indices.add(i);
-            }
-        }
-        return indices;
     }
 }

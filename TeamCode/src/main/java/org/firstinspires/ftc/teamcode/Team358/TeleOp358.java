@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.Team358.AutoLegacy.Robot358Main;
@@ -35,6 +32,8 @@ public class TeleOp358 extends Robot358Main {
 
         waitForStart();
 
+        initialize();
+
         while (opModeIsActive()) {
 
             //Drive code :) //////////////////////////////////////////////////////////////////////////////////////
@@ -42,13 +41,13 @@ public class TeleOp358 extends Robot358Main {
             double drive = gamepad1.left_stick_y;                                                               //
             double strafe = gamepad1.left_stick_x;                                                              //
             double rotate = gamepad1.right_stick_x;                                                             //
-                                                                                                                //
+            //
             //Defining the motor power distribution.                                                            //
             double flPower = drive - strafe - rotate;                                                           //
             double blPower = drive + strafe - rotate;                                                           //
             double frPower = drive + strafe + rotate;                                                           //
             double brPower = drive - strafe + rotate;                                                           //
-                                                                                                                //
+            //
             double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);     //
             double POWER = -1 * joyStick * abs(joyStick);                                                       //
             telemetry.addData("POWER: ", POWER);                                                        //
@@ -56,7 +55,7 @@ public class TeleOp358 extends Robot358Main {
             // greatest value of all motor powers                                                               //
             telemetry.addData("maxPower: ", maxPower);                                                  //
             telemetry.update();                                                                                 //
-                                                                                                                //
+            //
             //Sets the power for all the drive motors.                                                          //
             fL.setPower(-(POWER * flPower / maxPower) / SCALE);                                                  //
             bL.setPower(-(POWER * blPower / maxPower) / SCALE);                                                  //
@@ -72,30 +71,31 @@ public class TeleOp358 extends Robot358Main {
                 latch.setPower(0);
             }
 
-            lift.setPower(gamepad2.left_stick_y);
+            lift.setPower(-gamepad2.left_stick_y);
 
             //Arm
             extend.setPower(-gamepad2.right_stick_y);
 
             //Fingers
-            if (gamepad2.left_bumper){
+            if (gamepad2.left_bumper) {
                 intake.setPower(1);
                 while (gamepad2.left_bumper) {
                     telemetry.addData("intakePower", intake.getPower());
                     telemetry.update();
-                } }
-            else if (gamepad2.right_bumper){
+                }
+            } else if (gamepad2.right_bumper) {
                 intake.setPower(-1);
                 while (gamepad2.right_bumper) {
                     telemetry.addData("intakePower", intake.getPower());
                     telemetry.update();
-                } }
-            else if (gamepad2.a){
+                }
+            } else if (gamepad2.a) {
                 intake.setPower(0);
                 while (gamepad2.a) {
                     telemetry.addData("intakePower", intake.getPower());
                     telemetry.update();
-                } }
+                }
+            }
             telemetry.addData("intakePower", intake.getPower());
             telemetry.update();
 
@@ -111,7 +111,7 @@ public class TeleOp358 extends Robot358Main {
                 box.setPosition(abs(gamepad2.right_trigger));
                 telemetry.addData("box servo position", abs(gamepad2.right_trigger));
             } else {
-                box.setPosition(.4+0.6*abs(gamepad2.right_trigger));
+                box.setPosition(.2 + 0.6 * abs(gamepad2.right_trigger));
             }
 
         }
