@@ -35,6 +35,8 @@ public class TeleOp358 extends Robot358Main {
 
         waitForStart();
 
+        initialize();
+
         while (opModeIsActive()) {
 
             //Drive code :) //////////////////////////////////////////////////////////////////////////////////////
