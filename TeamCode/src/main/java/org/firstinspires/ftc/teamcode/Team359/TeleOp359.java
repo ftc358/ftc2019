@@ -50,7 +50,6 @@ public class TeleOp359 extends OpMode {
         }
 
 
-
         if (gamepad2.dpad_up)                   //Slide Rotation
 
         {

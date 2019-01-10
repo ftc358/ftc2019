@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Archive;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
@@ -11,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class ExpansionHubTest extends LinearOpMode {
 
     DcMotor Motor;
-   // CRServo Servo;
+    // CRServo Servo;
 
     public void runOpMode() {
         Motor = hardwareMap.dcMotor.get("motor");

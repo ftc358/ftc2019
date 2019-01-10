@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team358.AutoLegacy;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.Team358.Encoders358;
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
 import java.util.concurrent.TimeUnit;
@@ -115,6 +112,7 @@ public class AutoC358_R extends Robot358Main {
             }
         }
     }
+
     public void unlatchFromLander() {
         //TODO: implement descend from lander & move to starting position & heading compensation with gyro
     }

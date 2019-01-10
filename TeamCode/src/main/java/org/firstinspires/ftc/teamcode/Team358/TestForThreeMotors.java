@@ -1,7 +1,8 @@
 package org.firstinspires.ftc.teamcode.Team358;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 @TeleOp
 public class TestForThreeMotors extends OpMode {
@@ -22,8 +23,7 @@ public class TestForThreeMotors extends OpMode {
             motor3.setPower(0.6);
         } else if (gamepad1.y) {
             motor3.setPower(-0.6);
-        }
-        else{
+        } else {
             motor3.setPower(0);
         }
     }

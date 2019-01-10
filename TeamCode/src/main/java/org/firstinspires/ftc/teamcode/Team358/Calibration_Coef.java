@@ -11,41 +11,6 @@ public class Calibration_Coef extends LinearOpMode {
     DcMotor rF;
     DcMotor rB;
 
-    public void runOpMode() throws InterruptedException {
-        lF = hardwareMap.dcMotor.get("lF");
-        lB = hardwareMap.dcMotor.get("lB");
-        rF = hardwareMap.dcMotor.get("rF");
-        rB = hardwareMap.dcMotor.get("rB");
-
-        rF.setDirection(DcMotor.Direction.REVERSE);
-        rB.setDirection(DcMotor.Direction.REVERSE);
-
-        double coef = 1.00;
-
-        int distance = 10;
-
-        waitForStart();
-
-        while (opModeIsActive()) {
-
-            distance += gamepad1.left_stick_y * 100;
-            distance += gamepad1.right_stick_y * 10;
-
-            if (gamepad1.a) {
-                coef += 1;
-            }
-            if (gamepad2.b) {
-                coef -= 1;
-            }
-            if (gamepad1.x) {
-                Forward(lF, lB, rF, rB, 0.25, distance, coef);
-            }
-            telemetry.addData("Distance:", distance);
-            telemetry.addData("Coef:", coef);
-            telemetry.update();
-        }
-    }
-
     public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int distance, double coef) {
 
         /**
@@ -87,5 +52,40 @@ public class Calibration_Coef extends LinearOpMode {
         motor2.setPower(0);
         motor3.setPower(0);
         motor4.setPower(0);
+    }
+
+    public void runOpMode() throws InterruptedException {
+        lF = hardwareMap.dcMotor.get("lF");
+        lB = hardwareMap.dcMotor.get("lB");
+        rF = hardwareMap.dcMotor.get("rF");
+        rB = hardwareMap.dcMotor.get("rB");
+
+        rF.setDirection(DcMotor.Direction.REVERSE);
+        rB.setDirection(DcMotor.Direction.REVERSE);
+
+        double coef = 1.00;
+
+        int distance = 10;
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+
+            distance += gamepad1.left_stick_y * 100;
+            distance += gamepad1.right_stick_y * 10;
+
+            if (gamepad1.a) {
+                coef += 1;
+            }
+            if (gamepad2.b) {
+                coef -= 1;
+            }
+            if (gamepad1.x) {
+                Forward(lF, lB, rF, rB, 0.25, distance, coef);
+            }
+            telemetry.addData("Distance:", distance);
+            telemetry.addData("Coef:", coef);
+            telemetry.update();
+        }
     }
 }

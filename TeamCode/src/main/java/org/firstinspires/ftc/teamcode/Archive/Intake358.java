@@ -17,8 +17,7 @@ public class Intake358 extends LinearOpMode {
 
         waitForStart();
 
-        while (opModeIsActive())
-        {
+        while (opModeIsActive()) {
             Servo.setPosition(gamepad1.left_stick_y);
 //            idle();
         }

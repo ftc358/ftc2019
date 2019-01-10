@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Team358.PAA;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.RobotLog;
 
 //@TeleOp(name = "TestTurner", group = "test")
