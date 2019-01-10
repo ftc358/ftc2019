@@ -66,7 +66,7 @@ public class AutoC358_L extends Robot358Main {
                         turn(new IMUTurner(50, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 24);
                     }
-                    state358 = state.STOP;
+                    state358 = state.DROP;
                     break;
 
                 case DROP:                                    // drive to depot & drop token
