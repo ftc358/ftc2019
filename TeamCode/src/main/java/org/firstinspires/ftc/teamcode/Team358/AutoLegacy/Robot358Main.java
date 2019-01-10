@@ -167,10 +167,10 @@ public abstract class Robot358Main extends LinearOpMode {
                 } else {
                     RobotLog.d("Robot358Main::turn()::power * scaleFactor: " + power * scaleFactor);
 
-                    fL.setPower(-power * scaleFactor);
-                    bL.setPower(-power * scaleFactor);
-                    fR.setPower(power * scaleFactor);
-                    bR.setPower(power * scaleFactor);
+                    fL.setPower(power * scaleFactor);
+                    bL.setPower(power * scaleFactor);
+                    fR.setPower(-power * scaleFactor);
+                    bR.setPower(-power * scaleFactor);
                 }
 
                 lastPower = power;
