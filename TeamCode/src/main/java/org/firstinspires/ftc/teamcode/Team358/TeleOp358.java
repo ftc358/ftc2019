@@ -41,13 +41,13 @@ public class TeleOp358 extends Robot358Main {
             double drive = gamepad1.left_stick_y;                                                               //
             double strafe = gamepad1.left_stick_x;                                                              //
             double rotate = gamepad1.right_stick_x;                                                             //
-            //
+                                                                                                                //
             //Defining the motor power distribution.                                                            //
             double flPower = drive - strafe - rotate;                                                           //
             double blPower = drive + strafe - rotate;                                                           //
             double frPower = drive + strafe + rotate;                                                           //
             double brPower = drive - strafe + rotate;                                                           //
-            //
+                                                                                                                //
             double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);     //
             double POWER = -1 * joyStick * abs(joyStick);                                                       //
             telemetry.addData("POWER: ", POWER);                                                        //
@@ -55,12 +55,12 @@ public class TeleOp358 extends Robot358Main {
             // greatest value of all motor powers                                                               //
             telemetry.addData("maxPower: ", maxPower);                                                  //
             telemetry.update();                                                                                 //
-            //
+                                                                                                                //
             //Sets the power for all the drive motors.                                                          //
-            fL.setPower(-(POWER * flPower / maxPower) / SCALE);                                                  //
-            bL.setPower(-(POWER * blPower / maxPower) / SCALE);                                                  //
-            fR.setPower(-(POWER * frPower / maxPower) / SCALE);                                                  //
-            bR.setPower(-(POWER * brPower / maxPower) / SCALE);                                                  //
+            fL.setPower(-(POWER * flPower / maxPower) / SCALE);                                                 //
+            bL.setPower(-(POWER * blPower / maxPower) / SCALE);                                                 //
+            fR.setPower(-(POWER * frPower / maxPower) / SCALE);                                                 //
+            bR.setPower(-(POWER * brPower / maxPower) / SCALE);                                                 //
             //Drive code /////////////////////////////////////////////////////////////////////////////////////////
 
             if (gamepad1.left_bumper) {
