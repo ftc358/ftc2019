@@ -61,18 +61,15 @@ public class AutoD359 extends LinearOpMode {
             switch (state359) {
 
                 case LATCH:
-                    Encoders359.Forward(leftLatch,rightLatch,1,8000);
+                    Encoders359.Forward(leftLatch,rightLatch,1,-43500);
                     state359 = state.DETECT;
                     break;
 
                 case DETECT:
-                    Encoders359.Turn(leftMotor,rightMotor, 0.25, 15);
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     detected = lookForwardAndCheck();
-                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
@@ -81,19 +78,19 @@ public class AutoD359 extends LinearOpMode {
 
                 case KNOCK:
                     telemetry.addData("Detected", detected);
+                    telemetry.update();
                     if (detected == 1) {
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go left
-                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
+                        Encoders359.Turn(leftMotor,rightMotor,0.25,-400);       //Go right
+                        Encoders359.Forward(leftMotor,rightMotor,0.3,5000);
 
                     } else if (detected == 2) {
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,1000);    //Go forward
+                        Encoders359.Forward(leftMotor,rightMotor,0.25,4000);    //Go forward
 
                     } else if (detected == 3) {
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go right
-                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
-                        //Codes to knock the mineral at the left
+                        Encoders359.Turn(leftMotor,rightMotor,0.25,400);        //Go left
+                        Encoders359.Forward(leftMotor,rightMotor,0.3,5000);
                     }
-//                    sleep(10000);
+                    sleep(1000);
                     state359 = state.DROP;
                     break;
 
@@ -113,9 +110,9 @@ public class AutoD359 extends LinearOpMode {
                     rightMotor.setPower(0);
                     leftLatch.setPower(0);
                     rightLatch.setPower(0);
-                    /*Rotation.setPower(0);
+                    Rotation.setPower(0);
                     slideExtend.setPower(0);
-                    slideRetract.setPower(0);*/
+                    Intake.setPower(0);
             }
         }
     }
@@ -168,15 +165,16 @@ public class AutoD359 extends LinearOpMode {
                   int silverMineralX = -1;
                   for (Recognition recognition : updatedRecognitions) {
                       if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                          goldMineralX = (int) recognition.getLeft();
+                          goldMineralX = (int) recognition.getTop();
                       } else if (silverMineralX == -1) {
-                          silverMineralX = (int) recognition.getLeft();
+                          silverMineralX = (int) recognition.getTop();
                       } else {
                           return 1;
                       }
+
                   }
 
-                  if (goldMineralX < silverMineralX) {
+                  if (goldMineralX > silverMineralX) {
                       position = 2;
                   } else {
                       position = 3;
@@ -186,6 +184,8 @@ public class AutoD359 extends LinearOpMode {
           }
 
       }
+      telemetry.addData("detected", position);
+      telemetry.update();
       return position;
   }
 

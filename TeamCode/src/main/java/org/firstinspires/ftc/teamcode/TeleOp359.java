@@ -19,6 +19,7 @@ public class TeleOp359 extends OpMode {
     CRServo Intake;
 
     public void init() {
+
         leftMotor = hardwareMap.dcMotor.get("lM");
         rightMotor = hardwareMap.dcMotor.get("rM");
         leftLatch = hardwareMap.dcMotor.get("lL");
@@ -37,7 +38,7 @@ public class TeleOp359 extends OpMode {
         leftMotor.setPower(Range.clip(((gamepad1.left_stick_y) * Math.abs(gamepad1.left_stick_y)), -1, 1));
         rightMotor.setPower(Range.clip(((gamepad1.right_stick_y) * Math.abs(gamepad1.right_stick_y)), -1, 1)); //let the chassis move according to the function y=x^2 or -x^2 depending on the value of x//
 
-        if (gamepad1.left_bumper)               //Latching Mechanism
+        if (gamepad1.left_bumper)                                   //Latching Mechanism
         {
             leftLatch.setPower(1);
             rightLatch.setPower(1);
@@ -51,12 +52,12 @@ public class TeleOp359 extends OpMode {
 
 
 
-        if (gamepad2.dpad_up)                   //Slide Rotation
+        if (gamepad2.dpad_up)                                       //Slide Rotation
 
         {
-            Rotation.setPower(0.3);
+            Rotation.setPower(1);
         } else if (gamepad2.dpad_down) {
-            Rotation.setPower(-0.3);
+            Rotation.setPower(-1);
         } else {
             Rotation.setPower(0);
         }
@@ -64,9 +65,25 @@ public class TeleOp359 extends OpMode {
 
         if (gamepad2.left_bumper)                                   //Slide Extend
         {
-            slideExtend.setPower(0.5);
-        } else {
+            slideExtend.setPower(1);
+        } else if (gamepad2.right_bumper)
+        {
+            slideExtend.setPower(-1);
+        }
+
+            {
             slideExtend.setPower(0);
+        }
+
+
+        if (gamepad2.a){                                            //Intake Servo Rotation
+            Intake.setPower(1);
+        }
+        else if (gamepad2.b){
+            Intake.setPower(-1);
+        }
+        else{
+            Intake.setPower(0);
         }
     }
 }
