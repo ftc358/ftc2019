@@ -83,7 +83,7 @@ public class AutoD359 extends LinearOpMode {
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
                         Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go left
-                        Encoders359.Turn(leftMotor, rightMotor, 0.25, 300);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.25, -300);
 
                     } else if (detected == 2) {
                         Encoders359.Forward(leftMotor, rightMotor, 0.25, 1000);    //Go forward
@@ -94,7 +94,7 @@ public class AutoD359 extends LinearOpMode {
                         //Codes to knock the mineral at the left
                     }
 //                    sleep(10000);
-                    state359 = state.DROP;
+                    state359 = state.STOP;
                     break;
 
                 case DRIVE:
@@ -105,7 +105,7 @@ public class AutoD359 extends LinearOpMode {
                     } else if (detected == 3) {
                         //Codes to go to the crater after knocking at the right
                     }
-                    state359 = state.DRIVE;
+                    state359 = state.STOP;
                     break;
 
                 case STOP:
@@ -113,9 +113,8 @@ public class AutoD359 extends LinearOpMode {
                     rightMotor.setPower(0);
                     leftLatch.setPower(0);
                     rightLatch.setPower(0);
-                    /*Rotation.setPower(0);
+                    Rotation.setPower(0);
                     slideExtend.setPower(0);
-                    slideRetract.setPower(0);*/
             }
         }
     }
@@ -191,7 +190,7 @@ public class AutoD359 extends LinearOpMode {
 
     enum state {
 
-        LATCH, DETECT, KNOCK, DROP, DRIVE, STOP
+        LATCH, DETECT, KNOCK, DRIVE, STOP
 
     }
 }
