@@ -93,7 +93,7 @@ public class AutoD359 extends LinearOpMode {
                         //Codes to knock the mineral at the left
                     }
 //                    sleep(10000);
-                    state359 = state.DROP;
+                    state359 = state.STOP;
                     break;
 
                 case DRIVE:
@@ -179,6 +179,20 @@ public class AutoD359 extends LinearOpMode {
                         position = 2;
                     } else {
                         position = 3;
+                    }
+                }
+                else if (updatedRecognitions.size() == 1) {
+                    int THRESHOLD_UP = 1050, THRESHOLD_DOWN = 950;
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                            int topCoord = (int) recognition.getTop();
+                            if (topCoord > THRESHOLD_UP) {
+                                position = 2;
+                            }
+                            else if (topCoord < THRESHOLD_DOWN) {
+                                position = 3;
+                            }
+                        }
                     }
                 }
 
