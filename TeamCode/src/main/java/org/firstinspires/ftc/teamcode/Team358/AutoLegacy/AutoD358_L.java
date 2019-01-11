@@ -47,7 +47,6 @@ public class AutoD358_L extends Robot358Main {
                         telemetry.update();
                         detected = 2;
                     }
-//                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 20);
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state358 = state.KNOCK;

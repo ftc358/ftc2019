@@ -84,7 +84,7 @@ public class AutoC358_R extends Robot358Main {
                         turn(new IMUTurner(-45, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 14);
                     }
-//                    extend(true);
+                    extend(true);
                     state358 = state.DRIVE;
                     break;
 
