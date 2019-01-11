@@ -92,6 +92,9 @@ public abstract class Robot358Main extends LinearOpMode {
         bL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        latch.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        extend.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void runWithoutEncoders() throws InterruptedException {
@@ -181,7 +184,9 @@ public abstract class Robot358Main extends LinearOpMode {
         }
     }
 
-    public void forward(double power, double distance) {
+    public void forward(double power, double distance) throws InterruptedException {
+
+        runUsingEncoders();
 
         //Distance is in inches
 
@@ -222,7 +227,9 @@ public abstract class Robot358Main extends LinearOpMode {
         bR.setPower(0);
     }
 
-    public void motorRun(DcMotor motor, double power, int ticks) {
+    public void motorRun(DcMotor motor, double power, int ticks) throws InterruptedException {
+
+        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setTargetPosition(ticks);
