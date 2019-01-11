@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team359;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
@@ -61,12 +60,12 @@ public class AutoD359 extends LinearOpMode {
             switch (state359) {
 
                 case LATCH:
-                    Encoders359.Forward(leftLatch,rightLatch,1,8000);
+                    Encoders359.Forward(leftLatch, rightLatch, 1, 8000);
                     state359 = state.DETECT;
                     break;
 
                 case DETECT:
-                    Encoders359.Turn(leftMotor,rightMotor, 0.25, 15);
+                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
@@ -82,15 +81,15 @@ public class AutoD359 extends LinearOpMode {
                 case KNOCK:
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go left
-                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go left
+                        Encoders359.Turn(leftMotor, rightMotor, 0.25, 300);
 
                     } else if (detected == 2) {
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,1000);    //Go forward
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 1000);    //Go forward
 
                     } else if (detected == 3) {
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,500);     //Go right
-                        Encoders359.Turn(leftMotor,rightMotor,0.25,300);
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go right
+                        Encoders359.Turn(leftMotor, rightMotor, 0.25, 300);
                         //Codes to knock the mineral at the left
                     }
 //                    sleep(10000);
@@ -144,50 +143,50 @@ public class AutoD359 extends LinearOpMode {
         }
     }
 
-  public int lookForwardAndCheck() {
-      int position = 0;
-      initVuforiaThingy();
+    public int lookForwardAndCheck() {
+        int position = 0;
+        initVuforiaThingy();
 
-      if (this.tfod != null) {
-          tfod.activate();
-      } else {
-          return 0;
-      }
+        if (this.tfod != null) {
+            tfod.activate();
+        } else {
+            return 0;
+        }
 
-      // getUpdatedRecognitions() will return null if no new information is available since
-      // the last time that call was made.
+        // getUpdatedRecognitions() will return null if no new information is available since
+        // the last time that call was made.
 
-      while (position == 0) {
-          List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-          if (updatedRecognitions != null) {
-              telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
-              telemetry.update();
+        while (position == 0) {
+            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            if (updatedRecognitions != null) {
+                telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
+                telemetry.update();
 
-              if (updatedRecognitions.size() == 2) {
-                  int goldMineralX = -1;
-                  int silverMineralX = -1;
-                  for (Recognition recognition : updatedRecognitions) {
-                      if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                          goldMineralX = (int) recognition.getLeft();
-                      } else if (silverMineralX == -1) {
-                          silverMineralX = (int) recognition.getLeft();
-                      } else {
-                          return 1;
-                      }
-                  }
+                if (updatedRecognitions.size() == 2) {
+                    int goldMineralX = -1;
+                    int silverMineralX = -1;
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                            goldMineralX = (int) recognition.getLeft();
+                        } else if (silverMineralX == -1) {
+                            silverMineralX = (int) recognition.getLeft();
+                        } else {
+                            return 1;
+                        }
+                    }
 
-                  if (goldMineralX < silverMineralX) {
-                      position = 2;
-                  } else {
-                      position = 3;
-                  }
-              }
+                    if (goldMineralX < silverMineralX) {
+                        position = 2;
+                    } else {
+                        position = 3;
+                    }
+                }
 
-          }
+            }
 
-      }
-      return position;
-  }
+        }
+        return position;
+    }
 
     enum state {
 
