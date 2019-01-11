@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team358;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -13,8 +13,9 @@ import java.util.List;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous
-public class AutoC358 extends LinearOpMode {
+//@Autonomous
+@Disabled
+public class AutoD358_legacy extends LinearOpMode {
 
     private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -25,8 +26,8 @@ public class AutoC358 extends LinearOpMode {
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
-    //DcMotor lL;         // left lift
-    DcMotor rL;         // right lift
+    //    DcMotor lL;         // left lift
+//    DcMotor rL;         // right lift
     state state358;
     int detected = 0;
     VuforiaLocalizer vuforia;
@@ -39,12 +40,12 @@ public class AutoC358 extends LinearOpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
-        //lL = hardwareMap.dcMotor.get("lL");
-        rL = hardwareMap.dcMotor.get("rL");
+//        lL = hardwareMap.dcMotor.get("lL");
+//        rL = hardwareMap.dcMotor.get("rL");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
-        rL.setDirection(DcMotor.Direction.REVERSE);
+//        rL.setDirection(DcMotor.Direction.REVERSE);
 
         state358 = state.DETECT;
         waitForStart();
@@ -53,7 +54,6 @@ public class AutoC358 extends LinearOpMode {
 
             telemetry.addData("Going into state", state358);
             telemetry.update();
-
             switch (state358) {
 
                 case DETECT:
@@ -61,59 +61,57 @@ public class AutoC358 extends LinearOpMode {
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-
-                    //this supposedly rotates the robot and checks each indiv mineral
-                    detected = rotateAndCheck();
-                    //onVFEvent();
+                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 15);
+                    detected = lookForwardAndCheck();
+                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 15);
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
-                    state358 = state.TURN;
-                    break;
-
-                case TURN:
-
-                    if (detected == 1) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -200);
-                    } else if (detected == 3) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 200);
-                    }
-                    state358 = state.EXTEND;
-                    break;
-
-                case EXTEND:
-
-                    //EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.1, -720);
                     state358 = state.KNOCK;
                     break;
 
                 case KNOCK:
-
                     if (detected == 1) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
-
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 28);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 43);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 75);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 20);
                     } else if (detected == 2) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -2000);
-                        //Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 45);
                     } else if (detected == 3) {
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, 1000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, 1000);
-//                        Encoders.Forward(lF, lB, rF, rB, 0.25, -1000);
-//                        Encoders.Turn(lF, lB, rF, rB, 0.25, -1000);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 30);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 47);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 75);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 10);
+                    }
+                    state358 = state.DROP;
+                    break;
+
+                case DROP:
+//                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 3);
+                    state358 = state.POSITION;
+                    break;
+
+                case POSITION:
+                    if (detected == 1) {
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -8);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 135);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -25);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 45);
+                    } else if (detected == 2) {
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -15);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 45);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 22);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 90);
+                    } else if (detected == 3) {
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -10);
                     }
                     state358 = state.DRIVE;
                     break;
 
                 case DRIVE:
-
-                    //Encoders.Turn(lF, lB, rF, rB, 0.25, 9000);
-                    //Encoders.Forward(lF, lB, rF, rB, 0.25, 3000);
-                    rL.setPower(0.4);
-                    //lL.setPower(0.4);
-                    sleep(2000);
+                    Encoders358.Forward(lF, lB, rF, rB, 0.25, -52);
+//                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 7);
                     state358 = state.STOP;
                     break;
 
@@ -123,10 +121,8 @@ public class AutoC358 extends LinearOpMode {
                     lB.setPower(0);
                     rF.setPower(0);
                     rB.setPower(0);
-                    rL.setPower(0);
-                    //lL.setPower(0);
-                    sleep(30000);
-
+//                    lL.setPower(0);
+//                    rL.setPower(0);
             }
         }
     }
@@ -155,8 +151,10 @@ public class AutoC358 extends LinearOpMode {
         }
     }
 
-    public int lookForThings() {
+
+    public int lookForwardAndCheck() {
         int position = 0;
+        initVuforiaThingy();
         if (this.tfod != null) {
             tfod.activate();
         } else {
@@ -167,84 +165,35 @@ public class AutoC358 extends LinearOpMode {
         while (position == 0) {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             if (updatedRecognitions != null) {
-                if (updatedRecognitions.size() == 3) {
+                telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
+                telemetry.update();
+                if (updatedRecognitions.size() == 2) {
                     int goldMineralX = -1;
-                    int silverMineral1X = -1;
-                    int silverMineral2X = -1;
+                    int silverMineralX = -1;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
                             goldMineralX = (int) recognition.getLeft();
-                        } else if (silverMineral1X == -1) {
-                            silverMineral1X = (int) recognition.getLeft();
+                        } else if (silverMineralX == -1) {
+                            silverMineralX = (int) recognition.getLeft();
                         } else {
-                            silverMineral2X = (int) recognition.getLeft();
+                            return 3;
                         }
                     }
-                    if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
-                        if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
-                            position = 1;
-                        } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
-                            position = 3;
-                        } else {
-                            position = 2;
-                        }
+                    if (goldMineralX < silverMineralX) {
+                        position = 1;
+                    } else {
+                        position = 2;
                     }
-                } else {
-                    boolean goldVisible = false;
-                    double coord = 0;
-                    if (updatedRecognitions != null && updatedRecognitions.size() > 0) {
-                        for (Recognition recognition : updatedRecognitions) {
-                            if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                                goldVisible = true;
-                                coord = (recognition.getLeft() + recognition.getRight()) / 2;
-                            }
-                        }
-                        if (goldVisible) {
-                            // idk if we need actual position
-                            // maybe that helps us be more accurate if we can see 2 at the same time.
-                            position = -(int) (100 * coord) - 1;
-                        }
-                        // silver
-                        // i think i'm writing bad logic things
-                        else position = 4;
-                    }
-                    telemetry.addData("seeeeeing", position);
                 }
             }
         }
         return position;
     }
 
-    public int rotateAndCheck() {
-        int result = 0;
-        initVuforiaThingy();
-        initTfod();
-        //WOW update degrees to actual degrees after u measure
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
-        result = lookForThings();
-        //suppose we actually test this we could limit detected a bit more to avoid incorrectly seeing middle mineral
-        if (result < 0) {
-            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
-            return 1;
-        }
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
-        result = lookForThings();
-        if (result < 0) {
-            return 2;
-        }
-        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
-        result = lookForThings();
-        if (result < 0) {
-            Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 30);
-            return 3;
-        }
-        return 2;
-    }
-
 
     enum state {
 
-        DETECT, TURN, EXTEND, KNOCK, DRIVE, STOP
+        DETECT, KNOCK, DROP, POSITION, DRIVE, STOP
 
     }
 

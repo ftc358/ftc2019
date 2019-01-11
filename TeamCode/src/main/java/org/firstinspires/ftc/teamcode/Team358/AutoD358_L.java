@@ -1,6 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+// Lingo: Auto Depot 358, Left (Enemy) Crater
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+package org.firstinspires.ftc.teamcode.Team358;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -8,25 +11,30 @@ import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
-@Autonomous
-public class AutoD358_legacy extends LinearOpMode {
+//@Autonomous
+@Disabled
+public class AutoD358_L extends LinearOpMode {
 
     private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
+
     DcMotor lF;
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
-    //    DcMotor lL;         // left lift
-//    DcMotor rL;         // right lift
+
+    BNO055IMU imu;
+
     state state358;
     int detected = 0;
     VuforiaLocalizer vuforia;
@@ -39,14 +47,23 @@ public class AutoD358_legacy extends LinearOpMode {
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
         rB = hardwareMap.dcMotor.get("rB");
-//        lL = hardwareMap.dcMotor.get("lL");
-//        rL = hardwareMap.dcMotor.get("rL");
 
         rF.setDirection(DcMotor.Direction.REVERSE);
         rB.setDirection(DcMotor.Direction.REVERSE);
-//        rL.setDirection(DcMotor.Direction.REVERSE);
 
-        state358 = state.DETECT;
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
+
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        imu.initialize(parameters);
+
+        telemetry.addData("Initialization:", "done");
+        telemetry.update();
+
+        state358 = state.UNLATCH;
         waitForStart();
 
         while (opModeIsActive()) {
@@ -54,77 +71,86 @@ public class AutoD358_legacy extends LinearOpMode {
             telemetry.addData("Going into state", state358);
             telemetry.update();
             switch (state358) {
+                case UNLATCH:                                   // unlatch and orient 90 degrees
+                    unlatchFromLander();
+                    state358 = state.DETECT;
+                    break;
 
-                case DETECT:
-
-                    //initVuforiaThingy();
-                    //initTfod();
-                    //detected = lookForThings();
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 15);
-                    detected = lookForwardAndCheck();
-                    Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 15);
-                    // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
+                case DETECT:                       // detect
+                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 20);
+                    try {
+                        TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
+                            @Override
+                            public void run() {
+                                detected = lookForwardAndCheck();
+                            }
+                        }, 5, TimeUnit.SECONDS);
+                    } catch (Exception e) {
+                        telemetry.addData("Timed out detecting", "setting detected = 2");
+                        telemetry.update();
+                        detected = 2;
+                    }
+//                    Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 20);
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state358 = state.KNOCK;
                     break;
 
-                case KNOCK:
+                case KNOCK:                                    // knock gold block
                     if (detected == 1) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 28);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 43);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 75);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 20);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 10);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 34);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 40);
                     } else if (detected == 2) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 45);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 20);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 31);
                     } else if (detected == 3) {
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 30);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 47);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 75);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 10);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.right, 50);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 34);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 40);
                     }
-                    state358 = state.DROP;
-                    break;
-
-                case DROP:
-//                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 3);
-                    state358 = state.POSITION;
-                    break;
-
-                case POSITION:
-                    if (detected == 1) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -8);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 135);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -25);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 45);
-                    } else if (detected == 2) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -15);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.right, 45);
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, 22);
-                        Encoders.Turn(lF, lB, rF, rB, 0.25, Encoders.Direction.left, 90);
-                    } else if (detected == 3) {
-                        Encoders.Forward(lF, lB, rF, rB, 0.25, -10);
-                    }
-                    state358 = state.DRIVE;
-                    break;
-
-                case DRIVE:
-                    Encoders.Forward(lF, lB, rF, rB, 0.25, -52);
-//                    EncoderWithOnlyTwoMotors.Forward(lL, rL, 0.25, 7);
                     state358 = state.STOP;
                     break;
 
-                case STOP:
+                case DROP:                                    // drive to depot & drop token
+                    extend(true);
+                    state358 = state.DRIVE;
+                    break;
+
+                case DRIVE:                                    // drive to enemy crater
+                    if (detected == 1) {
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 130);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 25);
+                    } else if (detected == 2) {
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -15);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 90);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 33);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 30);
+                    } else if (detected == 3) {
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, -15);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 80);
+                        Encoders358.Forward(lF, lB, rF, rB, 0.25, 53);
+                        Encoders358.Turn(lF, lB, rF, rB, 0.25, Encoders358.Direction.left, 30);
+                    }
+                    state358 = state.CRATER;
+                    break;
+
+                case CRATER:
+                    extend(false);
+                    state358 = state.STOP;
+                    break;
+
+                case STOP:                                      // self explanatory
 
                     lF.setPower(0);
                     lB.setPower(0);
                     rF.setPower(0);
                     rB.setPower(0);
-//                    lL.setPower(0);
-//                    rL.setPower(0);
             }
         }
     }
+
+    // Vuforia related
 
     private void initTfod() {
         int tfodMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
@@ -189,10 +215,18 @@ public class AutoD358_legacy extends LinearOpMode {
         return position;
     }
 
+    public void unlatchFromLander() {
+        //TODO: implement descend from lander & move to starting position & heading compensation with gyro
+    }
+
+    public void extend(Boolean drop) {
+        //TODO: extend arm to either claim crater / drop token
+    }
+
 
     enum state {
 
-        DETECT, KNOCK, DROP, POSITION, DRIVE, STOP
+        UNLATCH, DETECT, KNOCK, DROP, DRIVE, CRATER, STOP
 
     }
 

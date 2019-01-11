@@ -12,7 +12,7 @@ public class CalvinEncoders {
         for (DcMotor motor : motorArray) {
 
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            //Reset Encoders
+            //Reset Encoders358
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             //Set to RUN_TO_POSITION mode
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -37,7 +37,7 @@ public class CalvinEncoders {
 
         for (DcMotor motor : motorArray) {
 
-            //Reset Encoders
+            //Reset Encoders358
             motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             //Set to RUN_TO_POSITION mode
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);

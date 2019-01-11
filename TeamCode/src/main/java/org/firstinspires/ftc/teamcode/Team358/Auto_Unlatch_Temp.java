@@ -1,21 +1,20 @@
-package org.firstinspires.ftc.teamcode.Archive;
+package org.firstinspires.ftc.teamcode.Team358;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import java.util.ArrayList;
+@Autonomous
+public class Auto_Unlatch_Temp extends LinearOpMode {
+    DcMotor latch;
 
-//@Autonomous
-@Disabled
-public class CalvinEncoderTest extends LinearOpMode {
     DcMotor lF;
     DcMotor lB;
     DcMotor rF;
     DcMotor rB;
 
     public void runOpMode() throws InterruptedException {
-        //initialize motor
+        latch = hardwareMap.dcMotor.get("lF");
         lF = hardwareMap.dcMotor.get("lF");
         lB = hardwareMap.dcMotor.get("lB");
         rF = hardwareMap.dcMotor.get("rF");
@@ -26,12 +25,12 @@ public class CalvinEncoderTest extends LinearOpMode {
 
         waitForStart();
 
-        ArrayList<DcMotor> motorArrayList = new ArrayList<DcMotor>();
-        motorArrayList.add(lF);
-        motorArrayList.add(lB);
-        motorArrayList.add(rF);
-        motorArrayList.add(rB);
+        while (opModeIsActive()) {
+            Encoders358.runWithTicks1(latch, 1, 1000);
+            //TODO: different value!!!
+            Encoders358.Forward(lF, lB, rF, rB, 0.25, 3);
+            Encoders358.runWithTicks1(latch, 1, -1000);
+        }
 
-        CalvinEncoders.Forward(motorArrayList, 0.5, 1200);
     }
 }

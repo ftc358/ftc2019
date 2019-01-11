@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -16,65 +16,9 @@ public class Calibration_Ticks extends LinearOpMode {
 
     int ticksToRun = 1000;
 
-    enum state {
-
-        FORWARD, TURN
-
-    }
-
-    public void runOpMode() throws InterruptedException {
-        lF = hardwareMap.dcMotor.get("lF");
-        lB = hardwareMap.dcMotor.get("lB");
-        rF = hardwareMap.dcMotor.get("rF");
-        rB = hardwareMap.dcMotor.get("rB");
-
-        rF.setDirection(DcMotor.Direction.REVERSE);
-        rB.setDirection(DcMotor.Direction.REVERSE);
-
-        calibrationMode = state.FORWARD;
-
-        while (opModeIsActive()) {
-            if (gamepad1.left_bumper) {
-                switch (calibrationMode) {
-
-                    case FORWARD:
-                        calibrationMode = state.TURN;
-                        break;
-
-                    case TURN:
-                        calibrationMode = state.FORWARD;
-                        break;
-                }
-            }
-            ticksToRun += gamepad1.left_stick_y * 100;
-            ticksToRun += gamepad1.right_stick_y * 10;
-            if (gamepad1.a) {
-                ticksToRun += 1;
-            }
-            if (gamepad2.b) {
-                ticksToRun -= 1;
-            }
-            if (gamepad1.x) {
-                switch (calibrationMode) {
-
-                    case FORWARD:
-                        Forward(lF, lB, rF, rB, 0.25, ticksToRun);
-                        break;
-
-                    case TURN:
-                        Turn(lF, lB, rF, rB, 0.25, ticksToRun);
-                        break;
-                }
-            }
-            telemetry.addData("Mode:", calibrationMode.toString());
-            telemetry.addData("Ticks:", ticksToRun);
-            telemetry.update();
-        }
-    }
-
     public static void Forward(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int ticks) {
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -112,7 +56,7 @@ public class Calibration_Ticks extends LinearOpMode {
     public static void Turn(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double power, int ticks) {
 
 
-        //Reset Encoders
+        //Reset Encoders358
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -145,5 +89,65 @@ public class Calibration_Ticks extends LinearOpMode {
         motor2.setPower(0);
         motor3.setPower(0);
         motor4.setPower(0);
+    }
+
+    public void runOpMode() throws InterruptedException {
+        lF = hardwareMap.dcMotor.get("lF");
+        lB = hardwareMap.dcMotor.get("lB");
+        rF = hardwareMap.dcMotor.get("rF");
+        rB = hardwareMap.dcMotor.get("rB");
+
+        rF.setDirection(DcMotor.Direction.REVERSE);
+        rB.setDirection(DcMotor.Direction.REVERSE);
+
+        calibrationMode = state.FORWARD;
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+            if (gamepad1.left_bumper) {
+                switch (calibrationMode) {
+
+                    case FORWARD:
+                        calibrationMode = state.TURN;
+                        break;
+
+                    case TURN:
+                        calibrationMode = state.FORWARD;
+                        break;
+                }
+            }
+//            ticksToRun += gamepad1.left_stick_y * 100;
+//            ticksToRun += gamepad1.right_stick_y * 10;
+            if (gamepad1.a) {
+                ticksToRun += 1;
+                Thread.sleep(500);
+            }
+            if (gamepad2.b) {
+                ticksToRun -= 1;
+                Thread.sleep(500);
+            }
+            if (gamepad1.x) {
+                switch (calibrationMode) {
+
+                    case FORWARD:
+                        Forward(lF, lB, rF, rB, 0.25, ticksToRun);
+                        break;
+
+                    case TURN:
+                        Turn(lF, lB, rF, rB, 0.25, ticksToRun);
+                        break;
+                }
+            }
+            telemetry.addData("Mode:", calibrationMode.toString());
+            telemetry.addData("Ticks:", ticksToRun);
+            telemetry.update();
+        }
+    }
+
+    enum state {
+
+        FORWARD, TURN
+
     }
 }

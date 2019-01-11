@@ -16,6 +16,7 @@ public class Encoders {
             ticks = -ticks;
         }
 
+
         //Reset Encoders
         motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
