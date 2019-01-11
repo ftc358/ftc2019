@@ -227,6 +227,46 @@ public abstract class Robot358Main extends LinearOpMode {
         bR.setPower(0);
     }
 
+    public void strafe(double power, double distance) {
+        runUsingEncoders();
+
+        int ticks = (int) (distance * 133);
+
+        //Reset Encoders358
+        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Set to RUN_TO_POSITION mode
+        fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //Set Target Position
+        fL.setTargetPosition(-ticks);
+        bL.setTargetPosition(+ticks);
+        fR.setTargetPosition(+ticks);
+        bR.setTargetPosition(-ticks);
+
+        //Set Drive Power
+        fL.setPower(power);
+        bL.setPower(power);
+        fR.setPower(power);
+        bR.setPower(power);
+
+        while (fL.isBusy() && fR.isBusy() && bL.isBusy() && bR.isBusy()) {
+            //Wait Until Target Position is Reached
+        }
+
+        //Stop and Change Mode back to Normal
+        fL.setPower(0);
+        bL.setPower(0);
+        fR.setPower(0);
+        bR.setPower(0);
+    }
+
     public void motorRun(DcMotor motor, double power, int ticks) {
 
         runUsingEncoders();
