@@ -10,7 +10,6 @@ import java.util.concurrent.TimeUnit;
 public class AutoC358_L extends Robot358Main {
 
     int detected = 0;
-    double headingChange;
 
     public void runOpMode() throws InterruptedException {
 
@@ -29,9 +28,8 @@ public class AutoC358_L extends Robot358Main {
             telemetry.addData("Going into state", state358);
             telemetry.update();
             switch (state358) {
-                case UNLATCH:                                   // unlatch and orient 90 degrees
+                case UNLATCH:                                   // unlatch and orient to starting position
                     unlatchFromLander();
-                    turn(new IMUTurner(-(90 - headingChange), 0.5, _imu1, .25, null), true, true);
                     state358 = state.DETECT;
                     break;
 
@@ -117,15 +115,20 @@ public class AutoC358_L extends Robot358Main {
         }
     }
 
-    public void unlatchFromLander() {
+    public void unlatchFromLander() throws InterruptedException {
         double startingHeading = getCurrentHeading();
         latch.setPower(-1);
         sleep(4700);
         latch.setPower(0);
         double descendedHeading = getCurrentHeading();
-        headingChange = descendedHeading - startingHeading;
+        double headingChange = descendedHeading - startingHeading;
         telemetry.addData("Heading change:", headingChange);
         telemetry.update();
+        turn(new IMUTurner(headingChange, 0.5, _imu1, .25, null), true, true);
+        forward(0.5, 3);
+        strafe(0.5, 1);
+        turn(new IMUTurner(-90, 0.5, _imu1, .25, null), true, true);
+        strafe(0.5, 4);
     }
 
     public void extend(Boolean drop) {
