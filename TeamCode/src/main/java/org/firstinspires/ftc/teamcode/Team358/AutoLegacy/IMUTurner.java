@@ -22,7 +22,7 @@ public class IMUTurner extends DefaultStopper implements TurnerIF {
     IMUTurner(double degrees, double power, BNO055IMU imu, double maxError, StopperIF stopper) {
         super(stopper);
 
-        _degrees = degrees;
+        _degrees = -degrees;
         _power = power;
         _imu = imu;
         _maxError = maxError;
