@@ -87,7 +87,7 @@ public abstract class Robot358Main extends LinearOpMode {
         RobotControl.resetMotorEncoder(bR, this);
     }
 
-    public void runUsingEncoders() throws InterruptedException {
+    public void runUsingEncoders() {
         fL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -184,7 +184,7 @@ public abstract class Robot358Main extends LinearOpMode {
         }
     }
 
-    public void forward(double power, double distance) throws InterruptedException {
+    public void forward(double power, double distance) {
 
         runUsingEncoders();
 
@@ -227,18 +227,28 @@ public abstract class Robot358Main extends LinearOpMode {
         bR.setPower(0);
     }
 
-    public void motorRun(DcMotor motor, double power, int ticks) throws InterruptedException {
+    public void motorRun(DcMotor motor, double power, int ticks) {
 
-        motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        runUsingEncoders();
+
+        //Reset Encoders358
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        //Set to RUN_TO_POSITION mode
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //Set Target Position
         motor.setTargetPosition(ticks);
+
+        //Set Drive Power
         motor.setPower(power);
 
         while (motor.isBusy()) {
-
+            //Wait Until Target Position is Reached
         }
 
+        //Stop and Change Mode back to Normal
         motor.setPower(0);
     }
 
