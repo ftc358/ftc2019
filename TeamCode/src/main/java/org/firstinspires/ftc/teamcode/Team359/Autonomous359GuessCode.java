@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import org.firstinspires.ftc.teamcode.Encoders359;
 
 @Autonomous
 public class Autonomous359GuessCode extends LinearOpMode {
@@ -34,9 +35,9 @@ public class Autonomous359GuessCode extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            //Encoders359.Forward(leftLatch,rightLatch,1,8000);        //Latch down and move from the hook
-            Encoders359.Forward(leftMotor,rightMotor,0.25,4000);     //Knock the ball
-            Encoders359.Slide(Rotation,0.1,100);                     //Place Team Marker
+            Encoders359.Forward(leftLatch,rightLatch,1,-43500);        //Latch down and move from the hook
+            Encoders359.Forward(leftMotor,rightMotor,0.25,4000);       //Knock the ball
+//            Encoders359.Slide(Rotation,0.1,100);                     //Place Team Marker
         }
     }
 }
