@@ -24,6 +24,6 @@ public class AutonomousCalibration extends Robot358Main {
 //        strafe(0.5,1);
 //        turn(new IMUTurner(-90, 0.5, _imu1, .25, null), true, true);
 //        strafe(0.5, 4);
-        motorRun(lift, 0.5, 50);
+        motorRun(extend, 0.5, -100);
     }
 }
