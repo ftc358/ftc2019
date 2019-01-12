@@ -70,7 +70,6 @@ public class AutoD359 extends LinearOpMode {
                     //initTfod();
                     //detected = lookForThings();
                     detected = lookForwardAndCheck();
-                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
@@ -151,12 +150,20 @@ public class AutoD359 extends LinearOpMode {
         } else {
             return 0;
         }
-
+Ω
         // getUpdatedRecognitions() will return null if no new information is available since
         // the last time that call was made.
-
+        sleep(5000);
         while (position == 0) {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            for (int i = 0; i < 50; i++){
+                List<Recognition> newRecognitions = tfod.getUpdatedRecognitions();
+                if (newRecognitions != null && newRecognitions.size() > 0){
+                    updatedRecognitions = newRecognitions;
+                }
+                sleep(10);
+            }
+
             if (updatedRecognitions != null) {
                 telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
                 telemetry.update();
@@ -180,7 +187,6 @@ public class AutoD359 extends LinearOpMode {
                         position = 3;
                     }
                 }
-
                 else if (updatedRecognitions.size() == 1) {
                     int THRESHOLD_UP = 800, THRESHOLD_DOWN = 700;
                     for (Recognition recognition : updatedRecognitions) {
@@ -195,6 +201,7 @@ public class AutoD359 extends LinearOpMode {
                         }
                     }
                 }
+                else position = 1;
 
             }
 
