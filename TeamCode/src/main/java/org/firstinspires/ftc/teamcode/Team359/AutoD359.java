@@ -66,11 +66,9 @@ public class AutoD359 extends LinearOpMode {
                     break;
 
                 case DETECT:
-                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     detected = lookForwardAndCheck();
                     Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
@@ -83,15 +81,16 @@ public class AutoD359 extends LinearOpMode {
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
                         Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go left
-                        Encoders359.Turn(leftMotor, rightMotor, 0.25, -300);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.25, 550);
+                        Encoders359.Forward(leftMotor,rightMotor,0.25,5000);
 
                     } else if (detected == 2) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 1000);    //Go forward
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 5000);    //Go forward
 
                     } else if (detected == 3) {
                         Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go right
-                        Encoders359.Turn(leftMotor, rightMotor, 0.25, 300);
-                        //Codes to knock the mineral at the left
+                        Encoders359.Turn(leftMotor, rightMotor, 0.25, -550);
+                        Encoders359.Forward(leftMotor,rightMotor,0.25,5000);
                     }
 //                    sleep(10000);
                     state359 = state.STOP;
