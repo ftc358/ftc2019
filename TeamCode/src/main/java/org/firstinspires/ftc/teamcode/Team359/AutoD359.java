@@ -61,18 +61,15 @@ public class AutoD359 extends LinearOpMode {
             switch (state359) {
 
                 case LATCH:
-                    Encoders359.Forward(leftLatch, rightLatch, 1, 8000);
+                    Encoders359.Forward(leftLatch, rightLatch, 1, -43500);
                     state359 = state.DETECT;
                     break;
 
                 case DETECT:
-                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     //initVuforiaThingy();
                     //initTfod();
                     //detected = lookForThings();
-                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     detected = lookForwardAndCheck();
-                    Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
