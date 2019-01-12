@@ -150,7 +150,7 @@ public class AutoD359 extends LinearOpMode {
         } else {
             return 0;
         }
-Ω
+
         // getUpdatedRecognitions() will return null if no new information is available since
         // the last time that call was made.
         sleep(5000);
