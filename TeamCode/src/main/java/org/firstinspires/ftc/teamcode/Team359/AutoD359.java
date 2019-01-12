@@ -67,7 +67,7 @@ public class AutoD359 extends LinearOpMode {
 
                 case DETECT:
                     Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);
-                    //initVuforiaThingy();
+                    //initVuforia();
                     //initTfod();
                     //detected = lookForThings();
                     Encoders359.Turn(leftMotor, rightMotor, 0.25, 15);

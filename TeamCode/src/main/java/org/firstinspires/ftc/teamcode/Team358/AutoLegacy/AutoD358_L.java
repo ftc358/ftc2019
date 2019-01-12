@@ -34,7 +34,7 @@ public class AutoD358_L extends Robot358Main {
                     break;
 
                 case DETECT:                       // detect
-                    turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
+                    turn(new IMUTurner(-10, power, _imu1, .25, null), runUsingEncoders, true);
                     try {
                         TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
                             @Override
@@ -47,6 +47,7 @@ public class AutoD358_L extends Robot358Main {
                         telemetry.update();
                         detected = 2;
                     }
+                    deactivateVuforia();
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state358 = state.KNOCK;
@@ -54,14 +55,14 @@ public class AutoD358_L extends Robot358Main {
 
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
-                        turn(new IMUTurner(-10, power, _imu1, .25, null), runUsingEncoders, true);
+                        turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 34);
                         turn(new IMUTurner(40, power, _imu1, .25, null), runUsingEncoders, true);
                     } else if (detected == 2) {
-                        turn(new IMUTurner(20, power, _imu1, .25, null), runUsingEncoders, true);
+                        turn(new IMUTurner(10, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 31);
                     } else if (detected == 3) {
-                        turn(new IMUTurner(50, power, _imu1, .25, null), runUsingEncoders, true);
+                        turn(new IMUTurner(40, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 34);
                         turn(new IMUTurner(-40, power, _imu1, .25, null), runUsingEncoders, true);
                     }

@@ -298,7 +298,7 @@ public abstract class Robot358Main extends LinearOpMode {
 
     public int lookForwardAndCheck() {
         int position = 0;
-        initVuforiaThingy();
+        initVuforia();
         if (this.tfod != null) {
             tfod.activate();
         } else {
@@ -342,7 +342,7 @@ public abstract class Robot358Main extends LinearOpMode {
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
     }
 
-    public void initVuforiaThingy() {
+    public void initVuforia() {
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
@@ -356,6 +356,11 @@ public abstract class Robot358Main extends LinearOpMode {
         } else {
             telemetry.addData("Sorry!", "This device is not compatible with TFOD");
         }
+    }
+
+    public void deactivateVuforia() {
+        tfod.deactivate();
+        tfod.shutdown();
     }
 
     enum state {
