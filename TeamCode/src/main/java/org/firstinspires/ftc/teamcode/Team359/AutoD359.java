@@ -80,15 +80,16 @@ public class AutoD359 extends LinearOpMode {
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
                         Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go left
-                        Encoders359.Turn(leftMotor, rightMotor, 0.25, -300);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.25, 550);
+                        Encoders359.Forward(leftMotor,rightMotor,0.25,5000);
 
                     } else if (detected == 2) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 1000);    //Go forward
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 5000);    //Go forward
 
                     } else if (detected == 3) {
                         Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go right
-                        Encoders359.Turn(leftMotor, rightMotor, 0.25, 300);
-                        //Codes to knock the mineral at the left
+                        Encoders359.Turn(leftMotor, rightMotor, 0.25, -550);
+                        Encoders359.Forward(leftMotor,rightMotor,0.25,5000);
                     }
 //                    sleep(10000);
                     state359 = state.STOP;
@@ -149,12 +150,20 @@ public class AutoD359 extends LinearOpMode {
         } else {
             return 0;
         }
-
+Ω
         // getUpdatedRecognitions() will return null if no new information is available since
         // the last time that call was made.
-
+        sleep(5000);
         while (position == 0) {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            for (int i = 0; i < 50; i++){
+                List<Recognition> newRecognitions = tfod.getUpdatedRecognitions();
+                if (newRecognitions != null && newRecognitions.size() > 0){
+                    updatedRecognitions = newRecognitions;
+                }
+                sleep(10);
+            }
+
             if (updatedRecognitions != null) {
                 telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
                 telemetry.update();
@@ -178,6 +187,21 @@ public class AutoD359 extends LinearOpMode {
                         position = 3;
                     }
                 }
+                else if (updatedRecognitions.size() == 1) {
+                    int THRESHOLD_UP = 800, THRESHOLD_DOWN = 700;
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                            int topCoord = (int) recognition.getTop();
+                            if (topCoord > THRESHOLD_UP) {
+                                position = 2;
+                            }
+                            else if (topCoord < THRESHOLD_DOWN) {
+                                position = 3;
+                            }
+                        }
+                    }
+                }
+                else position = 1;
 
             }
 
