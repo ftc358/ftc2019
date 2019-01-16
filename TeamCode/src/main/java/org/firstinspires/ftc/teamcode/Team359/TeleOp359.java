@@ -14,8 +14,8 @@ public class TeleOp359 extends OpMode {
     DcMotor rightMotor;
     DcMotor leftLatch;
     DcMotor rightLatch;
-    DcMotor Rotation;
     DcMotor slideExtend;
+    DcMotor Rotation;
     CRServo Intake;
 
     public void init() {
@@ -23,8 +23,8 @@ public class TeleOp359 extends OpMode {
         rightMotor = hardwareMap.dcMotor.get("rM");
         leftLatch = hardwareMap.dcMotor.get("lL");
         rightLatch = hardwareMap.dcMotor.get("rL");
-        Rotation = hardwareMap.dcMotor.get("rotation");
         slideExtend = hardwareMap.dcMotor.get("sE");
+        Rotation = hardwareMap.dcMotor.get("rotation");
         Intake = hardwareMap.crservo.get("intake");
 
 
@@ -34,16 +34,35 @@ public class TeleOp359 extends OpMode {
 
     public void loop() {
 
-        leftMotor.setPower(Range.clip(((gamepad1.left_stick_y) * Math.abs(gamepad1.left_stick_y)), -1, 1));
-        rightMotor.setPower(Range.clip(((gamepad1.right_stick_y) * Math.abs(gamepad1.right_stick_y)), -1, 1)); //let the chassis move according to the function y=x^2 or -x^2 depending on the value of x//
+        double forward = gamepad1.left_stick_y;
+        double turning = gamepad1.right_stick_x;
+
+        double maxpower = Range.clip(Math.sqrt((Math.pow(forward,2) + Math.pow(turning,2))/2),0,1);
+
+        double lpower = forward + turning;
+        double rpower = forward - turning;
+
+        if (Math.abs(lpower) >= Math.abs(rpower)) {
+            rpower *= maxpower / Math.abs(lpower);
+            lpower = Math.signum(lpower) * maxpower;
+        }
+        else {
+            lpower *= maxpower / Math.abs(rpower);
+            rpower = Math.signum(rpower) * maxpower;
+        }
+
+        leftMotor.setPower(lpower);
+        rightMotor.setPower(rpower);
+
+
 
         if (gamepad1.left_bumper)               //Latching Mechanism
         {
-            leftLatch.setPower(1);
-            rightLatch.setPower(1);
+            leftLatch.setPower(.3);
+            rightLatch.setPower(.3);
         } else if (gamepad1.right_bumper) {
-            leftLatch.setPower(-1);
-            rightLatch.setPower(-1);
+            leftLatch.setPower(-.3);
+            rightLatch.setPower(-.3);
         } else {
             leftLatch.setPower(0);
             rightLatch.setPower(0);
@@ -52,7 +71,6 @@ public class TeleOp359 extends OpMode {
 
 
         if (gamepad2.dpad_up)                   //Slide Rotation
-
         {
             Rotation.setPower(0.3);
         } else if (gamepad2.dpad_down) {
@@ -62,11 +80,26 @@ public class TeleOp359 extends OpMode {
         }
 
 
+
         if (gamepad2.left_bumper)                                   //Slide Extend
         {
-            slideExtend.setPower(0.5);
+            slideExtend.setPower(1);
+        } else if (gamepad2.right_bumper){
+            slideExtend.setPower(-1);
         } else {
             slideExtend.setPower(0);
+        }
+
+
+
+        if (gamepad2.a)                                 //Intake Servo
+        {
+            Intake.setPower(1);
+        }else if (gamepad2.b)
+        {
+            Intake.setPower(-1);
+        }else {
+            Intake.setPower(0);
         }
     }
 }

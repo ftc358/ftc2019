@@ -29,8 +29,8 @@ public class AutoD359 extends LinearOpMode {
     DcMotor rightMotor;
     DcMotor leftLatch;
     DcMotor rightLatch;
-    DcMotor Rotation;
     DcMotor slideExtend;
+    DcMotor Rotation;
     CRServo Intake;
 
     state state359;
@@ -44,14 +44,14 @@ public class AutoD359 extends LinearOpMode {
         rightMotor = hardwareMap.dcMotor.get("rM");
         leftLatch = hardwareMap.dcMotor.get("lL");
         rightLatch = hardwareMap.dcMotor.get("rL");
-        Rotation = hardwareMap.dcMotor.get("rotation");
         slideExtend = hardwareMap.dcMotor.get("sE");
+        Rotation  = hardwareMap.dcMotor.get("rotation");
         Intake = hardwareMap.crservo.get("intake");
 
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        state359 = state.DETECT;
+        state359 = state.LATCH;
         waitForStart();
 
         while (opModeIsActive()) {
@@ -81,7 +81,7 @@ public class AutoD359 extends LinearOpMode {
                     if (detected == 1) {
                         Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go left
                         Encoders359.Turn(leftMotor, rightMotor, 0.25, 550);
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,5000);
+                        Encoders359.Forward(leftMotor,rightMotor,0.25,6000);
 
                     } else if (detected == 2) {
                         Encoders359.Forward(leftMotor, rightMotor, 0.25, 5000);    //Go forward
@@ -111,7 +111,6 @@ public class AutoD359 extends LinearOpMode {
                     rightMotor.setPower(0);
                     leftLatch.setPower(0);
                     rightLatch.setPower(0);
-                    Rotation.setPower(0);
                     slideExtend.setPower(0);
             }
         }
@@ -150,10 +149,10 @@ public class AutoD359 extends LinearOpMode {
         } else {
             return 0;
         }
-Ω
+
         // getUpdatedRecognitions() will return null if no new information is available since
         // the last time that call was made.
-        sleep(5000);
+        sleep(1500);
         while (position == 0) {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
             for (int i = 0; i < 50; i++){
