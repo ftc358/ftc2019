@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.Team358.AutoLegacy;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
 import java.util.concurrent.TimeUnit;
-
+@Disabled
 @Autonomous
 public class AutoC358_L extends Robot358Main {
 
@@ -126,12 +127,19 @@ public class AutoC358_L extends Robot358Main {
         telemetry.update();
         turn(new IMUTurner(headingChange, 0.5, _imu1, .25, null), true, true);
         forward(0.5, 3);
-        strafe(0.5, 1);
+        strafe(0.5,1);
         turn(new IMUTurner(-90, 0.5, _imu1, .25, null), true, true);
         strafe(0.5, 4);
     }
 
     public void extend(Boolean drop) {
-        //TODO: extend arm to either claim crater / drop token
+        if (drop) {
+
+        } else {
+            lift.setPower(-0.2);
+            sleep(2000);
+            lift.setPower(0);
+            motorRun(extend, 0.5, 4000);
+        }
     }
 }

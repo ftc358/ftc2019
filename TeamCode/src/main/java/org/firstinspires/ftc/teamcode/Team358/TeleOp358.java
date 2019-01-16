@@ -71,7 +71,7 @@ public class TeleOp358 extends Robot358Main {
                 latch.setPower(0);
             }
 
-            lift.setPower(gamepad2.left_stick_y);
+            lift.setPower(-gamepad2.left_stick_y);
 
             //Arm
             extend.setPower(-gamepad2.right_stick_y);

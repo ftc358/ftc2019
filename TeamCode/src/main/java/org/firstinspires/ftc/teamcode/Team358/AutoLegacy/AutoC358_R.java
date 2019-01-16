@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team358.AutoLegacy;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
@@ -17,10 +18,11 @@ public class AutoC358_R extends Robot358Main {
 
         telemetry.addData("Initialization:", "done");
         telemetry.update();
+
         double power = .5;
         boolean runUsingEncoders = true;
-
         state358 = state.UNLATCH;
+        box.setPosition(0.6);
         waitForStart();
 
         while (opModeIsActive()) {
@@ -34,7 +36,7 @@ public class AutoC358_R extends Robot358Main {
                     break;
 
                 case DETECT:                       // detect
-                    turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
+                    turn(new IMUTurner(-10, power, _imu1, .25, null), runUsingEncoders, true);
                     try {
                         TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
                             @Override
@@ -47,6 +49,7 @@ public class AutoC358_R extends Robot358Main {
                         telemetry.update();
                         detected = 2;
                     }
+                    deactivateVuforia();
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state358 = state.KNOCK;
@@ -54,51 +57,44 @@ public class AutoC358_R extends Robot358Main {
 
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
-                        turn(new IMUTurner(-10, power, _imu1, .25, null), runUsingEncoders, true);
+                        turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 26);
                     } else if (detected == 2) {
-                        turn(new IMUTurner(20, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 22);
+                        turn(new IMUTurner(10, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 23);
                     } else if (detected == 3) {
-                        turn(new IMUTurner(50, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 24);
+                        turn(new IMUTurner(40, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 26);
                     }
-                    state358 = state.DROP;
+//                    state358 = state.DROP;
+                    state358 = state.CRATER;
                     break;
 
                 case DROP:                                    // drive to depot & drop token
                     if (detected == 1) {
-                        turn(new IMUTurner(-85, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 46);
-                        turn(new IMUTurner(30, power, _imu1, .25, null), runUsingEncoders, true);
+                        turn(new IMUTurner(-77, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 47);
+                        turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
                     } else if (detected == 2) {
                         forward(0.5, -10);
                         turn(new IMUTurner(-90, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, -45);
+                        forward(0.5, 45);
                         turn(new IMUTurner(-45, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, -14);
+                        forward(0.5, 14);
                     } else if (detected == 3) {
-                        forward(0.5, -10);
-                        turn(new IMUTurner(120, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 52);
-                        turn(new IMUTurner(-45, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, -13);
+                        turn(new IMUTurner(-115, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 51);
+                        turn(new IMUTurner(-55, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 14);
                     }
                     extend(true);
                     state358 = state.DRIVE;
                     break;
 
-                case DRIVE:                                    // drive to friendly crater
-                    if (detected == 1) {
-                        turn(new IMUTurner(-30, power, _imu1, .25, null), runUsingEncoders, true);
-                    } else if (detected == 2) {
-
-                    } else if (detected == 3) {
-
-                    }
-                    forward(0.5, 13);
+                case DRIVE:                                    // drive to enemy crater
+                    forward(0.5, -25);
                     turn(new IMUTurner(-180, power, _imu1, .25, null), runUsingEncoders, true);
-                    forward(0.5, -42);
                     state358 = state.CRATER;
                     break;
 
@@ -108,16 +104,40 @@ public class AutoC358_R extends Robot358Main {
                     break;
 
                 case STOP:                                      // self explanatory
+
                     stopMotors();
             }
         }
     }
 
-    public void unlatchFromLander() {
-        //TODO: implement descend from lander & move to starting position & heading compensation with gyro
+    public void unlatchFromLander() throws InterruptedException {
+        double startingHeading = getCurrentHeading();
+        latch.setPower(-1);
+        sleep(4900);
+        latch.setPower(0);
+        double descendedHeading = getCurrentHeading();
+        double headingChange = descendedHeading - startingHeading;
+        telemetry.addData("Heading change:", headingChange);
+        telemetry.update();
+        turn(new IMUTurner(headingChange, 0.5, _imu1, .25, null), true, true);
+        forward(0.5, 3);
+        strafe(0.5,1);
+        turn(new IMUTurner(-90, 0.5, _imu1, .25, null), true, true);
+        strafe(0.5, 4);
     }
 
     public void extend(Boolean drop) {
-        //TODO: extend arm to either claim crater / drop token
+        if (drop) {
+            lift.setPower(-0.2);
+            sleep(1500);
+            lift.setPower(0);
+            motorRun(extend, 0.5, 3000);
+
+        } else {
+            lift.setPower(-0.2);
+            sleep(1500);
+            lift.setPower(0);
+            motorRun(extend, 0.5, 3000);
+        }
     }
 }

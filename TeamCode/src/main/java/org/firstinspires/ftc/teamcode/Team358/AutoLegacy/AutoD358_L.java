@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team358.AutoLegacy;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
@@ -21,6 +22,7 @@ public class AutoD358_L extends Robot358Main {
         double power = .5;
         boolean runUsingEncoders = true;
         state358 = state.UNLATCH;
+        box.setPosition(0.6);
         waitForStart();
 
         while (opModeIsActive()) {
@@ -34,7 +36,7 @@ public class AutoD358_L extends Robot358Main {
                     break;
 
                 case DETECT:                       // detect
-                    turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
+                    turn(new IMUTurner(-10, power, _imu1, .25, null), runUsingEncoders, true);
                     try {
                         TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
                             @Override
@@ -47,6 +49,7 @@ public class AutoD358_L extends Robot358Main {
                         telemetry.update();
                         detected = 2;
                     }
+                    deactivateVuforia();
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
                     state358 = state.KNOCK;
@@ -54,18 +57,18 @@ public class AutoD358_L extends Robot358Main {
 
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
-                        turn(new IMUTurner(-10, power, _imu1, .25, null), runUsingEncoders, true);
+                        turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 34);
-                        turn(new IMUTurner(40, power, _imu1, .25, null), runUsingEncoders, true);
+                        turn(new IMUTurner(60, power, _imu1, .25, null), runUsingEncoders, true);
                     } else if (detected == 2) {
-                        turn(new IMUTurner(20, power, _imu1, .25, null), runUsingEncoders, true);
+                        turn(new IMUTurner(10, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 31);
                     } else if (detected == 3) {
-                        turn(new IMUTurner(50, power, _imu1, .25, null), runUsingEncoders, true);
+                        turn(new IMUTurner(40, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 34);
-                        turn(new IMUTurner(-40, power, _imu1, .25, null), runUsingEncoders, true);
+                        turn(new IMUTurner(-60, power, _imu1, .25, null), runUsingEncoders, true);
                     }
-                    state358 = state.DROP;
+                    state358 = state.CRATER;
                     break;
 
                 case DROP:                                    // drive to depot & drop token
@@ -103,11 +106,42 @@ public class AutoD358_L extends Robot358Main {
         }
     }
 
-    public void unlatchFromLander() {
-        //TODO: implement descend from lander & move to starting position & heading compensation with gyro
+    public void unlatchFromLander() throws InterruptedException {
+        double startingHeading = getCurrentHeading();
+        latch.setPower(-1);
+        sleep(4900);
+        latch.setPower(0);
+        double descendedHeading = getCurrentHeading();
+        double headingChange = descendedHeading - startingHeading;
+        telemetry.addData("Heading change:", headingChange);
+        telemetry.update();
+        turn(new IMUTurner(headingChange, 0.5, _imu1, .25, null), true, true);
+        forward(0.5, 3);
+        strafe(0.5,1);
+        turn(new IMUTurner(-90, 0.5, _imu1, .25, null), true, true);
+        strafe(0.5, 4);
     }
 
     public void extend(Boolean drop) {
-        //TODO: extend arm to either claim crater / drop token
+        if (drop) {
+            lift.setPower(-0.2);
+            sleep(1500);
+            lift.setPower(0);
+            motorRun(extend, 0.5, 3000);
+            box.setPosition(0);
+            intake.setPower(-1);
+            sleep(1000);
+            intake.setPower(0);
+            box.setPosition(0.4);
+            motorRun(extend, 0.5, -3000);
+            lift.setPower(0.2);
+            sleep(1000);
+            lift.setPower(0);
+        } else {
+            lift.setPower(-0.2);
+            sleep(1500);
+            lift.setPower(0);
+            motorRun(extend, 0.5, 3000);
+        }
     }
 }
