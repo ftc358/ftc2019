@@ -1,11 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team359;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import org.firstinspires.ftc.teamcode.Encoders359;
 
 @Autonomous
 public class Autonomous359GuessCode extends LinearOpMode {
@@ -32,12 +31,12 @@ public class Autonomous359GuessCode extends LinearOpMode {
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
-
         while (opModeIsActive()) {
 
-            Encoders359.Forward(leftLatch,rightLatch,1,-43500);        //Latch down and move from the hook
+            Encoders359.Forward(leftLatch,rightLatch,1,-20000);        //Latch down and move from the hook
             Encoders359.Forward(leftMotor,rightMotor,0.25,6000);       //Knock the ball
 //            Encoders359.Slide(Rotation,0.1,100);                     //Place Team Marker
+            break;
         }
     }
 }

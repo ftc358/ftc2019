@@ -61,7 +61,7 @@ public class AutoD359 extends LinearOpMode {
             switch (state359) {
 
                 case LATCH:
-                    Encoders359.Forward(leftLatch, rightLatch, 1, -43500);
+                    Encoders359.Forward(leftLatch, rightLatch, 1, -20000);
                     state359 = state.DETECT;
                     break;
 

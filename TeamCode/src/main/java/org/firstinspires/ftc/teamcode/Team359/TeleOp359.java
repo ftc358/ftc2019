@@ -39,8 +39,8 @@ public class TeleOp359 extends OpMode {
 
         double maxpower = Range.clip(Math.sqrt((Math.pow(forward,2) + Math.pow(turning,2))/2),0,1);
 
-        double lpower = forward + turning;
-        double rpower = forward - turning;
+        double lpower = forward - turning;
+        double rpower = forward + turning;
 
         if (Math.abs(lpower) >= Math.abs(rpower)) {
             rpower *= maxpower / Math.abs(lpower);
@@ -58,11 +58,11 @@ public class TeleOp359 extends OpMode {
 
         if (gamepad1.left_bumper)               //Latching Mechanism
         {
-            leftLatch.setPower(.3);
-            rightLatch.setPower(.3);
+            leftLatch.setPower(1);
+            rightLatch.setPower(1);
         } else if (gamepad1.right_bumper) {
-            leftLatch.setPower(-.3);
-            rightLatch.setPower(-.3);
+            leftLatch.setPower(-1);
+            rightLatch.setPower(-1);
         } else {
             leftLatch.setPower(0);
             rightLatch.setPower(0);
@@ -72,9 +72,9 @@ public class TeleOp359 extends OpMode {
 
         if (gamepad2.dpad_up)                   //Slide Rotation
         {
-            Rotation.setPower(0.3);
+            Rotation.setPower(-.8);
         } else if (gamepad2.dpad_down) {
-            Rotation.setPower(-0.3);
+            Rotation.setPower(.8);
         } else {
             Rotation.setPower(0);
         }
@@ -83,9 +83,9 @@ public class TeleOp359 extends OpMode {
 
         if (gamepad2.left_bumper)                                   //Slide Extend
         {
-            slideExtend.setPower(1);
+            slideExtend.setPower(.8);
         } else if (gamepad2.right_bumper){
-            slideExtend.setPower(-1);
+            slideExtend.setPower(-.8);
         } else {
             slideExtend.setPower(0);
         }
