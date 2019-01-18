@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Team359;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -40,7 +40,7 @@ public class TeleOp359 extends OpMode {
         double maxpower = Range.clip(Math.sqrt((Math.pow(forward,2) + Math.pow(turning,2))/2),0,1);
 
         double lpower = forward - turning;
-        double rpower = forward + turning;
+        double rpower = forward - turning;
 
         if (Math.abs(lpower) >= Math.abs(rpower)) {
             rpower *= maxpower / Math.abs(lpower);
@@ -72,9 +72,9 @@ public class TeleOp359 extends OpMode {
 
         if (gamepad2.dpad_up)                   //Slide Rotation
         {
-            Rotation.setPower(-.8);
+            Rotation.setPower(-1);
         } else if (gamepad2.dpad_down) {
-            Rotation.setPower(.8);
+            Rotation.setPower(1);
         } else {
             Rotation.setPower(0);
         }
