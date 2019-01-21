@@ -24,9 +24,9 @@ public class CeciliaTestTeleOp extends LinearOpMode {
 
             //motor
 
-//            motor = hardwareMap.dcMotor.get("latch");
-//
-//            motor.setPower(gamepad1.left_stick_y);
+            motor = hardwareMap.dcMotor.get("latch");
+
+            motor.setPower(gamepad1.left_stick_y);
 
             //servo
 

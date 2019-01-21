@@ -37,7 +37,7 @@ public class TeleOp359 extends OpMode {
         double forward = gamepad1.left_stick_y;
         double turning = gamepad1.right_stick_x;
 
-        double maxpower = Range.clip(Math.sqrt((Math.pow(forward,2) + Math.pow(turning,2))/2),0,1);
+        double maxpower = Range.clip(Math.sqrt((Math.pow(forward, 2) + Math.pow(turning, 2)) / 2), 0, 1);
 
         double lpower = forward - turning;
         double rpower = forward - turning;
@@ -45,15 +45,13 @@ public class TeleOp359 extends OpMode {
         if (Math.abs(lpower) >= Math.abs(rpower)) {
             rpower *= maxpower / Math.abs(lpower);
             lpower = Math.signum(lpower) * maxpower;
-        }
-        else {
+        } else {
             lpower *= maxpower / Math.abs(rpower);
             rpower = Math.signum(rpower) * maxpower;
         }
 
         leftMotor.setPower(lpower);
         rightMotor.setPower(rpower);
-
 
 
         if (gamepad1.left_bumper)               //Latching Mechanism
@@ -69,7 +67,6 @@ public class TeleOp359 extends OpMode {
         }
 
 
-
         if (gamepad2.dpad_up)                   //Slide Rotation
         {
             Rotation.setPower(-1);
@@ -80,25 +77,22 @@ public class TeleOp359 extends OpMode {
         }
 
 
-
         if (gamepad2.left_bumper)                                   //Slide Extend
         {
             slideExtend.setPower(.8);
-        } else if (gamepad2.right_bumper){
+        } else if (gamepad2.right_bumper) {
             slideExtend.setPower(-.8);
         } else {
             slideExtend.setPower(0);
         }
 
 
-
         if (gamepad2.a)                                 //Intake Servo
         {
             Intake.setPower(1);
-        }else if (gamepad2.b)
-        {
+        } else if (gamepad2.b) {
             Intake.setPower(-1);
-        }else {
+        } else {
             Intake.setPower(0);
         }
     }
