@@ -40,7 +40,7 @@ public class TeleOp359 extends OpMode {
         double maxpower = Range.clip(Math.sqrt((Math.pow(forward, 2) + Math.pow(turning, 2)) / 2), 0, 1);
 
         double lpower = forward - turning;
-        double rpower = forward - turning;
+        double rpower = forward + turning;
 
         if (Math.abs(lpower) >= Math.abs(rpower)) {
             rpower *= maxpower / Math.abs(lpower);
