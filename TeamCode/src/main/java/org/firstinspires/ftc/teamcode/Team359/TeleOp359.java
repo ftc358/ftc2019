@@ -17,6 +17,8 @@ public class TeleOp359 extends OpMode {
     DcMotor slideExtend;
     DcMotor Rotation;
     CRServo Intake;
+    boolean boundedRotation = false;
+    int downPos = 1500;
 
     public void init() {
         leftMotor = hardwareMap.dcMotor.get("lM");
@@ -30,6 +32,9 @@ public class TeleOp359 extends OpMode {
 
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        Rotation.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        downPos = Rotation.getCurrentPosition() + 1500;
     }
 
     public void loop() {
@@ -66,14 +71,33 @@ public class TeleOp359 extends OpMode {
             rightLatch.setPower(0);
         }
 
+        if (!boundedRotation){
+            if (gamepad2.dpad_up)                   //Slide Rotation
+            {
+                Rotation.setPower(-1);
+            } else if (gamepad2.dpad_down) {
+                Rotation.setPower(1);
+            } else {
+                Rotation.setPower(0);
+            }
+        }
+        else {
+            if (gamepad2.dpad_up){
+                Encoders359.Rotate(Rotation, slideExtend, 3, downPos);
+            } else if (gamepad2.dpad_down) {
+                Encoders359.Rotate(Rotation, slideExtend, 4, downPos);
+            }
+        }
 
-        if (gamepad2.dpad_up)                   //Slide Rotation
-        {
-            Rotation.setPower(-1);
-        } else if (gamepad2.dpad_down) {
-            Rotation.setPower(1);
-        } else {
-            Rotation.setPower(0);
+        telemetry.addData("position reading: ", Rotation.getCurrentPosition());
+        telemetry.addData("slideExtend reading: ", slideExtend.getCurrentPosition());
+        telemetry.update();
+
+        if (gamepad2.x) {
+            boundedRotation = !boundedRotation;
+        }
+        if (gamepad2.y) {
+            downPos = Rotation.getCurrentPosition();
         }
 
 
