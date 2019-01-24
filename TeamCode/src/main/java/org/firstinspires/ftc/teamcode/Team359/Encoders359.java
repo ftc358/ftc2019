@@ -107,7 +107,6 @@ public class Encoders359 {
 
     public static void Rotate(DcMotor rotating, DcMotor spinning, int commandType, int downPos){
         int pos = rotating.getCurrentPosition() - downPos;
-        int spinningPos = spinning.getCurrentPosition();
 
         switch (commandType) {
             case 3:

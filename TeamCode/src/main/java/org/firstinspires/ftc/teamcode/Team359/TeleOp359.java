@@ -89,9 +89,6 @@ public class TeleOp359 extends OpMode {
             }
         }
 
-        telemetry.addData("position reading: ", Rotation.getCurrentPosition());
-        telemetry.addData("slideExtend reading: ", slideExtend.getCurrentPosition());
-        telemetry.update();
 
         if (gamepad2.x) {
             boundedRotation = !boundedRotation;
@@ -119,5 +116,11 @@ public class TeleOp359 extends OpMode {
         } else {
             Intake.setPower(0);
         }
+
+        telemetry.addData("position reading: ", Rotation.getCurrentPosition());
+        telemetry.addData("slideExtend reading: ", slideExtend.getCurrentPosition());
+        telemetry.addData("is new type of rotation: ", boundedRotation);
+        telemetry.update();
+
     }
 }
