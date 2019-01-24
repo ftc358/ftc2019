@@ -92,6 +92,9 @@ public class TeleOp359 extends OpMode {
 
         if (gamepad2.x) {
             boundedRotation = !boundedRotation;
+            while (gamepad2.x){
+                //dont do anything
+            }
         }
         if (gamepad2.y) {
             downPos = Rotation.getCurrentPosition();
