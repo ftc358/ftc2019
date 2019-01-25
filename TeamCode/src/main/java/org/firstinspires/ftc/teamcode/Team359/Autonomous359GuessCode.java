@@ -33,8 +33,8 @@ public class Autonomous359GuessCode extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
-            Encoders359.Forward(leftLatch,rightLatch,1,-20000);        //Latch down and move from the hook
-            Encoders359.Forward(leftMotor,rightMotor,0.25,6000);       //Knock the ball
+            Encoders359.Forward(leftLatch,rightLatch,1,-15000);        //Latch down and move from the hook
+//            Encoders359.Forward(leftMotor,rightMotor,0.25,6000);       //Knock the ball
 //            Encoders359.Slide(Rotation,0.1,100);                     //Place Team Marker
             break;
         }

@@ -50,17 +50,18 @@ public class AutoD359 extends LinearOpMode {
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        state359 = state.DETECT;
+        state359 = state.LATCH;
         waitForStart();
 
         while (opModeIsActive()) {
 
             telemetry.addData("Going into state", state359);
             telemetry.update();
+
             switch (state359) {
 
                 case LATCH:
-                    Encoders359.Forward(leftLatch, rightLatch, 1, -20000);
+                    Encoders359.Forward(leftLatch, rightLatch, 1, -15000);
                     state359 = state.DETECT;
                     break;
 
@@ -72,7 +73,7 @@ public class AutoD359 extends LinearOpMode {
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
-                    state359 = state.KNOCK;
+//                    state359 = state.KNOCK;
                     break;
 
                 case KNOCK:
@@ -90,7 +91,6 @@ public class AutoD359 extends LinearOpMode {
                         Encoders359.Turn(leftMotor, rightMotor, 0.25, -550);
                         Encoders359.Forward(leftMotor,rightMotor,0.25,5000);
                     }
-//                    sleep(10000);
                     state359 = state.STOP;
                     break;
 
@@ -154,10 +154,12 @@ public class AutoD359 extends LinearOpMode {
         sleep(1500);
         while (position == 0) {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            int maxSize = 0;
             for (int i = 0; i < 50; i++){
                 List<Recognition> newRecognitions = tfod.getUpdatedRecognitions();
-                if (newRecognitions != null && newRecognitions.size() > 0){
+                if (newRecognitions != null && newRecognitions.size() > maxSize){
                     updatedRecognitions = newRecognitions;
+                    maxSize = newRecognitions.size();
                 }
                 sleep(10);
             }
@@ -200,9 +202,7 @@ public class AutoD359 extends LinearOpMode {
                     }
                 }
                 else position = 1;
-
             }
-
         }
         return position;
     }
