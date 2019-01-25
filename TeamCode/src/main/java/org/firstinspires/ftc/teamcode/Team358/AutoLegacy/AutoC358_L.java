@@ -139,7 +139,7 @@ public class AutoC358_L extends Robot358Main {
             lift.setPower(-0.2);
             sleep(2000);
             lift.setPower(0);
-            motorRun(extend, 0.5, 4000);
+            runMotor(extend, 0.5, 4000);
         }
     }
 }

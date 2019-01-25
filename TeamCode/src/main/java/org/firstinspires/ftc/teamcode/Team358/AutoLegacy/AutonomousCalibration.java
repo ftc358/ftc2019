@@ -11,6 +11,6 @@ public class AutonomousCalibration extends Robot358Main {
 
         waitForStart();
 
-        strafe(1, 30);
+        runMotor(latch, 1, 10);
     }
 }
