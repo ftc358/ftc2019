@@ -5,7 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.RobotConfigNameable;
 import com.qualcomm.robotcore.util.Range;
+
+import java.util.Random;
 
 @TeleOp
 public class TeleOp359 extends OpMode {
@@ -17,6 +20,12 @@ public class TeleOp359 extends OpMode {
     DcMotor slideExtend;
     DcMotor Rotation;
     CRServo Intake;
+    boolean boundedRotation = false;
+    int downPos = 1500;
+
+    //random things for wiggling
+    int runTimeCount = 0, motorThing, slideThing;
+    int someConstant = 800;
 
     public void init() {
         leftMotor = hardwareMap.dcMotor.get("lM");
@@ -30,6 +39,9 @@ public class TeleOp359 extends OpMode {
 
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        Rotation.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        downPos = Rotation.getCurrentPosition() + 1500;
     }
 
     public void loop() {
@@ -40,7 +52,7 @@ public class TeleOp359 extends OpMode {
         double maxpower = Range.clip(Math.sqrt((Math.pow(forward, 2) + Math.pow(turning, 2)) / 2), 0, 1);
 
         double lpower = forward - turning;
-        double rpower = forward - turning;
+        double rpower = forward + turning;
 
         if (Math.abs(lpower) >= Math.abs(rpower)) {
             rpower *= maxpower / Math.abs(lpower);
@@ -66,14 +78,33 @@ public class TeleOp359 extends OpMode {
             rightLatch.setPower(0);
         }
 
+        if (!boundedRotation){
+            if (gamepad2.dpad_up)                   //Slide Rotation
+            {
+                Rotation.setPower(-1);
+            } else if (gamepad2.dpad_down) {
+                Rotation.setPower(1);
+            } else {
+                Rotation.setPower(0);
+            }
+        }
+        else {
+            if (gamepad2.dpad_up){
+                Encoders359.Rotate(Rotation, slideExtend, 3, downPos);
+            } else if (gamepad2.dpad_down) {
+                Encoders359.Rotate(Rotation, slideExtend, 4, downPos);
+            }
+        }
 
-        if (gamepad2.dpad_up)                   //Slide Rotation
-        {
-            Rotation.setPower(-1);
-        } else if (gamepad2.dpad_down) {
-            Rotation.setPower(1);
-        } else {
-            Rotation.setPower(0);
+
+        if (gamepad2.x) {
+            boundedRotation = !boundedRotation;
+            while (gamepad2.x){
+                //dont do anything
+            }
+        }
+        if (gamepad2.y) {
+            downPos = Rotation.getCurrentPosition();
         }
 
 
@@ -95,5 +126,31 @@ public class TeleOp359 extends OpMode {
         } else {
             Intake.setPower(0);
         }
+
+        //wiggle
+        if (gamepad1.a) {
+            if (runTimeCount == 0) {
+                double x = 8*Math.random();
+                int y = (int) x;
+                if (y > 3) { y++; }
+                slideThing = y % 3-1;
+                motorThing = (y - slideThing)/3-1;
+            }
+            if (runTimeCount < 2*Math.PI*someConstant) {
+                runTimeCount += 1;
+                slideExtend.setPower(slideThing*.8*Math.sin(runTimeCount/someConstant));
+                leftMotor.setPower(motorThing*.8*Math.cos(runTimeCount/someConstant));
+                rightMotor.setPower(-motorThing*.8*Math.cos(runTimeCount/someConstant));
+            }
+            else {
+                runTimeCount = 0;
+            }
+        }
+
+        telemetry.addData("position reading: ", Rotation.getCurrentPosition());
+        telemetry.addData("slideExtend reading: ", slideExtend.getCurrentPosition());
+        telemetry.addData("is new type of rotation: ", boundedRotation);
+        telemetry.update();
+
     }
 }

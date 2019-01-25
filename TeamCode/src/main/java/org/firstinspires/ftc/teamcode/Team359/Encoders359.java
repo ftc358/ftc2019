@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.Team359;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.sun.tools.javac.util.Position;
 
 public class Encoders359 {
 
@@ -101,5 +103,36 @@ public class Encoders359 {
 
         //Stop and Change Mode back to Normal
         motor1.setPower(0);
+    }
+
+    public static void Rotate(DcMotor rotating, DcMotor spinning, int commandType, int downPos){
+        int pos = rotating.getCurrentPosition() - downPos;
+
+        switch (commandType) {
+            case 3:
+                while (pos > - 1500) {
+                    if (pos > -500) {
+                        rotating.setPower(-0.5);
+                    }
+                    else {
+                        rotating.setPower(-0.7);
+                    }
+                    if (pos < -200) {
+                        spinning.setPower(.4);
+                    }
+                }
+                rotating.setPower(0);
+                spinning.setPower(0);
+                break;
+            case 4:
+                if (pos < 0) {
+                    rotating.setPower(0.8);
+                }
+                else {
+                    rotating.setPower(0);
+                }
+                break;
+        }
+
     }
 }
