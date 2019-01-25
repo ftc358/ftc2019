@@ -40,13 +40,13 @@ public class TeleOp358 extends Robot358Main {
             //Defining drive, strafe, and rotation power.                                                       //
             double drive = gamepad1.left_stick_y;                                                               //
             double strafe = gamepad1.left_stick_x;                                                              //
-            double rotate = -gamepad1.right_stick_x;                                                            //
+            double rotate = gamepad1.right_stick_x;                                                             //
                                                                                                                 //
             //Defining the motor power distribution.                                                            //
-            double flPower = drive - strafe - rotate;                                                           //
-            double blPower = drive + strafe - rotate;                                                           //
-            double frPower = drive + strafe + rotate;                                                           //
-            double brPower = drive - strafe + rotate;                                                           //
+            double flPower = drive - strafe + rotate;                                                           //
+            double blPower = drive + strafe + rotate;                                                           //
+            double frPower = drive + strafe - rotate;                                                           //
+            double brPower = drive - strafe - rotate;                                                           //
                                                                                                                 //
             double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);     //
             double POWER = -1 * joyStick * abs(joyStick);                                                       //
