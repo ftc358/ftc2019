@@ -22,6 +22,7 @@ import java.util.List;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 public abstract class Robot358Main extends LinearOpMode {
+
     private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
@@ -45,6 +46,7 @@ public abstract class Robot358Main extends LinearOpMode {
     private TFObjectDetector tfod;
 
     public void initialize() throws InterruptedException {
+
         fL = hardwareMap.dcMotor.get("lF");
         fL.setDirection(DcMotor.Direction.REVERSE);
         fL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -228,6 +230,7 @@ public abstract class Robot358Main extends LinearOpMode {
     }
 
     public void strafe(double power, double distance) {
+
         runUsingEncoders();
 
         int ticks = (int) (distance * 133);
