@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Team358.AutoLegacy;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.RobotLog;
