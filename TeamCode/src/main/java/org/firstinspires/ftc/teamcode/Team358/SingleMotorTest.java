@@ -15,21 +15,25 @@ public class SingleMotorTest extends LinearOpMode {
 
         waitForStart();
 
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         while (opModeIsActive()) {
-//            motor.setPower(gamepad1.left_stick_y);
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            motor.setTargetPosition(20);
-
-            motor.setPower(1);
-
-            while (motor.isBusy()) {
-                //Wait Until Target Position is Reached
-            }
-
-            //Stop and Change Mode back to Normal
-            motor.setPower(0);
+            motor.setTargetPosition(1000);
+            motor.setPower(0.5);
+            telemetry.addData("Current position", motor.getCurrentPosition());
+            telemetry.update();
+//            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            motor.setTargetPosition(20);
+//
+//            motor.setPower(1);
+//
+//            while (motor.isBusy()) {
+//                //Wait Until Target Position is Reached
+//            }
+//
+//            //Stop and Change Mode back to Normal
+//            motor.setPower(0);
         }
     }
 }
