@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.Team358;
+package org.firstinspires.ftc.teamcode.Team358.AutoLegacy;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
@@ -21,6 +22,7 @@ public class AutoC358_R extends Robot358Main {
         double power = 1;
         boolean runUsingEncoders = true;
         state358 = state.DETECT;
+        box.setPosition(0.6);
         waitForStart();
 
         while (opModeIsActive()) {

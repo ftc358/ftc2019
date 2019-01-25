@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.Team358;
+package org.firstinspires.ftc.teamcode.Team358.AutoLegacy;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous
 public class AutonomousCalibration extends Robot358Main {
@@ -32,17 +33,22 @@ public class AutonomousCalibration extends Robot358Main {
 
         initialize();
 
-        runMotor(lift,1,-2000);
+        latch.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        // extend motor: 200 ticks for 1 inch
+        latch.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        runMotor(extend,1,3000);
+        waitForStart();
 
-        box.setPosition(0);
+        latch.setTargetPosition(7000);
 
-        sleep(1000);
+        latch.setPower(1);
 
-        box.setPosition(0.6);
+        while (opModeIsActive() && latch.isBusy())
+        {
+            telemetry.addData("encoder-fwd", latch.getCurrentPosition() + "  busy=" + latch.isBusy());
+            telemetry.update();
+        }
 
+        latch.setPower(0.0);
     }
 }
