@@ -154,10 +154,12 @@ public class AutoD359 extends LinearOpMode {
         sleep(1500);
         while (position == 0) {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            int maxSize = 0;
             for (int i = 0; i < 50; i++){
                 List<Recognition> newRecognitions = tfod.getUpdatedRecognitions();
-                if (newRecognitions != null && newRecognitions.size() > 0){
+                if (newRecognitions != null && newRecognitions.size() > maxSize){
                     updatedRecognitions = newRecognitions;
+                    maxSize = newRecognitions.size();
                 }
                 sleep(10);
             }

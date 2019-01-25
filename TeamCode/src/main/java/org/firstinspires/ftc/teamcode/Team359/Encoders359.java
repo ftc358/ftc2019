@@ -110,14 +110,14 @@ public class Encoders359 {
 
         switch (commandType) {
             case 3:
-                while (pos > - 1500) {
+                if (pos > - 1500) {
                     if (pos > -500) {
                         rotating.setPower(-0.5);
                     }
                     else {
                         rotating.setPower(-0.7);
                     }
-                    if (pos < -200) {
+                    if (pos < -400) {
                         spinning.setPower(.4);
                     }
                 }
