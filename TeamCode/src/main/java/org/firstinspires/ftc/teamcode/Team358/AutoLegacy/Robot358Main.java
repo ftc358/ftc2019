@@ -269,9 +269,9 @@ public abstract class Robot358Main extends LinearOpMode {
 
     public void runMotor(DcMotor motor, double power, int ticks) {
 
-        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         motor.setTargetPosition(ticks);
 

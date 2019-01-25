@@ -10,7 +10,7 @@ public class Playground extends LinearOpMode {
     DcMotor motor2;
 
     public void runOpMode() throws InterruptedException {
-        motor1 = hardwareMap.dcMotor.get("motor1");
+        motor1 = hardwareMap.dcMotor.get("latch");
 //        motor2 = hardwareMap.dcMotor.get("motor2");
 
         waitForStart();
