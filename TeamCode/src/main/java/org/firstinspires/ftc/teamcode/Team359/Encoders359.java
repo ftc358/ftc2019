@@ -111,8 +111,13 @@ public class Encoders359 {
         switch (commandType) {
             case 3:
                 while (pos > - 1500) {
-                    rotating.setPower(-0.7);
-                    if (pos > -200) {
+                    if (pos > -500) {
+                        rotating.setPower(-0.5);
+                    }
+                    else {
+                        rotating.setPower(-0.7);
+                    }
+                    if (pos < -200) {
                         spinning.setPower(.4);
                     }
                 }
@@ -121,7 +126,7 @@ public class Encoders359 {
                 break;
             case 4:
                 if (pos < 0) {
-                    rotating.setPower(0.7);
+                    rotating.setPower(0.8);
                 }
                 else {
                     rotating.setPower(0);
