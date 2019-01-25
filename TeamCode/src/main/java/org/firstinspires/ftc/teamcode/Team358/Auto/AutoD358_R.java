@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Team358.AutoLegacy;
+package org.firstinspires.ftc.teamcode.Team358.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
