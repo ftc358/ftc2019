@@ -72,6 +72,8 @@ public abstract class Robot358Main extends LinearOpMode {
 
         _imu1 = hardwareMap.get(BNO055IMU.class, "imu");
         _imu1.initialize(parameters);
+
+        box.setPosition(0.6);
     }
 
     public double getCurrentHeading() {

@@ -33,22 +33,17 @@ public class AutonomousCalibration extends Robot358Main {
 
         initialize();
 
-        latch.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        runMotor(lift,1,-2000);
 
-        latch.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // extend motor: 200 ticks for 1 inch
 
-        waitForStart();
+        runMotor(extend,1,3000);
 
-        latch.setTargetPosition(7000);
+        box.setPosition(0);
 
-        latch.setPower(1);
+        sleep(1000);
 
-        while (opModeIsActive() && latch.isBusy())
-        {
-            telemetry.addData("encoder-fwd", latch.getCurrentPosition() + "  busy=" + latch.isBusy());
-            telemetry.update();
-        }
+        box.setPosition(0.6);
 
-        latch.setPower(0.0);
     }
 }

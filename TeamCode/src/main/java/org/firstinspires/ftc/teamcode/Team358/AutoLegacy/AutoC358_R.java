@@ -22,7 +22,6 @@ public class AutoC358_R extends Robot358Main {
         double power = 1;
         boolean runUsingEncoders = true;
         state358 = state.DETECT;
-        box.setPosition(0.6);
         waitForStart();
 
         while (opModeIsActive()) {
