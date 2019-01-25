@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Team358.Auto;
+package org.firstinspires.ftc.teamcode.Team358;
 
 class DefaultStopper implements StopperIF {
     StopperIF _stopper = null;

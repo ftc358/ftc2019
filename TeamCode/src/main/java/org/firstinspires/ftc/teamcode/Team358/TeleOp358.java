@@ -4,8 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.Team358.Auto.Robot358Main;
-
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.pow;

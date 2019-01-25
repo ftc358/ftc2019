@@ -1,13 +1,15 @@
-package org.firstinspires.ftc.teamcode.Team358.Auto;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
 import java.util.concurrent.TimeUnit;
 
+@Disabled
 @Autonomous
-public class AutoD358_L extends Robot358Main {
+public class AutoD358_R extends Robot358Main {
 
     int detected = 0;
 
@@ -21,7 +23,6 @@ public class AutoD358_L extends Robot358Main {
         double power = .5;
         boolean runUsingEncoders = true;
         state358 = state.UNLATCH;
-        box.setPosition(0.6);
         waitForStart();
 
         while (opModeIsActive()) {
@@ -57,43 +58,53 @@ public class AutoD358_L extends Robot358Main {
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
                         turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 34);
-                        turn(new IMUTurner(60, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 25);
                     } else if (detected == 2) {
                         turn(new IMUTurner(10, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 31);
+                        forward(0.5, 22);
                     } else if (detected == 3) {
                         turn(new IMUTurner(40, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 34);
-                        turn(new IMUTurner(-60, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 26);
                     }
+//                    state358 = state.DROP;
                     state358 = state.CRATER;
                     break;
 
                 case DROP:                                    // drive to depot & drop token
+                    if (detected == 1) {
+                        turn(new IMUTurner(-77, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 47);
+                        turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
+                    } else if (detected == 2) {
+                        forward(0.5, -10);
+                        turn(new IMUTurner(-90, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 45);
+                        turn(new IMUTurner(-45, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 14);
+                    } else if (detected == 3) {
+                        forward(0.5, -13);
+                        turn(new IMUTurner(-115, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 51);
+                        turn(new IMUTurner(-55, power, _imu1, .25, null), runUsingEncoders, true);
+                        forward(0.5, 14);
+                    }
                     extend(true);
                     state358 = state.DRIVE;
                     break;
 
                 case DRIVE:                                    // drive to enemy crater
-                    if (detected == 1) {
-                        turn(new IMUTurner(-130, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 25);
-                    } else if (detected == 2) {
-                        forward(0.5, -15);
-                        turn(new IMUTurner(-90, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 33);
-                        turn(new IMUTurner(-30, power, _imu1, .25, null), runUsingEncoders, true);
-                    } else if (detected == 3) {
-                        forward(0.5, -15);
-                        turn(new IMUTurner(-80, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 53);
-                        turn(new IMUTurner(-30, power, _imu1, .25, null), runUsingEncoders, true);
-                    }
+//                    forward(0.5, -25);
+//                    turn(new IMUTurner(-180, power, _imu1, .25, null), runUsingEncoders, true);
                     state358 = state.CRATER;
                     break;
 
                 case CRATER:
+                    if (detected == 1) {
+                        turn(new IMUTurner(60, power, _imu1, .25, null), runUsingEncoders, true);
+                    } else if (detected == 2) {
+                    } else if (detected == 3) {
+                        turn(new IMUTurner(-60, power, _imu1, .25, null), runUsingEncoders, true);
+                    }
                     extend(false);
                     state358 = state.STOP;
                     break;
@@ -108,7 +119,7 @@ public class AutoD358_L extends Robot358Main {
     public void unlatchFromLander() throws InterruptedException {
         double startingHeading = getCurrentHeading();
         latch.setPower(-1);
-        sleep(4900);
+        sleep(4700);
         latch.setPower(0);
         double descendedHeading = getCurrentHeading();
         double headingChange = descendedHeading - startingHeading;
@@ -116,7 +127,7 @@ public class AutoD358_L extends Robot358Main {
         telemetry.update();
         turn(new IMUTurner(headingChange, 0.5, _imu1, .25, null), true, true);
         forward(0.5, 3);
-        strafe(0.5,1);
+        strafe(0.5, 1);
         turn(new IMUTurner(-90, 0.5, _imu1, .25, null), true, true);
         strafe(0.5, 4);
     }
@@ -128,13 +139,9 @@ public class AutoD358_L extends Robot358Main {
             lift.setPower(0);
             runMotor(extend, 0.5, 3000);
             box.setPosition(0);
-            intake.setPower(-1);
-            sleep(1000);
-            intake.setPower(0);
-            box.setPosition(0.4);
             runMotor(extend, 0.5, -3000);
             lift.setPower(0.2);
-            sleep(1000);
+            sleep(1500);
             lift.setPower(0);
         } else {
             lift.setPower(-0.2);

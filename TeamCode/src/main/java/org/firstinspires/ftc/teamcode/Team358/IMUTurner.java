@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Team358.Auto;
+package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.util.RobotLog;
