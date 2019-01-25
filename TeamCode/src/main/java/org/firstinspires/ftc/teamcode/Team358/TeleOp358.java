@@ -59,7 +59,7 @@ public class TeleOp358 extends Robot358Main {
             bL.setPower(-(POWER * blPower / maxPower) / SCALE);                                                 //
             fR.setPower(-(POWER * frPower / maxPower) / SCALE);                                                 //
             bR.setPower(-(POWER * brPower / maxPower) / SCALE);                                                 //
-            //Drive code /////////////////////////////////////////////////////////////////////////////////////////
+            //Drive code :)///////////////////////////////////////////////////////////////////////////////////////
 
             if (gamepad1.left_bumper) {
                 latch.setPower(1);

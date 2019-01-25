@@ -118,7 +118,7 @@ public class TeleOp359 extends OpMode {
         }
 
 
-        if (gamepad2.a)                                 //Intake Servo
+        if (gamepad2.a)                                     //Intake Servo
         {
             Intake.setPower(1);
         } else if (gamepad2.b) {
