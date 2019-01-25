@@ -44,6 +44,7 @@ public abstract class Robot358Main extends LinearOpMode {
     float rollAngle;
     state state358;
     private TFObjectDetector tfod;
+    LatchModule latchModule;
 
     public void initialize() throws InterruptedException {
 
@@ -76,6 +77,8 @@ public abstract class Robot358Main extends LinearOpMode {
         _imu1.initialize(parameters);
 
         box.setPosition(0.6);
+
+        latchModule = new LatchModule(latch);
     }
 
     public double getCurrentHeading() {
