@@ -137,9 +137,9 @@ public class AutoD358_R extends Robot358Main {
             lift.setPower(-0.2);
             sleep(1500);
             lift.setPower(0);
-            motorRun(extend, 0.5, 3000);
+            runMotor(extend, 0.5, 3000);
             box.setPosition(0);
-            motorRun(extend, 0.5, -3000);
+            runMotor(extend, 0.5, -3000);
             lift.setPower(0.2);
             sleep(1500);
             lift.setPower(0);
@@ -147,7 +147,7 @@ public class AutoD358_R extends Robot358Main {
             lift.setPower(-0.2);
             sleep(1500);
             lift.setPower(0);
-            motorRun(extend, 0.5, 3000);
+            runMotor(extend, 0.5, 3000);
         }
     }
 }

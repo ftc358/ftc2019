@@ -19,9 +19,9 @@ public class AutoC358_R extends Robot358Main {
         telemetry.addData("Initialization:", "done");
         telemetry.update();
 
-        double power = .5;
+        double power = 1;
         boolean runUsingEncoders = true;
-        state358 = state.UNLATCH;
+        state358 = state.DETECT;
         box.setPosition(0.6);
         waitForStart();
 
@@ -30,10 +30,10 @@ public class AutoC358_R extends Robot358Main {
             telemetry.addData("Going into state", state358);
             telemetry.update();
             switch (state358) {
-                case UNLATCH:                                   // unlatch and orient 90 degrees
-                    unlatchFromLander();
-                    state358 = state.DETECT;
-                    break;
+//                case UNLATCH:                                   // unlatch and orient 90 degrees
+//                    unlatchFromLander();
+//                    state358 = state.DETECT;
+//                    break;
 
                 case DETECT:                       // detect
                     turn(new IMUTurner(-10, power, _imu1, .25, null), runUsingEncoders, true);
@@ -88,7 +88,7 @@ public class AutoC358_R extends Robot358Main {
                         turn(new IMUTurner(-55, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 14);
                     }
-                    extend(true);
+//                    extend(true);
                     state358 = state.DRIVE;
                     break;
 
@@ -99,7 +99,7 @@ public class AutoC358_R extends Robot358Main {
                     break;
 
                 case CRATER:
-                    extend(false);
+//                    extend(false);
                     state358 = state.STOP;
                     break;
 
@@ -110,34 +110,34 @@ public class AutoC358_R extends Robot358Main {
         }
     }
 
-    public void unlatchFromLander() throws InterruptedException {
-        double startingHeading = getCurrentHeading();
-        latch.setPower(-1);
-        sleep(4900);
-        latch.setPower(0);
-        double descendedHeading = getCurrentHeading();
-        double headingChange = descendedHeading - startingHeading;
-        telemetry.addData("Heading change:", headingChange);
-        telemetry.update();
-        turn(new IMUTurner(headingChange, 0.5, _imu1, .25, null), true, true);
-        forward(0.5, 3);
-        strafe(0.5,1);
-        turn(new IMUTurner(-90, 0.5, _imu1, .25, null), true, true);
-        strafe(0.5, 4);
-    }
-
-    public void extend(Boolean drop) {
-        if (drop) {
-            lift.setPower(-0.2);
-            sleep(1500);
-            lift.setPower(0);
-            motorRun(extend, 0.5, 3000);
-
-        } else {
-            lift.setPower(-0.2);
-            sleep(1500);
-            lift.setPower(0);
-            motorRun(extend, 0.5, 3000);
-        }
-    }
+//    public void unlatchFromLander() throws InterruptedException {
+//        double startingHeading = getCurrentHeading();
+//        latch.setPower(-1);
+//        sleep(4900);
+//        latch.setPower(0);
+//        double descendedHeading = getCurrentHeading();
+//        double headingChange = descendedHeading - startingHeading;
+//        telemetry.addData("Heading change:", headingChange);
+//        telemetry.update();
+//        turn(new IMUTurner(headingChange, 0.5, _imu1, .25, null), true, true);
+//        forward(0.5, 3);
+//        strafe(0.5,1);
+//        turn(new IMUTurner(-90, 0.5, _imu1, .25, null), true, true);
+//        strafe(0.5, 4);
+//    }
+//
+//    public void extend(Boolean drop) {
+//        if (drop) {
+//            lift.setPower(-0.2);
+//            sleep(1500);
+//            lift.setPower(0);
+//            runMotor(extend, 0.5, 3000);
+//
+//        } else {
+//            lift.setPower(-0.2);
+//            sleep(1500);
+//            lift.setPower(0);
+//            runMotor(extend, 0.5, 3000);
+//        }
+//    }
 }

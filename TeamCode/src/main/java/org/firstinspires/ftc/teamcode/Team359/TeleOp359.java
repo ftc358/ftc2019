@@ -5,7 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.RobotConfigNameable;
 import com.qualcomm.robotcore.util.Range;
+
+import java.util.Random;
 
 @TeleOp
 public class TeleOp359 extends OpMode {
@@ -19,6 +22,10 @@ public class TeleOp359 extends OpMode {
     CRServo Intake;
     boolean boundedRotation = false;
     int downPos = 1500;
+
+    //random things for wiggling
+    int runTimeCount = 0, motorThing, slideThing;
+    int someConstant = 800;
 
     public void init() {
         leftMotor = hardwareMap.dcMotor.get("lM");
@@ -118,6 +125,26 @@ public class TeleOp359 extends OpMode {
             Intake.setPower(-1);
         } else {
             Intake.setPower(0);
+        }
+
+        //wiggle
+        if (gamepad1.a) {
+            if (runTimeCount == 0) {
+                double x = 8*Math.random();
+                int y = (int) x;
+                if (y > 3) { y++; }
+                slideThing = y % 3-1;
+                motorThing = (y - slideThing)/3-1;
+            }
+            if (runTimeCount < 2*Math.PI*someConstant) {
+                runTimeCount += 1;
+                slideExtend.setPower(slideThing*.8*Math.sin(runTimeCount/someConstant));
+                leftMotor.setPower(motorThing*.8*Math.cos(runTimeCount/someConstant));
+                rightMotor.setPower(-motorThing*.8*Math.cos(runTimeCount/someConstant));
+            }
+            else {
+                runTimeCount = 0;
+            }
         }
 
         telemetry.addData("position reading: ", Rotation.getCurrentPosition());

@@ -171,30 +171,30 @@ public class AutoD359 extends LinearOpMode {
                     int silverMineralX = -1;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getLeft();
+                            goldMineralX = (int) recognition.getTop();
                         } else if (silverMineralX == -1) {
-                            silverMineralX = (int) recognition.getLeft();
+                            silverMineralX = (int) recognition.getTop();
                         } else {
-                            return 1;
+                            return 3;
                         }
                     }
 
                     if (goldMineralX < silverMineralX) {
                         position = 2;
                     } else {
-                        position = 3;
+                        position = 1;
                     }
                 }
                 else if (updatedRecognitions.size() == 1) {
-                    int THRESHOLD_UP = 800, THRESHOLD_DOWN = 700;
+                    int THRESHOLD_UP = 900, THRESHOLD_DOWN = 800;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
                             int topCoord = (int) recognition.getTop();
                             if (topCoord > THRESHOLD_UP) {
-                                position = 2;
+                                position = 1;
                             }
                             else if (topCoord < THRESHOLD_DOWN) {
-                                position = 3;
+                                position = 2;
                             }
                         }
                     }

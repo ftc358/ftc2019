@@ -1,5 +1,6 @@
-package org.firstinspires.ftc.teamcode.Team358;
+package org.firstinspires.ftc.teamcode.Archive;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -7,7 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import static java.lang.Math.abs;
 
-@TeleOp
+//@TeleOp
+@Disabled
 public class Servox2Test extends LinearOpMode {
     CRServo intake;
     Servo box;
