@@ -36,17 +36,29 @@ public class AutoC358 extends Robot358Main {
 
                     runMotor(latch, 1, 7000);
 
+//                    forward(power, 3);
+//                    double descendedHeading = getCurrentHeading();
+//                    double headingChange = descendedHeading - startingHeading;
+//                    turn(new IMUTurner(-90 + headingChange, power, _imu1, 1, null), true, true);
+////                    strafe(power, 3);
+
                     forward(power, 3);
                     double descendedHeading = getCurrentHeading();
-                    double headingChange = descendedHeading - startingHeading;
-                    turn(new IMUTurner(-90 + headingChange, power, _imu1, 1, null), true, true);
-                    strafe(power, 4);
+                    double headingChange = descendedHeading + startingHeading;
+                    telemetry.addData("headingChange",headingChange);
+                    telemetry.addData("Turning by",-90 - headingChange);
+                    telemetry.update();
+                    turn(new IMUTurner(-90 - headingChange, power, _imu1, 1, null), true, true);
+//                    strafe(power, 4);
+//                    strafe(power, -2);
+                    strafe(power, 2);
 
                     state358 = state.DETECT;
                     break;
 
                 case DETECT:                       // detect
 //                    turn(new IMUTurner(-10, power, _imu1, 1, null), runUsingEncoders, true);
+                    turn(new IMUTurner(-5, power, _imu1, 1, null), runUsingEncoders, true);
                     try {
                         TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
                             @Override
@@ -67,13 +79,13 @@ public class AutoC358 extends Robot358Main {
 
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
-                        turn(new IMUTurner(-20, power, _imu1, 1, null), runUsingEncoders, true);
+                        turn(new IMUTurner(-15, power, _imu1, 1, null), runUsingEncoders, true);
                         forward(0.5, 28);
                     } else if (detected == 2) {
-//                        turn(new IMUTurner(10, power, _imu1, 1, null), runUsingEncoders, true);
+                        turn(new IMUTurner(5, power, _imu1, 1, null), runUsingEncoders, true);
                         forward(0.5, 24);
                     } else if (detected == 3) {
-                        turn(new IMUTurner(20, power, _imu1, 1, null), runUsingEncoders, true);
+                        turn(new IMUTurner(25, power, _imu1, 1, null), runUsingEncoders, true);
                         forward(0.5, 28);
                     }
                     state358 = state.DROP;
@@ -102,7 +114,9 @@ public class AutoC358 extends Robot358Main {
                     // extend motor: 200 ticks for 1 inch
                     runMotor(extend, 1, 3000);
                     box.setPosition(0);
+                    intake.setPower(-1);
                     sleep(500);
+                    intake.setPower(0);
                     runMotor(lift, 1, -2000);
 
                     state358 = state.DRIVE;
@@ -125,35 +139,4 @@ public class AutoC358 extends Robot358Main {
             }
         }
     }
-
-//    public void unlatchFromLander() throws InterruptedException {
-//        double startingHeading = getCurrentHeading();
-//        latch.setPower(-1);
-//        sleep(4900);
-//        latch.setPower(0);
-//        double descendedHeading = getCurrentHeading();
-//        double headingChange = descendedHeading - startingHeading;
-//        telemetry.addData("Heading change:", headingChange);
-//        telemetry.update();
-//        turn(new IMUTurner(headingChange, 0.5, _imu1, 1, null), true, true);
-//        forward(0.5, 3);
-//        strafe(0.5,1);
-//        turn(new IMUTurner(-90, 0.5, _imu1, 1, null), true, true);
-//        strafe(0.5, 4);
-//    }
-//
-//    public void extend(Boolean drop) {
-//        if (drop) {
-//            lift.setPower(-0.2);
-//            sleep(1500);
-//            lift.setPower(0);
-//            runMotor(extend, 0.5, 3000);
-//
-//        } else {
-//            lift.setPower(-0.2);
-//            sleep(1500);
-//            lift.setPower(0);
-//            runMotor(extend, 0.5, 3000);
-//        }
-//    }
 }

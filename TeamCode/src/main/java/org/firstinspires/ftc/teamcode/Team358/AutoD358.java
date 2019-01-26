@@ -40,8 +40,8 @@ public class AutoD358 extends Robot358Main {
 
                     forward(power, 3);
                     double descendedHeading = getCurrentHeading();
-                    double headingChange = descendedHeading - startingHeading;
-                    turn(new IMUTurner(-90 + headingChange, power, _imu1, 1, null), true, true);
+                    double headingChange = descendedHeading + startingHeading;
+                    turn(new IMUTurner(-90 - headingChange, power, _imu1, 1, null), true, true);
                     strafe(power, 4);
 
                     state358 = state.DETECT;
@@ -89,7 +89,9 @@ public class AutoD358 extends Robot358Main {
                     // extend motor: 200 ticks for 1 inch
                     runMotor(extend, 1, 3000);
                     box.setPosition(0);
+                    intake.setPower(-1);
                     sleep(500);
+                    intake.setPower(0);
                     runMotor(lift, 1, 2000);
 
                     state358 = state.DRIVE;
