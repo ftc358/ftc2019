@@ -110,8 +110,8 @@ public class TeleOp358 extends Robot358Main {
             if (notDefaultBoxPosition) {
                 box.setPosition(abs(gamepad2.right_trigger));
                 telemetry.addData("box servo position", abs(gamepad2.right_trigger));
-            } else {
-                box.setPosition(.2 + 0.6 * abs(gamepad2.right_trigger));
+            } else { //make max 0.61
+                box.setPosition(0.58 * abs(gamepad2.right_trigger));
             }
 
         }

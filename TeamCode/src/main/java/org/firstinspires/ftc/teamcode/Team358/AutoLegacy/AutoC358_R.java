@@ -58,13 +58,13 @@ public class AutoC358_R extends Robot358Main {
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
                         turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 26);
+                        forward(0.5, 28);
                     } else if (detected == 2) {
                         turn(new IMUTurner(10, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 23);
+                        forward(0.5, 24);
                     } else if (detected == 3) {
                         turn(new IMUTurner(40, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 26);
+                        forward(0.5, 28);
                     }
 //                    state358 = state.DROP;
                     state358 = state.CRATER;
@@ -73,16 +73,16 @@ public class AutoC358_R extends Robot358Main {
                 case DROP:                                    // drive to depot & drop token
                     if (detected == 1) {
                         turn(new IMUTurner(-77, power, _imu1, .25, null), runUsingEncoders, true);
-                        forward(0.5, 47);
+                        forward(0.5, 49);
                         turn(new IMUTurner(-20, power, _imu1, .25, null), runUsingEncoders, true);
                     } else if (detected == 2) {
-                        forward(0.5, -10);
+                        forward(0.5, -12);
                         turn(new IMUTurner(-90, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 45);
                         turn(new IMUTurner(-45, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 14);
                     } else if (detected == 3) {
-                        forward(0.5, -13);
+                        forward(0.5, -15);
                         turn(new IMUTurner(-115, power, _imu1, .25, null), runUsingEncoders, true);
                         forward(0.5, 51);
                         turn(new IMUTurner(-55, power, _imu1, .25, null), runUsingEncoders, true);
