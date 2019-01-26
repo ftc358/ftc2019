@@ -98,11 +98,11 @@ public class AutoD359 extends LinearOpMode {
                 case DRIVE:
                     if (detected == 1) {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,-1000);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,1000);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,2000);
                         Encoders359.Intake(Rotation,0.5,-1000);
                         Encoders359.Intake(Rotation,0.5,1000);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,3000);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,2000);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,5000);
                     } else if (detected == 2) {
                         Encoders359.Intake(Rotation,0.5,-1000);
