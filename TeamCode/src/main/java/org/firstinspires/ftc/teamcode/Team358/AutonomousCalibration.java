@@ -1,6 +1,10 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
+import android.media.MediaPlayer;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import org.firstinspires.ftc.teamcode.R;
 
 @Autonomous
 public class AutonomousCalibration extends Robot358Main {
@@ -28,21 +32,29 @@ public class AutonomousCalibration extends Robot358Main {
 ////        latch.setPower(0.0);
 ////    }
 
+//    public void runOpMode() throws InterruptedException {
+//
+//        initialize();
+//
+//        runMotor(lift,1,-2000);
+//
+//        // extend motor: 200 ticks for 1 inch
+//
+//        runMotor(extend,1,3000);
+//
+//        box.setPosition(0);
+//
+//        sleep(1000);
+//
+//        box.setPosition(0.6);
+//
+//    }
+
+
     public void runOpMode() throws InterruptedException {
-
-        initialize();
-
-        runMotor(lift,1,-2000);
-
-        // extend motor: 200 ticks for 1 inch
-
-        runMotor(extend,1,3000);
-
-        box.setPosition(0);
-
-        sleep(1000);
-
-        box.setPosition(0.6);
-
+        MediaPlayer mp = MediaPlayer.create(hardwareMap.appContext, R.raw.roundabout);
+        mp.start();
     }
+
+
 }
