@@ -37,6 +37,8 @@ public class AutoD359 extends LinearOpMode {
     VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
 
+    List<Recognition> updatedRecognitions;
+
     public void runOpMode() throws InterruptedException {
 
         leftMotor = hardwareMap.dcMotor.get("lM");
@@ -62,7 +64,8 @@ public class AutoD359 extends LinearOpMode {
 
                 case LATCH:
                     Encoders359.Forward(leftLatch, rightLatch, 1, -15000);
-                    Encoders359.Turn(leftMotor,rightMotor,0.25,100);
+                    Encoders359.Forward(leftMotor,rightMotor,0.5,400);
+                    Encoders359.Turn(leftMotor,rightMotor,0.5,250);
                     state359 = state.DETECT;
                     break;
 
@@ -80,29 +83,27 @@ public class AutoD359 extends LinearOpMode {
                 case KNOCK:
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);      //Go left
-                        Encoders359.Turn(leftMotor, rightMotor, 0.25, 550);
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,6000);
-
+                        Encoders359.Turn(leftMotor, rightMotor, 0.5, 300);          //Go Left
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,4500);
                     } else if (detected == 2) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 5000);     //Go forward
-
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,-250);            //Go forward
+                        Encoders359.Forward(leftMotor, rightMotor, 0.5, 6000);
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor,rightMotor,0.25,-100);           //Go right
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);
-                        Encoders359.Turn(leftMotor, rightMotor, 0.25, -550);
-                        Encoders359.Forward(leftMotor,rightMotor,0.25,5000);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.5, -700);         //Go right
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,5500);
                     }
-                    state359 = state.STOP;
+                    state359 = state.DRIVE;
                     break;
 
                 case DRIVE:
                     if (detected == 1) {
-                        //Codes to go to the crater after knocking at the left
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,-700);
                     } else if (detected == 2) {
-                        //Codes to go to the crater after knocking at the center
+                        Encoders359.Intake(Rotation,0.5,1000);
                     } else if (detected == 3) {
-                        //Codes to go to the crater after knocking at the right
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,900);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,1000);
+                        Encoders359.Intake(Rotation,0.5,-1000);
                     }
                     state359 = state.STOP;
                     break;
@@ -155,13 +156,13 @@ public class AutoD359 extends LinearOpMode {
         // the last time that call was made.
         sleep(1500);
         while (position == 0) {
-            List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            updatedRecognitions = tfod.getUpdatedRecognitions();
             int maxSize = 0;
             for (int i = 0; i < 50; i++){
                 List<Recognition> newRecognitions = tfod.getUpdatedRecognitions();
                 if (newRecognitions != null && newRecognitions.size() > maxSize){
                     updatedRecognitions = newRecognitions;
-                    maxSize = newRecognitions.size();
+                    maxSize = newRecognitions. size();
                 }
                 sleep(10);
             }
@@ -190,7 +191,7 @@ public class AutoD359 extends LinearOpMode {
                     }
                 }
                 else if (updatedRecognitions.size() == 1) {
-                    int THRESHOLD_UP = 900, THRESHOLD_DOWN = 800;
+                    int THRESHOLD_UP = 850, THRESHOLD_DOWN = 850;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
                             int topCoord = (int) recognition.getTop();
@@ -201,9 +202,12 @@ public class AutoD359 extends LinearOpMode {
                                 position = 2;
                             }
                         }
+                        else if (recognition.getLabel().equals(LABEL_SILVER_MINERAL)){
+                                position = 3;
+                        }
                     }
                 }
-                else position = 1;
+                else position = 3;
             }
         }
         return position;
