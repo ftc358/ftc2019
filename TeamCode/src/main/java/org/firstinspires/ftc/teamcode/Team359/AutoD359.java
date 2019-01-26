@@ -87,7 +87,7 @@ public class AutoD359 extends LinearOpMode {
                         Encoders359.Forward(leftMotor, rightMotor, 0.25, 6000);     //Go forward
 
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor, rightMotor, 0.25, -800);        //Go right
+                        Encoders359.Turn(leftMotor, rightMotor, 0.25, -700);        //Go right
                         Encoders359.Forward(leftMotor,rightMotor,0.25,4500);
                     }
                     state359 = state.STOP;
@@ -200,7 +200,7 @@ public class AutoD359 extends LinearOpMode {
                         }
                     }
                 }
-                else position = 1;
+                else position = 3;
             }
         }
         return position;
