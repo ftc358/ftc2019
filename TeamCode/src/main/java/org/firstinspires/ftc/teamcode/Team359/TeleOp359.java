@@ -81,9 +81,9 @@ public class TeleOp359 extends OpMode {
         if (!boundedRotation){
             if (gamepad2.dpad_up)                   //Slide Rotation
             {
-                Rotation.setPower(-1);
+                Rotation.setPower(-.5);
             } else if (gamepad2.dpad_down) {
-                Rotation.setPower(1);
+                Rotation.setPower(.5);
             } else {
                 Rotation.setPower(0);
             }
