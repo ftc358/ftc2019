@@ -16,7 +16,7 @@ import java.util.List;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 @Autonomous
-public class AutoD359 extends LinearOpMode {
+public class AutoC359 extends LinearOpMode {
 
     private static final String VUFORIA_KEY = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
@@ -84,33 +84,21 @@ public class AutoD359 extends LinearOpMode {
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
                         Encoders359.Turn(leftMotor, rightMotor, 0.5, 300);          //Go Left
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,4500);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,5500);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5, -1200);
                     } else if (detected == 2) {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,-250);            //Go forward
-                        Encoders359.Forward(leftMotor, rightMotor, 0.5, 6000);
+                        Encoders359.Forward(leftMotor, rightMotor, 0.5, 4500);
                     } else if (detected == 3) {
                         Encoders359.Turn(leftMotor, rightMotor, 0.5, -800);         //Go right
                         Encoders359.Forward(leftMotor,rightMotor,0.5,5500);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5, 1200);
                     }
                     state359 = state.DRIVE;
                     break;
 
                 case DRIVE:
-                    if (detected == 1) {
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,-700);
-                    } else if (detected == 2) {
-                        Encoders359.Intake(Rotation,0.5,-1000);
-                        Encoders359.Intake(Rotation,0.5,1000);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
-                    } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,1000);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,1000);
-                        Encoders359.Intake(Rotation,0.5,-1000);
-                        Encoders359.Intake(Rotation,0.5,1000);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,-3000);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,5000);
-                    }
+                    Encoders359.Forward(leftMotor,rightMotor,0.5,3000);
                     state359 = state.STOP;
                     break;
 
@@ -209,7 +197,7 @@ public class AutoD359 extends LinearOpMode {
                             }
                         }
                         else if (recognition.getLabel().equals(LABEL_SILVER_MINERAL)){
-                                position = 3;
+                            position = 3;
                         }
                     }
                 }
