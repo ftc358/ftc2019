@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
@@ -45,8 +44,8 @@ public class AutoC358 extends Robot358Main {
                     forward(power, 3);
                     double descendedHeading = getCurrentHeading();
                     double headingChange = descendedHeading + startingHeading;
-                    telemetry.addData("headingChange",headingChange);
-                    telemetry.addData("Turning by",-90 - headingChange);
+                    telemetry.addData("headingChange", headingChange);
+                    telemetry.addData("Turning by", -90 - headingChange);
                     telemetry.update();
                     turn(new IMUTurner(-90 - headingChange, power, _imu1, 1, null), true, true);
 //                    strafe(power, 4);
@@ -93,7 +92,8 @@ public class AutoC358 extends Robot358Main {
 
                 case DROP:                                    // drive to depot & drop token
                     if (detected == 1) {
-                        turn(new IMUTurner(-100, power, _imu1, 1, null), runUsingEncoders, true);
+                        turn(new IMUTurner(-70, power, _imu1, 1, null), runUsingEncoders, true);
+                        strafe(1, -3);
                         forward(0.5, 49);
 //                        turn(new IMUTurner(-20, power, _imu1, 1, null), runUsingEncoders, true);
                     } else if (detected == 2) {
@@ -110,14 +110,14 @@ public class AutoC358 extends Robot358Main {
                         forward(0.5, 14);
                     }
 
-                    runMotor(lift, 1, 2000);
+                    runMotor(lift, 1, -2000);
                     // extend motor: 200 ticks for 1 inch
                     runMotor(extend, 1, 3000);
                     box.setPosition(0);
                     intake.setPower(-1);
                     sleep(500);
                     intake.setPower(0);
-                    runMotor(lift, 1, -2000);
+                    runMotor(lift, 1, 2000);
 
                     state358 = state.DRIVE;
                     break;
@@ -129,7 +129,7 @@ public class AutoC358 extends Robot358Main {
                     break;
 
                 case CRATER:
-                    runMotor(lift, 1, 5000);
+                    runMotor(lift, 1, -5000);
                     state358 = state.STOP;
                     break;
 

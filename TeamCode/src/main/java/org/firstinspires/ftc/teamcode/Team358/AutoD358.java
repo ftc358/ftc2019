@@ -48,7 +48,7 @@ public class AutoD358 extends Robot358Main {
                     break;
 
                 case DETECT:                       // detect
-//                    turn(new IMUTurner(-10, power, _imu1, 1, null), runUsingEncoders, true);
+//                    turn(new IMUTurner(-5, power, _imu1, 1, null), runUsingEncoders, true);
                     try {
                         TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
                             @Override
@@ -70,13 +70,16 @@ public class AutoD358 extends Robot358Main {
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
                         turn(new IMUTurner(-30, power, _imu1, 1, null), runUsingEncoders, true);
+//                        turn(new IMUTurner(-15, power, _imu1, 1, null), runUsingEncoders, true);
                         forward(power, 34);
                         turn(new IMUTurner(60, power, _imu1, 1, null), runUsingEncoders, true);
                     } else if (detected == 2) {
 //                        turn(new IMUTurner(10, power, _imu1, 1, null), runUsingEncoders, true);
+//                        turn(new IMUTurner(5, power, _imu1, 1, null), runUsingEncoders, true);
                         forward(power, 31);
                     } else if (detected == 3) {
                         turn(new IMUTurner(30, power, _imu1, 1, null), runUsingEncoders, true);
+//                        turn(new IMUTurner(25, power, _imu1, 1, null), runUsingEncoders, true);
                         forward(power, 34);
                         turn(new IMUTurner(-50, power, _imu1, 1, null), runUsingEncoders, true);
                     }

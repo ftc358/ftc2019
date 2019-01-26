@@ -1,48 +1,23 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
 public class Playground extends Robot358Main {
-
     public void runOpMode() throws InterruptedException {
-
-        initialize();
 
         waitForStart();
 
-        latchModule = new LatchModule(latch) {
-            @Override
-            public void run() {
-                super.run();
-                super.unlatch();
-                if (Thread.interrupted()) {
-                    telemetry.addData("Latch module operation interrupted", "!!!");
-                }
+        initialize();
+
+        while (opModeIsActive()) {
+            if (gamepad1.a) {
+                intake.setPower(1);
+            } else  if (gamepad1.x) {
+                intake.setPower(-1);
+            } else if (gamepad1.y) {
+                intake.setPower(0);
             }
-
-            @Override
-            public void unlatch() {
-                latchMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-                latchMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                latchMotor.setTargetPosition(7000);
-
-                latchMotor.setPower(1);
-
-                 while (latchMotor.isBusy()) {
-                    //Wait Until Target Position is Reached
-                    telemetry.addData("Current Position", latch.getCurrentPosition());
-                }
-
-                latchMotor.setPower(0);
-            }
-        };
-
-        latchModule.start();
-
+        }
     }
 }

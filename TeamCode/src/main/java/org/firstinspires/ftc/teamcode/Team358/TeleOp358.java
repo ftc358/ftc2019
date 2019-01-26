@@ -38,7 +38,7 @@ public class TeleOp358 extends Robot358Main {
 
         initialize();
 
-        MediaPlayer mp = MediaPlayer.create(hardwareMap.appContext, R.raw.roundabout);
+//        MediaPlayer mp = MediaPlayer.create(hardwareMap.appContext, R.raw.roundabout);
 
         while (opModeIsActive()) {
 
@@ -78,7 +78,7 @@ public class TeleOp358 extends Robot358Main {
 
             //arm lift
 
-            lift.setPower(Range.clip((Math.pow(gamepad2.left_stick_y, 3) / Math.abs(gamepad2.left_stick_y)), -1, 1));
+            lift.setPower(-Range.clip((Math.pow(gamepad2.left_stick_y, 3) / Math.abs(gamepad2.left_stick_y)), -1, 1));
 
             //arm extend
             extend.setPower(-Range.clip((Math.pow(gamepad2.right_stick_y, 3) / Math.abs(gamepad2.right_stick_y)), -1, 1));
@@ -109,12 +109,6 @@ public class TeleOp358 extends Robot358Main {
                 } else if ((lift.getCurrentPosition() < baseArmPosition + 1500) && gamepad2.a) {
                     intake.setPower(0);
                 }
-            }
-
-            if (gamepad2.dpad_up) {
-                mp.start();
-            } else if (gamepad2.dpad_down) {
-                mp.stop();
             }
         }
     }
