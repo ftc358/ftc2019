@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
 import java.util.concurrent.TimeUnit;
 
-@Autonomous
+//@Autonomous
+@Disabled
 public class AutoC358_R extends Robot358Main {
 
     int detected = 0;

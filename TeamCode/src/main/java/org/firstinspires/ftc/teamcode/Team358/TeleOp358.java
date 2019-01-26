@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
+import android.media.MediaPlayer;
+
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.teamcode.R;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
@@ -34,6 +37,8 @@ public class TeleOp358 extends Robot358Main {
         waitForStart();
 
         initialize();
+
+        MediaPlayer mp = MediaPlayer.create(hardwareMap.appContext, R.raw.roundabout);
 
         while (opModeIsActive()) {
 
@@ -71,22 +76,14 @@ public class TeleOp358 extends Robot358Main {
                 latch.setPower(0);
             }
 
-            lift.setPower(-Range.clip((Math.pow(gamepad2.left_stick_y, 3) / Math.abs(gamepad2.left_stick_y)), -1, 1));
+            //arm lift
 
-            //Arm
-            extend.setPower(Range.clip((Math.pow(gamepad2.right_stick_y, 3) / Math.abs(gamepad2.right_stick_y)), -1, 1));
+            lift.setPower(Range.clip((Math.pow(gamepad2.left_stick_y, 3) / Math.abs(gamepad2.left_stick_y)), -1, 1));
 
-//            //Fingers
-//            if (gamepad2.left_bumper) {
-//                intake.setPower(1);
-//            } else if (gamepad2.right_bumper) {
-//                intake.setPower(-1);
-//            } else if (gamepad2.a) {
-//                intake.setPower(0);
-//            }
-            telemetry.addData("intakePower", intake.getPower());
+            //arm extend
+            extend.setPower(-Range.clip((Math.pow(gamepad2.right_stick_y, 3) / Math.abs(gamepad2.right_stick_y)), -1, 1));
 
-            //Wrist
+            //box
             if (gamepad2.x) {
                 notDefaultBoxPosition = !notDefaultBoxPosition;
             }
@@ -98,16 +95,26 @@ public class TeleOp358 extends Robot358Main {
             }
             telemetry.update();
 
+            //intake
+
             if (gamepad2.y) {
                 baseArmPosition = lift.getCurrentPosition();
             }
 
             if (baseArmPosition != null) {
-                if (lift.getCurrentPosition() < baseArmPosition + 1500) {
+                if ((lift.getCurrentPosition() < baseArmPosition + 1500) && !gamepad2.a) {
                     intake.setPower(1);
                 } else if (lift.getCurrentPosition() > baseArmPosition) {
                     intake.setPower(0);
+                } else if ((lift.getCurrentPosition() < baseArmPosition + 1500) && gamepad2.a) {
+                    intake.setPower(0);
                 }
+            }
+
+            if (gamepad2.dpad_up) {
+                mp.start();
+            } else if (gamepad2.dpad_down) {
+                mp.stop();
             }
         }
     }

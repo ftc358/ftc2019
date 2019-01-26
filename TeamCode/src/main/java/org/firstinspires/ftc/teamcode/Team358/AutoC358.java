@@ -7,9 +7,8 @@ import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
 import java.util.concurrent.TimeUnit;
 
-//@Autonomous
-@Disabled
-public class AutoD358_L extends Robot358Main {
+@Autonomous
+public class AutoC358 extends Robot358Main {
 
     int detected = 0;
 
@@ -37,9 +36,9 @@ public class AutoD358_L extends Robot358Main {
 
                     runMotor(latch, 1, 7000);
 
+                    forward(power, 3);
                     double descendedHeading = getCurrentHeading();
                     double headingChange = descendedHeading - startingHeading;
-                    forward(power, 3);
                     turn(new IMUTurner(-90 + headingChange, power, _imu1, 1, null), true, true);
                     strafe(power, 4);
 
@@ -47,7 +46,7 @@ public class AutoD358_L extends Robot358Main {
                     break;
 
                 case DETECT:                       // detect
-                    turn(new IMUTurner(-10, power, _imu1, 1, null), runUsingEncoders, true);
+//                    turn(new IMUTurner(-10, power, _imu1, 1, null), runUsingEncoders, true);
                     try {
                         TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
                             @Override
@@ -69,52 +68,54 @@ public class AutoD358_L extends Robot358Main {
                 case KNOCK:                                    // knock gold block
                     if (detected == 1) {
                         turn(new IMUTurner(-20, power, _imu1, 1, null), runUsingEncoders, true);
-                        forward(power, 34);
-                        turn(new IMUTurner(60, power, _imu1, 1, null), runUsingEncoders, true);
+                        forward(0.5, 28);
                     } else if (detected == 2) {
-                        turn(new IMUTurner(10, power, _imu1, 1, null), runUsingEncoders, true);
-                        forward(power, 31);
+//                        turn(new IMUTurner(10, power, _imu1, 1, null), runUsingEncoders, true);
+                        forward(0.5, 24);
                     } else if (detected == 3) {
-                        turn(new IMUTurner(40, power, _imu1, 1, null), runUsingEncoders, true);
-                        forward(power, 34);
-                        turn(new IMUTurner(-50, power, _imu1, 1, null), runUsingEncoders, true);
+                        turn(new IMUTurner(20, power, _imu1, 1, null), runUsingEncoders, true);
+                        forward(0.5, 28);
                     }
                     state358 = state.DROP;
                     break;
 
                 case DROP:                                    // drive to depot & drop token
+                    if (detected == 1) {
+                        turn(new IMUTurner(-100, power, _imu1, 1, null), runUsingEncoders, true);
+                        forward(0.5, 49);
+//                        turn(new IMUTurner(-20, power, _imu1, 1, null), runUsingEncoders, true);
+                    } else if (detected == 2) {
+                        forward(0.5, -12);
+                        turn(new IMUTurner(-90, power, _imu1, 1, null), runUsingEncoders, true);
+                        forward(0.5, 45);
+                        turn(new IMUTurner(-45, power, _imu1, 1, null), runUsingEncoders, true);
+                        forward(0.5, 14);
+                    } else if (detected == 3) {
+                        forward(0.5, -15);
+                        turn(new IMUTurner(-115, power, _imu1, 1, null), runUsingEncoders, true);
+                        forward(0.5, 51);
+                        turn(new IMUTurner(-55, power, _imu1, 1, null), runUsingEncoders, true);
+                        forward(0.5, 14);
+                    }
 
-                    runMotor(lift, 1, -2000);
+                    runMotor(lift, 1, 2000);
                     // extend motor: 200 ticks for 1 inch
                     runMotor(extend, 1, 3000);
                     box.setPosition(0);
                     sleep(500);
-                    box.setPosition(0.6);
-                    runMotor(lift, 1, 2000);
+                    runMotor(lift, 1, -2000);
 
                     state358 = state.DRIVE;
                     break;
 
                 case DRIVE:                                    // drive to enemy crater
-                    if (detected == 1) {
-                        turn(new IMUTurner(-130, power, _imu1, 1, null), runUsingEncoders, true);
-                        forward(power, 25);
-                    } else if (detected == 2) {
-                        forward(power, -15);
-                        turn(new IMUTurner(-90, power, _imu1, 1, null), runUsingEncoders, true);
-                        forward(power, 33);
-                        turn(new IMUTurner(-30, power, _imu1, 1, null), runUsingEncoders, true);
-                    } else if (detected == 3) {
-                        forward(power, -15);
-                        turn(new IMUTurner(-70, power, _imu1, 1, null), runUsingEncoders, true);
-                        forward(power, 53);
-                        turn(new IMUTurner(-30, power, _imu1, 1, null), runUsingEncoders, true);
-                    }
+                    forward(0.5, -30);
+                    turn(new IMUTurner(180, power, _imu1, 1, null), runUsingEncoders, true);
                     state358 = state.CRATER;
                     break;
 
                 case CRATER:
-                    runMotor(lift, 1, -2000);
+                    runMotor(lift, 1, 5000);
                     state358 = state.STOP;
                     break;
 
@@ -127,37 +128,32 @@ public class AutoD358_L extends Robot358Main {
 
 //    public void unlatchFromLander() throws InterruptedException {
 //        double startingHeading = getCurrentHeading();
-//
-//        runMotor(latch, 1, 7000);
-//
+//        latch.setPower(-1);
+//        sleep(4900);
+//        latch.setPower(0);
 //        double descendedHeading = getCurrentHeading();
 //        double headingChange = descendedHeading - startingHeading;
 //        telemetry.addData("Heading change:", headingChange);
 //        telemetry.update();
-////        turn(new IMUTurner(headingChange, power, _imu1, 1, null), true, true);
-//        forward(power, 3);
-//        strafe(power, 1);
-//        turn(new IMUTurner(-90 + headingChange, power, _imu1, 1, null), true, true);
-//        strafe(power, 4);
+//        turn(new IMUTurner(headingChange, 0.5, _imu1, 1, null), true, true);
+//        forward(0.5, 3);
+//        strafe(0.5,1);
+//        turn(new IMUTurner(-90, 0.5, _imu1, 1, null), true, true);
+//        strafe(0.5, 4);
 //    }
-
-//    public void extend(Boolean drop) throws InterruptedException {
+//
+//    public void extend(Boolean drop) {
 //        if (drop) {
-//            runMotor(lift, 1, -2000);
+//            lift.setPower(-0.2);
+//            sleep(1500);
+//            lift.setPower(0);
+//            runMotor(extend, 0.5, 3000);
 //
-//            // extend motor: 200 ticks for 1 inch
-//
-//            runMotor(extend, 1, 3000);
-//
-//            box.setPosition(0);
-//
-//            sleep(1000);
-//
-//            box.setPosition(0.6);
-//
-//            runMotor(lift, 1, 2000);
 //        } else {
-//            runMotor(lift, 1, -2000);
+//            lift.setPower(-0.2);
+//            sleep(1500);
+//            lift.setPower(0);
+//            runMotor(extend, 0.5, 3000);
 //        }
 //    }
 }
