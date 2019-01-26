@@ -4,8 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.Team358.AutoLegacy.Robot358Main;
-
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 import static java.lang.Math.pow;
@@ -40,13 +38,13 @@ public class TeleOp358 extends Robot358Main {
             //Defining drive, strafe, and rotation power.                                                       //
             double drive = gamepad1.left_stick_y;                                                               //
             double strafe = gamepad1.left_stick_x;                                                              //
-            double rotate = -gamepad1.right_stick_x;                                                            //
+            double rotate = gamepad1.right_stick_x;                                                             //
                                                                                                                 //
             //Defining the motor power distribution.                                                            //
-            double flPower = drive - strafe - rotate;                                                           //
-            double blPower = drive + strafe - rotate;                                                           //
-            double frPower = drive + strafe + rotate;                                                           //
-            double brPower = drive - strafe + rotate;                                                           //
+            double flPower = drive - strafe + rotate;                                                           //
+            double blPower = drive + strafe + rotate;                                                           //
+            double frPower = drive + strafe - rotate;                                                           //
+            double brPower = drive - strafe - rotate;                                                           //
                                                                                                                 //
             double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);     //
             double POWER = -1 * joyStick * abs(joyStick);                                                       //
@@ -61,7 +59,7 @@ public class TeleOp358 extends Robot358Main {
             bL.setPower(-(POWER * blPower / maxPower) / SCALE);                                                 //
             fR.setPower(-(POWER * frPower / maxPower) / SCALE);                                                 //
             bR.setPower(-(POWER * brPower / maxPower) / SCALE);                                                 //
-            //Drive code /////////////////////////////////////////////////////////////////////////////////////////
+            //Drive code :)///////////////////////////////////////////////////////////////////////////////////////
 
             if (gamepad1.left_bumper) {
                 latch.setPower(1);

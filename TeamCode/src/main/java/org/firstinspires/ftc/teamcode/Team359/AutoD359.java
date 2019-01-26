@@ -50,17 +50,19 @@ public class AutoD359 extends LinearOpMode {
         rightLatch.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        state359 = state.DETECT;
+        state359 = state.LATCH;
         waitForStart();
 
         while (opModeIsActive()) {
 
             telemetry.addData("Going into state", state359);
             telemetry.update();
+
             switch (state359) {
 
                 case LATCH:
-                    Encoders359.Forward(leftLatch, rightLatch, 1, -20000);
+                    Encoders359.Forward(leftLatch, rightLatch, 1, -15000);
+                    Encoders359.Turn(leftMotor,rightMotor,0.25,100);
                     state359 = state.DETECT;
                     break;
 
@@ -78,19 +80,19 @@ public class AutoD359 extends LinearOpMode {
                 case KNOCK:
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go left
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);      //Go left
                         Encoders359.Turn(leftMotor, rightMotor, 0.25, 550);
                         Encoders359.Forward(leftMotor,rightMotor,0.25,6000);
 
                     } else if (detected == 2) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 5000);    //Go forward
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 5000);     //Go forward
 
                     } else if (detected == 3) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go right
+                        Encoders359.Turn(leftMotor,rightMotor,0.25,-100);           //Go right
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);
                         Encoders359.Turn(leftMotor, rightMotor, 0.25, -550);
                         Encoders359.Forward(leftMotor,rightMotor,0.25,5000);
                     }
-//                    sleep(10000);
                     state359 = state.STOP;
                     break;
 
@@ -154,10 +156,12 @@ public class AutoD359 extends LinearOpMode {
         sleep(1500);
         while (position == 0) {
             List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+            int maxSize = 0;
             for (int i = 0; i < 50; i++){
                 List<Recognition> newRecognitions = tfod.getUpdatedRecognitions();
-                if (newRecognitions != null && newRecognitions.size() > 0){
+                if (newRecognitions != null && newRecognitions.size() > maxSize){
                     updatedRecognitions = newRecognitions;
+                    maxSize = newRecognitions.size();
                 }
                 sleep(10);
             }
@@ -171,38 +175,36 @@ public class AutoD359 extends LinearOpMode {
                     int silverMineralX = -1;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getLeft();
+                            goldMineralX = (int) recognition.getTop();
                         } else if (silverMineralX == -1) {
-                            silverMineralX = (int) recognition.getLeft();
+                            silverMineralX = (int) recognition.getTop();
                         } else {
-                            return 1;
+                            return 3;
                         }
                     }
 
                     if (goldMineralX < silverMineralX) {
                         position = 2;
                     } else {
-                        position = 3;
+                        position = 1;
                     }
                 }
                 else if (updatedRecognitions.size() == 1) {
-                    int THRESHOLD_UP = 800, THRESHOLD_DOWN = 700;
+                    int THRESHOLD_UP = 900, THRESHOLD_DOWN = 800;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
                             int topCoord = (int) recognition.getTop();
                             if (topCoord > THRESHOLD_UP) {
-                                position = 2;
+                                position = 1;
                             }
                             else if (topCoord < THRESHOLD_DOWN) {
-                                position = 3;
+                                position = 2;
                             }
                         }
                     }
                 }
                 else position = 1;
-
             }
-
         }
         return position;
     }

@@ -25,7 +25,7 @@ public class TeleOp359 extends OpMode {
 
     //random things for wiggling
     int runTimeCount = 0, motorThing, slideThing;
-    int someConstant = 800;
+    int someConstant = 20;
 
     public void init() {
         leftMotor = hardwareMap.dcMotor.get("lM");
@@ -118,7 +118,7 @@ public class TeleOp359 extends OpMode {
         }
 
 
-        if (gamepad2.a)                                 //Intake Servo
+        if (gamepad2.a)                                     //Intake Servo
         {
             Intake.setPower(1);
         } else if (gamepad2.b) {

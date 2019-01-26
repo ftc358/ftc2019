@@ -5,33 +5,44 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
-public class Playground extends LinearOpMode {
-    DcMotor motor1;
-    DcMotor motor2;
+public class Playground extends Robot358Main {
 
     public void runOpMode() throws InterruptedException {
-        motor1 = hardwareMap.dcMotor.get("lF");
-//        motor2 = hardwareMap.dcMotor.get("motor2");
+
+        initialize();
 
         waitForStart();
 
-        motor1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        motor2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        motor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        latchModule = new LatchModule(latch) {
+            @Override
+            public void run() {
+                super.run();
+                super.unlatch();
+                if (Thread.interrupted()) {
+                    telemetry.addData("Latch module operation interrupted", "!!!");
+                }
+            }
 
-        waitForStart();
+            @Override
+            public void unlatch() {
+                latchMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        motor1.setTargetPosition(7000);
+                latchMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motor1.setPower(1.0);
+                latchMotor.setTargetPosition(7000);
 
-        while (opModeIsActive() && motor1.isBusy())
-        {
-//            telemetry.addData("encoder-fwd", motor1.getCurrentPosition() + "  busy=" + motor1.isBusy());
-//            telemetry.update();
-        }
+                latchMotor.setPower(1);
 
-        motor1.setPower(0.0);
+                while (latchMotor.isBusy()) {
+                    //Wait Until Target Position is Reached
+                    telemetry.addData("Current Position", latch.getCurrentPosition());
+                }
+
+                latchMotor.setPower(0);
+            }
+        };
+
+        latchModule.start();
+
     }
 }
