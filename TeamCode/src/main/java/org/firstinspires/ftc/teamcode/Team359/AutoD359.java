@@ -62,6 +62,7 @@ public class AutoD359 extends LinearOpMode {
 
                 case LATCH:
                     Encoders359.Forward(leftLatch, rightLatch, 1, -15000);
+                    Encoders359.Turn(leftMotor,rightMotor,0.25,100);
                     state359 = state.DETECT;
                     break;
 
@@ -73,21 +74,22 @@ public class AutoD359 extends LinearOpMode {
                     // detected values: 0 if nothing detected, 1 is left, 2 is center, 3 is right
                     telemetry.addData("Position of the cube", detected);
                     telemetry.update();
-//                    state359 = state.KNOCK;
+                    state359 = state.KNOCK;
                     break;
 
                 case KNOCK:
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go left
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);      //Go left
                         Encoders359.Turn(leftMotor, rightMotor, 0.25, 550);
                         Encoders359.Forward(leftMotor,rightMotor,0.25,6000);
 
                     } else if (detected == 2) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 5000);    //Go forward
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 5000);     //Go forward
 
                     } else if (detected == 3) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);     //Go right
+                        Encoders359.Turn(leftMotor,rightMotor,0.25,-100);           //Go right
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 500);
                         Encoders359.Turn(leftMotor, rightMotor, 0.25, -550);
                         Encoders359.Forward(leftMotor,rightMotor,0.25,5000);
                     }
