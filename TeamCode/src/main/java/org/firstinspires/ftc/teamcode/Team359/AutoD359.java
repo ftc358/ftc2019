@@ -62,8 +62,8 @@ public class AutoD359 extends LinearOpMode {
 
                 case LATCH:
                     Encoders359.Forward(leftLatch, rightLatch, 1, -15000);
-                    Encoders359.Forward(leftMotor,rightMotor,0.25,100);
-                    Encoders359.Turn(leftMotor,rightMotor,0.25,100);
+                    Encoders359.Forward(leftMotor,rightMotor,0.25,400);
+                    Encoders359.Turn(leftMotor,rightMotor,0.25,250);
                     state359 = state.DETECT;
                     break;
 
@@ -81,17 +81,13 @@ public class AutoD359 extends LinearOpMode {
                 case KNOCK:
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 400);      //Go left
-                        Encoders359.Turn(leftMotor, rightMotor, 0.25, 450);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.25, 300);         //Go Left
                         Encoders359.Forward(leftMotor,rightMotor,0.25,4500);
-
                     } else if (detected == 2) {
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 5000);     //Go forward
+                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 6000);     //Go forward
 
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor,rightMotor,0.25,-100);           //Go right
-                        Encoders359.Forward(leftMotor, rightMotor, 0.25, 400);
-                        Encoders359.Turn(leftMotor, rightMotor, 0.25, -550);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.25, -800);        //Go right
                         Encoders359.Forward(leftMotor,rightMotor,0.25,4500);
                     }
                     state359 = state.STOP;
