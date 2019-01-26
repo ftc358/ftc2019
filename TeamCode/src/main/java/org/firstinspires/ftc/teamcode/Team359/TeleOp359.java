@@ -20,12 +20,12 @@ public class TeleOp359 extends OpMode {
     DcMotor slideExtend;
     DcMotor Rotation;
     CRServo Intake;
-    boolean boundedRotation = false;
+    boolean wiggle = false, boundedRotation = false;
     int downPos = 1500;
 
     //random things for wiggling
-    int runTimeCount = 0, motorThing, slideThing;
-    int someConstant = 20;
+    //int runTimeCount = 0, motorThing, slideThing;
+    //int someConstant = 20;
 
     public void init() {
         leftMotor = hardwareMap.dcMotor.get("lM");
@@ -45,8 +45,13 @@ public class TeleOp359 extends OpMode {
     }
 
     public void loop() {
-
-        double forward = gamepad1.left_stick_y;
+        double forward;
+        if (wiggle) {
+            forward = gamepad1.right_stick_y;
+        }
+        else {
+            forward = gamepad1.left_stick_y;
+        }
         double turning = gamepad1.right_stick_x;
 
         double maxpower = Range.clip(Math.sqrt((Math.pow(forward, 2) + Math.pow(turning, 2)) / 2), 0, 1);
@@ -78,7 +83,9 @@ public class TeleOp359 extends OpMode {
             rightLatch.setPower(0);
         }
 
-        if (!boundedRotation){
+
+
+        if (boundedRotation){
             if (gamepad2.dpad_up)                   //Slide Rotation
             {
                 Rotation.setPower(-.5);
@@ -88,6 +95,7 @@ public class TeleOp359 extends OpMode {
                 Rotation.setPower(0);
             }
         }
+
         else {
             if (gamepad2.dpad_up){
                 Encoders359.Rotate(Rotation, slideExtend, 3, downPos);
@@ -97,12 +105,20 @@ public class TeleOp359 extends OpMode {
         }
 
 
+        if (gamepad1.x) {
+            wiggle = !wiggle;
+            while (gamepad1.x){
+                //dont do anything
+            }
+        }
+
         if (gamepad2.x) {
             boundedRotation = !boundedRotation;
             while (gamepad2.x){
                 //dont do anything
             }
         }
+
         if (gamepad2.y) {
             downPos = Rotation.getCurrentPosition();
         }
@@ -127,7 +143,7 @@ public class TeleOp359 extends OpMode {
             Intake.setPower(0);
         }
 
-        //wiggle
+        /*
         if (gamepad1.a) {
             if (runTimeCount == 0) {
                 double x = 8*Math.random();
@@ -145,11 +161,13 @@ public class TeleOp359 extends OpMode {
             else {
                 runTimeCount = 0;
             }
-        }
+        }*/
 
         telemetry.addData("position reading: ", Rotation.getCurrentPosition());
         telemetry.addData("slideExtend reading: ", slideExtend.getCurrentPosition());
-        telemetry.addData("is new type of rotation: ", boundedRotation);
+        telemetry.addData("is wiggle: ", wiggle);
+        telemetry.addData("is bounded rotation: ", boundedRotation);
+        //telemetry.addData("runtime count: ", runTimeCount);
         telemetry.update();
 
     }
