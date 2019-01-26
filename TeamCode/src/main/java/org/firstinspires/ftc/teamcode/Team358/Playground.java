@@ -33,7 +33,7 @@ public class Playground extends Robot358Main {
 
                 latchMotor.setPower(1);
 
-                while (latchMotor.isBusy()) {
+                 while (latchMotor.isBusy()) {
                     //Wait Until Target Position is Reached
                     telemetry.addData("Current Position", latch.getCurrentPosition());
                 }
