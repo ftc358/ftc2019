@@ -100,13 +100,16 @@ public class AutoD359 extends LinearOpMode {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,-700);
                     } else if (detected == 2) {
                         Encoders359.Intake(Rotation,0.5,-1000);
+                        Encoders359.Intake(Rotation,0.5,1000);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
                     } else if (detected == 3) {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,1000);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,1000);
                         Encoders359.Intake(Rotation,0.5,-1000);
+                        Encoders359.Intake(Rotation,0.5,1000);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,-800);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,3000);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,-3000);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,5000);
                     }
                     state359 = state.STOP;
                     break;
