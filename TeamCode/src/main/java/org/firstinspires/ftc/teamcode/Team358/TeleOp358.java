@@ -71,22 +71,14 @@ public class TeleOp358 extends Robot358Main {
                 latch.setPower(0);
             }
 
+            //arm lift
+
             lift.setPower(-Range.clip((Math.pow(gamepad2.left_stick_y, 3) / Math.abs(gamepad2.left_stick_y)), -1, 1));
 
-            //Arm
-            extend.setPower(Range.clip((Math.pow(gamepad2.right_stick_y, 3) / Math.abs(gamepad2.right_stick_y)), -1, 1));
+            //arm extend
+            extend.setPower(-Range.clip((Math.pow(gamepad2.right_stick_y, 3) / Math.abs(gamepad2.right_stick_y)), -1, 1));
 
-//            //Fingers
-//            if (gamepad2.left_bumper) {
-//                intake.setPower(1);
-//            } else if (gamepad2.right_bumper) {
-//                intake.setPower(-1);
-//            } else if (gamepad2.a) {
-//                intake.setPower(0);
-//            }
-            telemetry.addData("intakePower", intake.getPower());
-
-            //Wrist
+            //box
             if (gamepad2.x) {
                 notDefaultBoxPosition = !notDefaultBoxPosition;
             }
@@ -98,14 +90,18 @@ public class TeleOp358 extends Robot358Main {
             }
             telemetry.update();
 
+            //intake
+
             if (gamepad2.y) {
                 baseArmPosition = lift.getCurrentPosition();
             }
 
             if (baseArmPosition != null) {
-                if (lift.getCurrentPosition() < baseArmPosition + 1500) {
+                if ((lift.getCurrentPosition() < baseArmPosition + 1500) && !gamepad2.a) {
                     intake.setPower(1);
                 } else if (lift.getCurrentPosition() > baseArmPosition) {
+                    intake.setPower(0);
+                } else if ((lift.getCurrentPosition() < baseArmPosition + 1500) && gamepad2.a) {
                     intake.setPower(0);
                 }
             }

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
@@ -107,17 +108,17 @@ public class AutoD358_L extends Robot358Main {
 
     public void unlatchFromLander() throws InterruptedException {
         double startingHeading = getCurrentHeading();
-        latch.setPower(-1);
-        sleep(4900);
-        latch.setPower(0);
+
+        runMotor(latch,1,7000);
+
         double descendedHeading = getCurrentHeading();
         double headingChange = descendedHeading - startingHeading;
         telemetry.addData("Heading change:", headingChange);
         telemetry.update();
-        turn(new IMUTurner(headingChange, 0.5, _imu1, .25, null), true, true);
+//        turn(new IMUTurner(headingChange, 0.5, _imu1, .25, null), true, true);
         forward(0.5, 3);
         strafe(0.5,1);
-        turn(new IMUTurner(-90, 0.5, _imu1, .25, null), true, true);
+        turn(new IMUTurner(-90-headingChange, 0.5, _imu1, .25, null), true, true);
         strafe(0.5, 4);
     }
 
