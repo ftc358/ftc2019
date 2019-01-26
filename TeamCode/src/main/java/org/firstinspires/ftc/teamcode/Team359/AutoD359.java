@@ -101,9 +101,9 @@ public class AutoD359 extends LinearOpMode {
                     } else if (detected == 2) {
                         Encoders359.Intake(Rotation,0.5,1000);
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,800);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,900);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,1000);
-                        Encoders359.Intake(Rotation,0.5,1000);
+                        Encoders359.Intake(Rotation,0.5,-1000);
                     }
                     state359 = state.STOP;
                     break;
@@ -191,7 +191,7 @@ public class AutoD359 extends LinearOpMode {
                     }
                 }
                 else if (updatedRecognitions.size() == 1) {
-                    int THRESHOLD_UP = 900, THRESHOLD_DOWN = 800;
+                    int THRESHOLD_UP = 850, THRESHOLD_DOWN = 850;
                     for (Recognition recognition : updatedRecognitions) {
                         if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
                             int topCoord = (int) recognition.getTop();
@@ -201,6 +201,9 @@ public class AutoD359 extends LinearOpMode {
                             else if (topCoord < THRESHOLD_DOWN) {
                                 position = 2;
                             }
+                        }
+                        else if (recognition.getLabel().equals(LABEL_SILVER_MINERAL)){
+                                position = 3;
                         }
                     }
                 }
