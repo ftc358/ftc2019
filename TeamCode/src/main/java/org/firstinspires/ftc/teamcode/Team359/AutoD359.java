@@ -89,7 +89,7 @@ public class AutoD359 extends LinearOpMode {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,-250);            //Go forward
                         Encoders359.Forward(leftMotor, rightMotor, 0.5, 6000);
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor, rightMotor, 0.5, -700);         //Go right
+                        Encoders359.Turn(leftMotor, rightMotor, 0.5, -800);         //Go right
                         Encoders359.Forward(leftMotor,rightMotor,0.5,5500);
                     }
                     state359 = state.DRIVE;
@@ -99,11 +99,14 @@ public class AutoD359 extends LinearOpMode {
                     if (detected == 1) {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,-700);
                     } else if (detected == 2) {
-                        Encoders359.Intake(Rotation,0.5,1000);
+                        Encoders359.Intake(Rotation,0.5,-1000);
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,900);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,1000);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,1000);
                         Encoders359.Intake(Rotation,0.5,-1000);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,-800);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,3000);
                     }
                     state359 = state.STOP;
                     break;
