@@ -173,9 +173,9 @@ public abstract class AutoEngine358 extends Robot358Main {
 
         int numberOfSegmentsLast = 0;
         while (fL.isBusy() && fR.isBusy() && bL.isBusy() && bR.isBusy()) {
-            if (fL.getCurrentPosition() / (int) (((distancePerSegment / (4 * Math.PI) * 1130)) * 1.41 + 0.5) == numberOfSegmentsLast + 1) {
-                numberOfSegmentsLast++;
-                currentPosition = collinearPositions.get(numberOfSegmentsLast);
+            if (fL.getCurrentPosition() / (int) (((distancePerSegment / (4 * Math.PI) * 1130)) * 1.41 + 0.5) > numberOfSegmentsLast) {
+                currentPosition = collinearPositions.get(fL.getCurrentPosition() / (int) (((distancePerSegment / (4 * Math.PI) * 1130)) * 1.41 + 0.5) - numberOfSegmentsLast);
+                numberOfSegmentsLast = fL.getCurrentPosition() / (int) (((distancePerSegment / (4 * Math.PI) * 1130)) * 1.41 + 0.5);
             }
         }
 
