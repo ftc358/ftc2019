@@ -83,13 +83,13 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
     // Select which camera you want use.  The FRONT camera is the one on the same side as the screen.
 // Valid choices are:  BACK or FRONT
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-    private OpenGLMatrix lastLocation = null;
-    private boolean targetVisible = false;
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
      */
     VuforiaLocalizer vuforia;
+    private OpenGLMatrix lastLocation = null;
+    private boolean targetVisible = false;
 
     @Override
     public void runOpMode() {

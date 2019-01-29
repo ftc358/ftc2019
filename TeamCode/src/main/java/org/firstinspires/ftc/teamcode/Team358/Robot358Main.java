@@ -19,7 +19,6 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
 public abstract class Robot358Main extends LinearOpMode {
 
@@ -43,8 +42,8 @@ public abstract class Robot358Main extends LinearOpMode {
     float pitchAngle;
     float rollAngle;
     state state358;
-    private TFObjectDetector tfod;
     LatchModule latchModule;
+    private TFObjectDetector tfod;
 
     public void initialize() throws InterruptedException {
 

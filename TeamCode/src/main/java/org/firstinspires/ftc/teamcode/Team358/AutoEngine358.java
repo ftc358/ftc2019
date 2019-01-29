@@ -106,7 +106,7 @@ public abstract class AutoEngine358 extends Robot358Main {
 
                 List<RobotPosition> collinearPositions = new ArrayList<>();
 
-                for(int j = first+1; j<=second; i++) {
+                for (int j = first + 1; j <= second; i++) {
                     collinearPositions.add(positionsWithHeadings.get(i));
                 }
 
@@ -173,7 +173,7 @@ public abstract class AutoEngine358 extends Robot358Main {
 
         int numberOfSegmentsLast = 0;
         while (fL.isBusy() && fR.isBusy() && bL.isBusy() && bR.isBusy()) {
-            if (fL.getCurrentPosition() / (int) (((distancePerSegment / (4 * Math.PI) * 1130)) * 1.41 + 0.5) == numberOfSegmentsLast +1) {
+            if (fL.getCurrentPosition() / (int) (((distancePerSegment / (4 * Math.PI) * 1130)) * 1.41 + 0.5) == numberOfSegmentsLast + 1) {
                 numberOfSegmentsLast++;
                 currentPosition = collinearPositions.get(numberOfSegmentsLast);
             }

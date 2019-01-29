@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
-import android.media.MediaPlayer;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.R;
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
 import java.util.concurrent.TimeUnit;

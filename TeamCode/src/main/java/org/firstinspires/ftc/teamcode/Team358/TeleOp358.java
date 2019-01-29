@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
-import android.media.MediaPlayer;
-
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.teamcode.R;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
