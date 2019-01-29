@@ -8,22 +8,24 @@ public class AStarTest {
     private static final int START_Y = 10;
 
     private static final int GOAL_X = 50;
-    private static final int GOAL_Y = 10;
+    private static final int GOAL_Y = 58;
 
     public static void main(String[] args) {
 
         SimpleMap map = new SimpleMap();
 
         AStarPathFinder pathFinder = new AStarPathFinder(map, MAX_PATH_LENGTH, true);
-        Path path = pathFinder.findPath(null, START_X, START_Y, GOAL_X, GOAL_Y);
+        if (map.isBlocked(START_X,START_Y) || map.isBlocked(GOAL_X,GOAL_Y)) {
+            throw new IllegalArgumentException("Starting or ending point blocked");
+        } else {
+            Path path = pathFinder.findPath(null, START_X, START_Y, GOAL_X, GOAL_Y);
+            int length = path.getLength();
+            System.out.println("Found path of length: " + length + ".");
 
-        int length = path.getLength();
-        System.out.println("Found path of length: " + length + ".");
-
-        for(int i = 0; i < length; i++) {
-            System.out.println("Move to: " + path.getX(i) + "," + path.getY(i) + ".");
+            for(int i = 0; i < length; i++) {
+                System.out.println(path.getX(i) + "," + path.getY(i));
+            }
         }
-
     }
 
 }
@@ -117,6 +119,10 @@ class SimpleMap implements TileBasedMap {
         return MAP[y][x] != 0;
     }
 
+    public boolean isBlocked(int x, int y) {
+        return MAP[y][x] != 0;
+    }
+
     @Override
     public float getCost(PathFindingContext ctx, int x, int y) {
         return 1.0f;
@@ -134,5 +140,4 @@ class SimpleMap implements TileBasedMap {
 
     @Override
     public void pathFinderVisited(int x, int y) {}
-
 }
