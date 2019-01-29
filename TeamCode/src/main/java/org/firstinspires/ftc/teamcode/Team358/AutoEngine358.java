@@ -58,11 +58,11 @@ public abstract class AutoEngine358 extends Robot358Main {
      */
 
     public void generateMoveActions(List<RobotPosition> positions) {
-        RobotPosition lastPosition = STARTING_POSITION;
+        RobotPosition currentPosition = STARTING_POSITION;
         //TODO: use @findingTurns here to optimize driving
         for (RobotPosition position : positions) {
-            final double currentHeading = lastPosition.heading;
-            final double targetHeading = lastPosition.getRelativeHeading(position);
+            final double currentHeading = currentPosition.heading;
+            final double targetHeading = currentPosition.getRelativeHeading(position);
             if (targetHeading == 0 || targetHeading == 90 || targetHeading == 180 || targetHeading == 270) {
                 robotActions.add(new MoveAction(position, new Runnable() {
                     @Override
@@ -75,10 +75,6 @@ public abstract class AutoEngine358 extends Robot358Main {
                         }
                     }
                 }));
-
-                lastPosition = position;
-                lastPosition.heading = targetHeading;
-
             } else {
                 robotActions.add(new MoveAction(position, new Runnable() {
                     @Override
@@ -91,9 +87,9 @@ public abstract class AutoEngine358 extends Robot358Main {
                         }
                     }
                 }));
-
-                lastPosition = position;
             }
+            currentPosition = position;
+            currentPosition.heading = targetHeading;
         }
     }
 
