@@ -15,37 +15,27 @@ public abstract class AutoEngine358 extends Robot358Main {
      * Core Engine Properties
      */
 
-    public List<RobotAction> robotActions = new ArrayList<>();
+    private List<RobotAction> robotActions = new ArrayList<>();
+    //    private List<MoveAction> robotMoveActions;
+    private RobotPosition currentPosition;
 
-    public List<MoveAction> robotMoveActions;
-    public RobotPosition currentPosition;
     /**
      * Config
      */
 
-    double power = .5;
-    boolean runUsingEncoders = true;
-
-    private static List<Integer> computeTurningPointIndices(List<RobotPosition> points) {
-        List<Integer> indices = new ArrayList<Integer>();
-        for (int i = 1; i < points.size() - 1; i++) {
-            RobotPosition prev = points.get(i - 1);
-            RobotPosition curr = points.get(i);
-            RobotPosition next = points.get(i + 1);
-            int dxPrev = prev.x - curr.x;
-            int dyPrev = prev.y - curr.y;
-            int dxNext = next.x - curr.x;
-            int dyNext = next.y - curr.y;
-            if (dxPrev != dxNext && dyPrev != dyNext) {
-                indices.add(i);
-            }
-        }
-        return indices;
-    }
+    private double POWER = 1.0;
+    private Boolean RUN_USING_ENCODERS = true;
+    private RobotPosition STARTING_POSITION;
 
     /**
      * Engine Functions
      */
+
+    public void initialize(RobotPosition STARTING_POSITION) throws InterruptedException {
+        super.initialize();
+        this.STARTING_POSITION = STARTING_POSITION;
+    }
+
 
     public void addRobotAction(RobotAction actionMethod) {
         robotActions.add(actionMethod);
@@ -62,19 +52,21 @@ public abstract class AutoEngine358 extends Robot358Main {
      */
 
     public void generateMoveActions(List<RobotPosition> positions) {
-        RobotPosition lastPosition = new RobotPosition(0, 0);
-        //TODO: Change to actual starting position
+        //TODO: not starting with the correct heading
+        //TODO: not updating any headings
+        RobotPosition lastPosition = STARTING_POSITION;
         //TODO: use @findingTurns here to optimize driving
         for (RobotPosition position : positions) {
-            final double currentHeading = getCurrentHeading();
+            telemetry.addData("Current heading", position.heading);
+            telemetry.update();
             final double targetHeading = position.getRelativeHeading(lastPosition);
             if (targetHeading == 0 || targetHeading == 90 || targetHeading == 180 || targetHeading == 270) {
-                robotMoveActions.add(new MoveAction(position, new Runnable() {
+                robotActions.add(new MoveAction(position, new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), power, _imu1, .25, null), runUsingEncoders, true);
-                            forward(0.5, 2);
+                            turn(new IMUTurner(calculateTurn(position.heading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                            forward(POWER, 2);
                         } catch (InterruptedException e) {
                             RobotLog.d("This should not happen.");
                         }
@@ -82,13 +74,15 @@ public abstract class AutoEngine358 extends Robot358Main {
                 }));
 
                 lastPosition = position;
+                lastPosition.heading = targetHeading;
+
             } else {
-                robotMoveActions.add(new MoveAction(position, new Runnable() {
+                robotActions.add(new MoveAction(position, new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), power, _imu1, .25, null), runUsingEncoders, true);
-                            forward(0.5, sqrt(8));
+                            turn(new IMUTurner(calculateTurn(position.heading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                            forward(POWER, sqrt(8));
                         } catch (InterruptedException e) {
                             RobotLog.d("This should not happen.");
                         }
@@ -112,6 +106,23 @@ public abstract class AutoEngine358 extends Robot358Main {
             return -(180 - abs(abs(current - target) - 180));
         else
             return (180 - abs(abs(current - target) - 180));
+    }
+
+    public List<Integer> computeTurningPointIndices(List<RobotPosition> points) {
+        List<Integer> indices = new ArrayList<Integer>();
+        for (int i = 1; i < points.size() - 1; i++) {
+            RobotPosition prev = points.get(i - 1);
+            RobotPosition curr = points.get(i);
+            RobotPosition next = points.get(i + 1);
+            int dxPrev = prev.x - curr.x;
+            int dyPrev = prev.y - curr.y;
+            int dxNext = next.x - curr.x;
+            int dyNext = next.y - curr.y;
+            if (dxPrev != dxNext && dyPrev != dyNext) {
+                indices.add(i);
+            }
+        }
+        return indices;
     }
 
     public List<RobotPosition> calculateTurningPoints(List<RobotPosition> points) {

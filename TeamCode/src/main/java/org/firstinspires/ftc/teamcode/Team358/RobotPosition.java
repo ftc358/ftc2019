@@ -3,10 +3,11 @@ package org.firstinspires.ftc.teamcode.Team358;
 public class RobotPosition {
     int x;
     int y;
+    double heading;
 
     Boolean isTurn;
 
-    //Initializer
+    //Initializers
     RobotPosition(int x, int y) {
         if (x < 39) {
             if (y < 39) {
@@ -17,6 +18,23 @@ public class RobotPosition {
             }
         } else {
             throw new IllegalArgumentException("X value is outside the field");
+        }
+    }
+
+    RobotPosition(int x, int y, double heading) {
+        if (x < 39) {
+            if (y < 39) {
+                this.x = x;
+                this.y = y;
+            } else {
+                throw new IllegalArgumentException("Y value is outside the field");
+            }
+        } else {
+            throw new IllegalArgumentException("X value is outside the field");
+        }
+
+        if (!(heading >= 0 && heading <= 360)) {
+            throw new IllegalArgumentException("Heading value is outside 360 degrees");
         }
     }
 
