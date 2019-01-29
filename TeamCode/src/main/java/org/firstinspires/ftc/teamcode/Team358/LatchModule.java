@@ -10,7 +10,7 @@ public class LatchModule extends Thread implements RobotModule {
         this.latchMotor = latchMotor;
     }
 
-    public void unlatch() {
+    public void run() {
         latchMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         latchMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
