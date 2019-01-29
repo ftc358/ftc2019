@@ -64,27 +64,21 @@ public abstract class AutoEngine358 extends Robot358Main {
             final double currentHeading = currentPosition.heading;
             final double targetHeading = currentPosition.getRelativeHeading(position);
             if (targetHeading == 0 || targetHeading == 90 || targetHeading == 180 || targetHeading == 270) {
-                robotActions.add(new MoveAction(position, new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
-                            forward(POWER, 2);
-                        } catch (InterruptedException e) {
-                            RobotLog.d("This should not happen.");
-                        }
+                robotActions.add(new MoveAction(position, () -> {
+                    try {
+                        turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                        forward(POWER, 2);
+                    } catch (InterruptedException e) {
+                        RobotLog.d("This should not happen.");
                     }
                 }));
             } else {
-                robotActions.add(new MoveAction(position, new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
-                            forward(POWER, sqrt(8));
-                        } catch (InterruptedException e) {
-                            RobotLog.d("This should not happen.");
-                        }
+                robotActions.add(new MoveAction(position, () -> {
+                    try {
+                        turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                        forward(POWER, sqrt(8));
+                    } catch (InterruptedException e) {
+                        RobotLog.d("This should not happen.");
                     }
                 }));
             }
@@ -92,6 +86,10 @@ public abstract class AutoEngine358 extends Robot358Main {
             currentPosition.heading = targetHeading;
         }
     }
+
+    /**
+     * Motion Runnables
+     */
 
     /**
      * Gimme Functions
