@@ -17,4 +17,8 @@ public class MoveAction extends RobotAction {
     public Runnable getActionMethod() {
         return actionMethod;
     }
+
+    public RobotPosition getToPosition() {
+        return toPosition;
+    }
 }

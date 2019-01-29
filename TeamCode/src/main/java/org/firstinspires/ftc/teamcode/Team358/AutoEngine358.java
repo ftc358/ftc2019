@@ -44,6 +44,12 @@ public abstract class AutoEngine358 extends Robot358Main {
     public void runRobotActions() {
         for (RobotAction action : robotActions) {
             action.getActionMethod().run();
+            if (action instanceof MoveAction) {
+                // Update robot position
+                currentPosition = ((MoveAction) action).getToPosition();
+            }
+            telemetry.addData("Current Position", currentPosition);
+            telemetry.update();
         }
     }
 
@@ -55,8 +61,6 @@ public abstract class AutoEngine358 extends Robot358Main {
         RobotPosition lastPosition = STARTING_POSITION;
         //TODO: use @findingTurns here to optimize driving
         for (RobotPosition position : positions) {
-            telemetry.addData("Current heading", lastPosition.heading);
-            telemetry.update();
             final double currentHeading = lastPosition.heading;
             final double targetHeading = lastPosition.getRelativeHeading(position);
             if (targetHeading == 0 || targetHeading == 90 || targetHeading == 180 || targetHeading == 270) {
@@ -64,7 +68,7 @@ public abstract class AutoEngine358 extends Robot358Main {
                     @Override
                     public void run() {
                         try {
-                            turn(new IMUTurner(calculateTurn(currentPosition.heading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                            turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                             forward(POWER, 2);
                         } catch (InterruptedException e) {
                             RobotLog.d("This should not happen.");
@@ -80,7 +84,7 @@ public abstract class AutoEngine358 extends Robot358Main {
                     @Override
                     public void run() {
                         try {
-                            turn(new IMUTurner(calculateTurn(currentPosition.heading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                            turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                             forward(POWER, sqrt(8));
                         } catch (InterruptedException e) {
                             RobotLog.d("This should not happen.");
