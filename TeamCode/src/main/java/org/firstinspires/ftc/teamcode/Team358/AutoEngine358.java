@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.RobotLog;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +18,7 @@ public abstract class AutoEngine358 extends Robot358Main {
      */
 
     private List<RobotAction> robotActions = new ArrayList<>();
-    //    private List<MoveAction> robotMoveActions;
+    private List<MoveAction> robotMoveActions = new ArrayList<>();
     private RobotPosition currentPosition;
 
     /**
@@ -41,6 +43,10 @@ public abstract class AutoEngine358 extends Robot358Main {
         robotActions.add(actionMethod);
     }
 
+    public void addAllMoveActions() {
+        robotActions.addAll(robotMoveActions);
+    }
+
     public void runRobotActions() {
         for (RobotAction action : robotActions) {
             action.getActionMethod().run();
@@ -59,12 +65,16 @@ public abstract class AutoEngine358 extends Robot358Main {
 
     public void generateMoveActions(List<RobotPosition> positions) {
         RobotPosition currentPosition = STARTING_POSITION;
-        //TODO: use @findingTurns here to optimize driving
+        List<Integer> turningIndices = computeTurningPointIndices(positions);
+        List<RobotPosition> positionsWithHeadings = new ArrayList<>();
+
+        positionsWithHeadings.add(STARTING_POSITION);
+
         for (RobotPosition position : positions) {
             final double currentHeading = currentPosition.heading;
             final double targetHeading = currentPosition.getRelativeHeading(position);
             if (targetHeading == 0 || targetHeading == 90 || targetHeading == 180 || targetHeading == 270) {
-                robotActions.add(new MoveAction(position, () -> {
+                robotMoveActions.add(new MoveAction(position, () -> {
                     try {
                         turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                         forward(POWER, 2);
@@ -73,7 +83,7 @@ public abstract class AutoEngine358 extends Robot358Main {
                     }
                 }));
             } else {
-                robotActions.add(new MoveAction(position, () -> {
+                robotMoveActions.add(new MoveAction(position, () -> {
                     try {
                         turn(new IMUTurner(calculateTurn(currentHeading, targetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                         forward(POWER, sqrt(8));
@@ -84,12 +94,90 @@ public abstract class AutoEngine358 extends Robot358Main {
             }
             currentPosition = position;
             currentPosition.heading = targetHeading;
+
+            positionsWithHeadings.add(currentPosition);
+        }
+
+        //TODO: use @findingTurns here to optimize driving
+        //TODO: test if working
+        for (Integer turningIndex : turningIndices) {
+            List<Integer> ints = Arrays.asList(0, 2, 4);
+            for (int i = 0; i < ints.size() - 1; i++) {
+                final Integer first = ints.get(i);
+                if (ints.size() > i + 1) {
+                    Integer second = ints.get(i + 1);
+
+                    double segmentHeading = robotMoveActions.get(first).toPosition.getRelativeHeading(robotMoveActions.get(first + 1).toPosition);
+                    if (segmentHeading == 0 || segmentHeading == 90 || segmentHeading == 180 || segmentHeading == 270) {
+                        robotMoveActions.add(new MoveAction(positionsWithHeadings.get(second), () -> {
+                            try {
+                                turn(new IMUTurner(calculateTurn(positionsWithHeadings.get(first).heading, segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                                forwardWithCheck(POWER, 2, second - first);
+                            } catch (InterruptedException e) {
+                                RobotLog.d("This should not happen.");
+                            }
+                        }));
+                    } else {
+                        robotMoveActions.add(new MoveAction(positionsWithHeadings.get(second), () -> {
+                            try {
+                                turn(new IMUTurner(calculateTurn(positionsWithHeadings.get(first).heading, segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                                forwardWithCheck(POWER, sqrt(8), second - first);
+                            } catch (InterruptedException e) {
+                                RobotLog.d("This should not happen.");
+                            }
+                        }));
+                    }
+                }
+            }
         }
     }
 
     /**
-     * Motion Runnables
+     * Motion
      */
+
+    public void forwardWithCheck(double power, double distancePerSegment, int numberOfSegments) {
+
+        runUsingEncoders();
+
+        //Distance is in inches
+
+        int ticks = (int) (((distancePerSegment * numberOfSegments / (4 * Math.PI) * 1130)) * 1.41 + 0.5);
+
+        //Reset Encoders358
+        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Set to RUN_TO_POSITION mode
+        fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //Set Target Position
+        fL.setTargetPosition(ticks);
+        bL.setTargetPosition(ticks);
+        fR.setTargetPosition(ticks);
+        bR.setTargetPosition(ticks);
+
+        //Set Drive Power
+        fL.setPower(power);
+        bL.setPower(power);
+        fR.setPower(power);
+        bR.setPower(power);
+
+        while (fL.isBusy() && fR.isBusy() && bL.isBusy() && bR.isBusy()) {
+            //TODO: check if reached multiple & update
+        }
+
+        //Stop and Change Mode back to Normal
+        fL.setPower(0);
+        bL.setPower(0);
+        fR.setPower(0);
+        bR.setPower(0);
+    }
 
     /**
      * Gimme Functions
@@ -107,6 +195,7 @@ public abstract class AutoEngine358 extends Robot358Main {
 
     public List<Integer> computeTurningPointIndices(List<RobotPosition> points) {
         List<Integer> indices = new ArrayList<Integer>();
+        indices.add(0);
         for (int i = 1; i < points.size() - 1; i++) {
             RobotPosition prev = points.get(i - 1);
             RobotPosition curr = points.get(i);
@@ -121,6 +210,7 @@ public abstract class AutoEngine358 extends Robot358Main {
         }
         return indices;
     }
+
 
     public List<RobotPosition> calculateTurningPoints(List<RobotPosition> points) {
         {

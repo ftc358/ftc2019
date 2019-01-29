@@ -42,9 +42,9 @@ public class PAAPlayground extends AutoEngine358 {
         autoRoute.add(new RobotPosition(13,13));
         autoRoute.add(new RobotPosition(12,12));
 
-        turningPointIndices = computeTurningPointIndices(autoRoute);
-
         generateMoveActions(autoRoute);
+
+        addAllMoveActions();
 
         runRobotActions();
     }
