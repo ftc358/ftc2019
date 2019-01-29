@@ -108,8 +108,9 @@ public abstract class AutoEngine358 extends Robot358Main {
                     Integer second = ints.get(i + 1);
 
                     double segmentHeading = robotMoveActions.get(first).toPosition.getRelativeHeading(robotMoveActions.get(first + 1).toPosition);
+                    robotMoveActions.subList(first, second+1).clear();
                     if (segmentHeading == 0 || segmentHeading == 90 || segmentHeading == 180 || segmentHeading == 270) {
-                        robotMoveActions.add(new MoveAction(positionsWithHeadings.get(second), () -> {
+                        robotMoveActions.add(first, new MoveAction(positionsWithHeadings.get(second), () -> {
                             try {
                                 turn(new IMUTurner(calculateTurn(positionsWithHeadings.get(first).heading, segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                                 forwardWithCheck(POWER, 2, second - first);
@@ -118,7 +119,7 @@ public abstract class AutoEngine358 extends Robot358Main {
                             }
                         }));
                     } else {
-                        robotMoveActions.add(new MoveAction(positionsWithHeadings.get(second), () -> {
+                        robotMoveActions.add(first, new MoveAction(positionsWithHeadings.get(second), () -> {
                             try {
                                 turn(new IMUTurner(calculateTurn(positionsWithHeadings.get(first).heading, segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                                 forwardWithCheck(POWER, sqrt(8), second - first);
