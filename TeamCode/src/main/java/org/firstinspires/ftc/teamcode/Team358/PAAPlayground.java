@@ -31,10 +31,16 @@ public class PAAPlayground extends AutoEngine358 {
         autoRoute.add(new RobotPosition(20,16));
         autoRoute.add(new RobotPosition(20,17));
         autoRoute.add(new RobotPosition(20,18));
-        autoRoute.add(new RobotPosition(21,19));
-        autoRoute.add(new RobotPosition(22,20));
-        autoRoute.add(new RobotPosition(23,21));
-        autoRoute.add(new RobotPosition(24,22));
+        autoRoute.add(new RobotPosition(20,19));
+        autoRoute.add(new RobotPosition(20,20));
+        autoRoute.add(new RobotPosition(19,19));
+        autoRoute.add(new RobotPosition(18,18));
+        autoRoute.add(new RobotPosition(17,17));
+        autoRoute.add(new RobotPosition(16,16));
+        autoRoute.add(new RobotPosition(15,15));
+        autoRoute.add(new RobotPosition(14,14));
+        autoRoute.add(new RobotPosition(13,13));
+        autoRoute.add(new RobotPosition(12,12));
 
         turningPointIndices = computeTurningPointIndices(autoRoute);
 
