@@ -131,7 +131,7 @@ public abstract class Robot358Main extends LinearOpMode {
         extend.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
-    //TODO: test if this turns right with positive angles
+    //turns right with positive angles
 
     public void turn(TurnerIF turner, boolean runUsingEncoders, boolean stopMotors) throws InterruptedException {
         turner.start();
@@ -156,8 +156,8 @@ public abstract class Robot358Main extends LinearOpMode {
             double power = turner.getPower();
             double scaleFactor = turner.getScaleFactor();
 
-            RobotLog.d("Robot358Main::turn()::power: " + power);
-            RobotLog.d("Robot358Main::turn()::scaleFactor: " + scaleFactor);
+//            RobotLog.d("Robot358Main::turn()::power: " + power);
+//            RobotLog.d("Robot358Main::turn()::scaleFactor: " + scaleFactor);
 
             keepGoing = turner.keepGoing(0);
 
@@ -165,7 +165,7 @@ public abstract class Robot358Main extends LinearOpMode {
                 if (Double.isNaN(scaleFactor)) {
                     keepGoing = false;
                 } else {
-                    RobotLog.d("Robot358Main::turn()::power * scaleFactor: " + power * scaleFactor);
+//                    RobotLog.d("Robot358Main::turn()::power * scaleFactor: " + power * scaleFactor);
 
                     fL.setPower(-power * scaleFactor);
                     bL.setPower(-power * scaleFactor);

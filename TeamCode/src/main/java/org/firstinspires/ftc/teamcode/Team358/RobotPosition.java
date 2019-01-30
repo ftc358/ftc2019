@@ -35,6 +35,8 @@ public class RobotPosition {
 
         if (!(heading >= 0 && heading <= 360)) {
             throw new IllegalArgumentException("Heading value is outside 360 degrees");
+        } else {
+            this.heading = heading;
         }
     }
 
@@ -42,12 +44,12 @@ public class RobotPosition {
     //I have no idea if it works. According to the datasheet the heading increases clockwise from 0 to 360, but I do not remember it that way
     //Will have to test
 
-    public double getRelativeHeading(RobotPosition lastPosition) {
+    public double getRelativeHeading(RobotPosition nextPosition) {
         double relativeHeading = 0;
 
-        switch (this.x - lastPosition.x) {
+        switch (nextPosition.x - this.x) {
             case 1:
-                switch (this.y - lastPosition.y) {
+                switch (nextPosition.y - this.y) {
                     case 1:
                         relativeHeading = 45;
                         break;
@@ -62,7 +64,7 @@ public class RobotPosition {
                 }
                 break;
             case 0:
-                switch (this.y - lastPosition.y) {
+                switch (nextPosition.y - this.y) {
                     case 1:
                         relativeHeading = 0;
                         break;
@@ -76,7 +78,7 @@ public class RobotPosition {
                 }
                 break;
             case -1:
-                switch (this.y - lastPosition.y) {
+                switch (nextPosition.y - this.y) {
                     case 1:
                         relativeHeading = 315;
                         break;
@@ -92,5 +94,37 @@ public class RobotPosition {
                 break;
         }
         return relativeHeading;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public double getHeading() {
+        return heading;
+    }
+
+    public void setHeading(double heading) {
+        this.heading = heading;
+    }
+
+    public Boolean getTurn() {
+        return isTurn;
+    }
+
+    public void setTurn(Boolean turn) {
+        isTurn = turn;
     }
 }

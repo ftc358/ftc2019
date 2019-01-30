@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import java.util.ArrayList;
@@ -14,9 +16,9 @@ public class PAAPlayground extends AutoEngine358 {
 
     public void runOpMode() throws InterruptedException {
 
-        initialize(new RobotPosition(12, 12, 45));
+        initialize();
 
-//        autoRoute.add(new RobotPosition(12,12,45));
+        autoRoute.add(new RobotPosition(12,12,45));
         autoRoute.add(new RobotPosition(13, 12));
         autoRoute.add(new RobotPosition(14, 12));
         autoRoute.add(new RobotPosition(15, 12));
@@ -41,6 +43,8 @@ public class PAAPlayground extends AutoEngine358 {
         autoRoute.add(new RobotPosition(14, 14));
         autoRoute.add(new RobotPosition(13, 13));
         autoRoute.add(new RobotPosition(12, 12));
+
+        Log.d("Heading of the first position", ": "+ autoRoute.get(0).getHeading());
 
         generateMoveActions(autoRoute);
 
