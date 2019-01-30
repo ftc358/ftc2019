@@ -164,9 +164,13 @@ public class Encoders359 {
                     if (pos < -400) {
                         spinning.setPower(.4);
                     }
+                    else {
+                        spinning.setPower(0);
+                    }
                 }
-                rotating.setPower(0);
-                spinning.setPower(0);
+                else {
+                    rotating.setPower(0);
+                }
                 break;
             case 4:
                 if (pos < 0) {
