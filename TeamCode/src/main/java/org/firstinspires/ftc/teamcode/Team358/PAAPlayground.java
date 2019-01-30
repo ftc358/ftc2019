@@ -44,8 +44,6 @@ public class PAAPlayground extends AutoEngine358 {
         autoRoute.add(new RobotPosition(13, 13));
         autoRoute.add(new RobotPosition(12, 12));
 
-        Log.d("Heading of the first position", ": "+ autoRoute.get(0).getHeading());
-
         generateMoveActions(autoRoute);
 
         addAllMoveActions();

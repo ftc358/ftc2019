@@ -43,12 +43,6 @@ public abstract class AutoEngine358 extends Robot358Main {
 
     public void addAllMoveActions() {
         robotActions.addAll(robotMoveActions);
-        for (RobotAction robotAction : robotActions) {
-            if (robotAction instanceof MoveAction) {
-                // Update robot position
-                Log.d("RobotMoveAction", ((MoveAction) robotAction).getToPosition().x + ", " + ((MoveAction) robotAction).getToPosition().y);
-            }
-        }
     }
 
     public void runRobotActions() {
@@ -58,9 +52,9 @@ public abstract class AutoEngine358 extends Robot358Main {
                 // Update robot position
                 currentPosition = ((MoveAction) action).getToPosition();
             }
-            telemetry.addData("Current position", currentPosition.x + ", " + currentPosition.y);
-            telemetry.addData("Current heading", currentPosition.heading);
-            telemetry.update();
+//            telemetry.addData("Current position", currentPosition.x + ", " + currentPosition.y);
+//            telemetry.addData("Current heading", currentPosition.heading);
+//            telemetry.update();
         }
     }
 

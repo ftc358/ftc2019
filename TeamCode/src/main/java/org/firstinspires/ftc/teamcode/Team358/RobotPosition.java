@@ -96,6 +96,12 @@ public class RobotPosition {
         return relativeHeading;
     }
 
+    @Override
+    public String toString() {
+        String result = getX() + "," + getY() + "," + getHeading();
+        return result;
+    }
+
     public int getX() {
         return x;
     }
