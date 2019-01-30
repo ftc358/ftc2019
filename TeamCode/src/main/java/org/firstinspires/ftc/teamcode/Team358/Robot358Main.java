@@ -192,7 +192,7 @@ public abstract class Robot358Main extends LinearOpMode {
 
         //Distance is in inches
 
-        int ticks = (int) (((distance / (4 * Math.PI) * 1130)) * 1.41 + 0.5);
+        int ticks = (int) (((distance / (4 * Math.PI) * 1120)) * 1.41 + 0.5);
 
         //Reset Encoders358
         fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

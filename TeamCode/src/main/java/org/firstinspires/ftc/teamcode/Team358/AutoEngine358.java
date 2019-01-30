@@ -63,7 +63,6 @@ public abstract class AutoEngine358 extends Robot358Main {
      */
 
     public void generateMoveActions(List<RobotPosition> positions) {
-        List<Integer> turningIndices = computeTurningPointIndices(positions);
         List<RobotPosition> positionsWithHeadings = new ArrayList<>();
 
         for (RobotPosition currentPosition : positions) {
@@ -90,12 +89,12 @@ public abstract class AutoEngine358 extends Robot358Main {
                 }));
             } else {
                 robotMoveActions.add(new MoveAction(targetPosition, () -> {
-                        try {
-                            turn(new IMUTurner(calculateTurn(currentPosition.getHeading(), absolutetTargetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
-                            forward(POWER, sqrt(8));
-                        } catch (InterruptedException e) {
-                            Log.d("Error", "Failed to execute move runnable #2");
-                        }
+                    try {
+                        turn(new IMUTurner(calculateTurn(currentPosition.getHeading(), absolutetTargetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                        forward(POWER, sqrt(8));
+                    } catch (InterruptedException e) {
+                        Log.d("Error", "Failed to execute move runnable #2");
+                    }
                 }));
             }
 
@@ -112,40 +111,42 @@ public abstract class AutoEngine358 extends Robot358Main {
 
         //TODO: use @findingTurns here to optimize driving
         //TODO: test if working
-//        for (int i = 0; i < turningIndices.size() - 1; i++) {
-//            final Integer first = turningIndices.get(i);
-//            if (turningIndices.size() > i + 1) {
-//                Integer second = turningIndices.get(i + 1);
-//
-//                List<RobotPosition> collinearPositions = new ArrayList<>();
-//
-//                for (int j = first + 1; j <= second; i++) {
-//                    collinearPositions.add(positionsWithHeadings.get(i));
-//                }
-//
-//                double segmentHeading = robotMoveActions.get(first).toPosition.getRelativeHeading(robotMoveActions.get(first + 1).toPosition);
-//                robotMoveActions.subList(first, second + 1).clear();
-//                if (segmentHeading == 0 || segmentHeading == 90 || segmentHeading == 180 || segmentHeading == 270) {
-//                    robotMoveActions.add(first, new MoveAction(positionsWithHeadings.get(second), () -> {
-//                        try {
-//                            turn(new IMUTurner(calculateTurn(positionsWithHeadings.get(first).heading, segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
-//                            forwardWithCheck(POWER, 2, second - first, collinearPositions);
-//                        } catch (InterruptedException e) {
-//                            RobotLog.d("This should not happen.");
-//                        }
-//                    }));
-//                } else {
-//                    robotMoveActions.add(first, new MoveAction(positionsWithHeadings.get(second), () -> {
-//                        try {
-//                            turn(new IMUTurner(calculateTurn(positionsWithHeadings.get(first).heading, segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
-//                            forwardWithCheck(POWER, sqrt(8), second - first, collinearPositions);
-//                        } catch (InterruptedException e) {
-//                            RobotLog.d("This should not happen.");
-//                        }
-//                    }));
-//                }
-//            }
-//        }
+
+        List<Integer> turningIndices = computeTurningPointIndices(positionsWithHeadings);
+
+        for (int i = 0; i < turningIndices.size() - 1; i++) {
+            final Integer first = turningIndices.get(i);
+            if (turningIndices.size() > i + 1) {
+                Integer second = turningIndices.get(i + 1);
+
+                List<RobotPosition> collinearPositions = new ArrayList<>();
+
+                collinearPositions.addAll(positionsWithHeadings.subList(first, second + 1));
+
+                double segmentHeading = positionsWithHeadings.get(first).getRelativeHeading(positionsWithHeadings.get(first + 1));
+
+                robotMoveActions.subList(first, second + 1).clear();
+                if (segmentHeading == 0 || segmentHeading == 90 || segmentHeading == 180 || segmentHeading == 270) {
+                    robotMoveActions.add(first, new MoveAction(positionsWithHeadings.get(second), () -> {
+                        try {
+                            turn(new IMUTurner(calculateTurn(positionsWithHeadings.get(first).heading, segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                            forwardWithCheck(POWER, 2, second - first, collinearPositions);
+                        } catch (InterruptedException e) {
+                            Log.d("Error", "Failed to execute move runnable #3");
+                        }
+                    }));
+                } else {
+                    robotMoveActions.add(first, new MoveAction(positionsWithHeadings.get(second), () -> {
+                        try {
+                            turn(new IMUTurner(calculateTurn(positionsWithHeadings.get(first).heading, segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                            forwardWithCheck(POWER, sqrt(8), second - first, collinearPositions);
+                        } catch (InterruptedException e) {
+                            Log.d("Error", "Failed to execute move runnable #4");
+                        }
+                    }));
+                }
+            }
+        }
     }
 
     /**
