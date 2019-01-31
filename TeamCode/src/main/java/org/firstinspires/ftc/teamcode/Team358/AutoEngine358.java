@@ -119,6 +119,9 @@ public abstract class AutoEngine358 extends Robot358Main {
     public void optimizeContinuousSegments() {
         List<Integer> turningIndices = computeTurningPointIndices(robotPositionsWithHeadings);
 
+        Integer numberOfMoveActionsRemoved = 0;
+
+        // finding segments of collinear robot positions
         for (int i = 0; i < turningIndices.size() - 1; i++) {
             final Integer first = turningIndices.get(i);
             if (turningIndices.size() > i + 1) {
@@ -128,11 +131,17 @@ public abstract class AutoEngine358 extends Robot358Main {
 
                 collinearPositions.addAll(robotPositionsWithHeadings.subList(first, second + 1));
 
+                //get heading of the segment
                 double segmentHeading = robotPositionsWithHeadings.get(first).getRelativeHeading(robotPositionsWithHeadings.get(first + 1));
 
+                //remove individual move actions
                 robotMoveActions.subList(first, second).clear();
+
+                numberOfMoveActionsRemoved += (second - first);
+
+                //add optimized (continuous) action to the start of the original segment
                 if (segmentHeading == 0 || segmentHeading == 90 || segmentHeading == 180 || segmentHeading == 270) {
-                    robotMoveActions.add(first, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
+                    robotMoveActions.add(first - numberOfMoveActionsRemoved, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
                         try {
                             turn(new IMUTurner(calculateTurn(robotPositionsWithHeadings.get(first).getHeading(), segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                             forwardWithCheck(POWER, 2, second - first, collinearPositions);
@@ -141,7 +150,7 @@ public abstract class AutoEngine358 extends Robot358Main {
                         }
                     }));
                 } else {
-                    robotMoveActions.add(first, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
+                    robotMoveActions.add(first - numberOfMoveActionsRemoved, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
                         try {
                             turn(new IMUTurner(calculateTurn(robotPositionsWithHeadings.get(first).getHeading(), segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                             forwardWithCheck(POWER, sqrt(8), second - first, collinearPositions);
