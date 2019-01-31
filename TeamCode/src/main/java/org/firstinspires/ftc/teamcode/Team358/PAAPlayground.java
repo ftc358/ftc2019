@@ -16,7 +16,7 @@ public class PAAPlayground extends AutoEngine358 {
 
     public void runOpMode() throws InterruptedException {
 
-        initialize();
+        initialize(new RobotPosition(12,12,45));
 
         autoRoute.add(new RobotPosition(12,12,45));
         autoRoute.add(new RobotPosition(13, 12));

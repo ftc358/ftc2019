@@ -4,6 +4,11 @@ import android.util.Log;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +25,7 @@ public abstract class AutoEngine358 extends Robot358Main {
     private List<RobotAction> robotActions = new ArrayList<>();
     private List<MoveAction> robotMoveActions = new ArrayList<>();
     private RobotPosition currentPosition;
+    List<RobotPosition> robotPositionsWithHeadings = new ArrayList<>();
 
     /**
      * Config
@@ -27,7 +33,7 @@ public abstract class AutoEngine358 extends Robot358Main {
 
     private double POWER = 1.0;
     private Boolean RUN_USING_ENCODERS = true;
-//    private RobotPosition STARTING_POSITION;
+    private RobotPosition STARTING_POSITION;
 
     /**
      * Engine Functions
@@ -35,6 +41,7 @@ public abstract class AutoEngine358 extends Robot358Main {
 
     public void initialize(RobotPosition STARTING_POSITION) throws InterruptedException {
         super.initialize();
+        this.STARTING_POSITION = STARTING_POSITION;
     }
 
     public void addRobotAction(RobotAction actionMethod) {
@@ -63,7 +70,6 @@ public abstract class AutoEngine358 extends Robot358Main {
      */
 
     public void generateMoveActions(List<RobotPosition> positions) {
-        List<RobotPosition> positionsWithHeadings = new ArrayList<>();
 
         for (RobotPosition currentPosition : positions) {
 
@@ -72,7 +78,7 @@ public abstract class AutoEngine358 extends Robot358Main {
             try {
                 targetPosition = positions.get(positions.indexOf(currentPosition) + 1);
             } catch (IndexOutOfBoundsException e) {
-                positionsWithHeadings.add(currentPosition);
+                robotPositionsWithHeadings.add(currentPosition);
                 return;
             }
 
@@ -81,7 +87,7 @@ public abstract class AutoEngine358 extends Robot358Main {
             if (absolutetTargetHeading == 0 || absolutetTargetHeading == 90 || absolutetTargetHeading == 180 || absolutetTargetHeading == 270) {
                 robotMoveActions.add(new MoveAction(targetPosition, () -> {
                     try {
-                        turn(new IMUTurner(calculateTurn(currentPosition.getHeading(), absolutetTargetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                        turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(), absolutetTargetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                         forward(POWER, 2);
                     } catch (InterruptedException e) {
                         Log.d("Error", "Failed to execute move runnable #1");
@@ -90,7 +96,7 @@ public abstract class AutoEngine358 extends Robot358Main {
             } else {
                 robotMoveActions.add(new MoveAction(targetPosition, () -> {
                     try {
-                        turn(new IMUTurner(calculateTurn(currentPosition.getHeading(), absolutetTargetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                        turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(), absolutetTargetHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                         forward(POWER, sqrt(8));
                     } catch (InterruptedException e) {
                         Log.d("Error", "Failed to execute move runnable #2");
@@ -99,20 +105,19 @@ public abstract class AutoEngine358 extends Robot358Main {
             }
 
             Log.d("Headings", "current heading: (" + currentPosition.getHeading() + ")");
-            Log.d("Headings", "current position: " + currentPosition.x + ", " + currentPosition.y);
+            Log.d("Headings", "current position: " + currentPosition.getX() + ", " + currentPosition.getY());
             Log.d("Headings", "target heading: (" + absolutetTargetHeading + ")");
-            Log.d("Headings", "target position: " + targetPosition.x + ", " + targetPosition.y);
-            Log.d("Headings", "to turn: (" + calculateTurn(currentPosition.heading, absolutetTargetHeading) + ")");
+            Log.d("Headings", "target position: " + targetPosition.getX() + ", " + targetPosition.getY());
+            Log.d("Headings", "to turn: (" + calculateTurn(getAbsoluteCurrentHeading(), absolutetTargetHeading) + ")");
 
             targetPosition.setHeading(absolutetTargetHeading);
 
-            positionsWithHeadings.add(currentPosition);
+            robotPositionsWithHeadings.add(currentPosition);
         }
+    }
 
-        //TODO: use @findingTurns here to optimize driving
-        //TODO: test if working
-
-        List<Integer> turningIndices = computeTurningPointIndices(positionsWithHeadings);
+    public void optimizeContinuousSegments() {
+        List<Integer> turningIndices = computeTurningPointIndices(robotPositionsWithHeadings);
 
         for (int i = 0; i < turningIndices.size() - 1; i++) {
             final Integer first = turningIndices.get(i);
@@ -121,24 +126,24 @@ public abstract class AutoEngine358 extends Robot358Main {
 
                 List<RobotPosition> collinearPositions = new ArrayList<>();
 
-                collinearPositions.addAll(positionsWithHeadings.subList(first, second + 1));
+                collinearPositions.addAll(robotPositionsWithHeadings.subList(first, second + 1));
 
-                double segmentHeading = positionsWithHeadings.get(first).getRelativeHeading(positionsWithHeadings.get(first + 1));
+                double segmentHeading = robotPositionsWithHeadings.get(first).getRelativeHeading(robotPositionsWithHeadings.get(first + 1));
 
-                robotMoveActions.subList(first, second + 1).clear();
+                robotMoveActions.subList(first, second).clear();
                 if (segmentHeading == 0 || segmentHeading == 90 || segmentHeading == 180 || segmentHeading == 270) {
-                    robotMoveActions.add(first, new MoveAction(positionsWithHeadings.get(second), () -> {
+                    robotMoveActions.add(first, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
                         try {
-                            turn(new IMUTurner(calculateTurn(positionsWithHeadings.get(first).heading, segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                            turn(new IMUTurner(calculateTurn(robotPositionsWithHeadings.get(first).getHeading(), segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                             forwardWithCheck(POWER, 2, second - first, collinearPositions);
                         } catch (InterruptedException e) {
                             Log.d("Error", "Failed to execute move runnable #3");
                         }
                     }));
                 } else {
-                    robotMoveActions.add(first, new MoveAction(positionsWithHeadings.get(second), () -> {
+                    robotMoveActions.add(first, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
                         try {
-                            turn(new IMUTurner(calculateTurn(positionsWithHeadings.get(first).heading, segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                            turn(new IMUTurner(calculateTurn(robotPositionsWithHeadings.get(first).getHeading(), segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
                             forwardWithCheck(POWER, sqrt(8), second - first, collinearPositions);
                         } catch (InterruptedException e) {
                             Log.d("Error", "Failed to execute move runnable #4");
@@ -150,7 +155,22 @@ public abstract class AutoEngine358 extends Robot358Main {
     }
 
     /**
-     * Motion
+     * Robot Sensor
+     */
+
+    public double getAbsoluteCurrentHeading() {
+        Orientation angles = _imu1.getAngularOrientation().toAxesReference(AxesReference.INTRINSIC).toAxesOrder(AxesOrder.ZYX).toAngleUnit(AngleUnit.DEGREES);
+        double absoluteHeading;
+        if (angles.firstAngle <= 0) {
+            absoluteHeading = -angles.firstAngle;
+        } else {
+            absoluteHeading = 360 - angles.firstAngle;
+        }
+        return absoluteHeading + STARTING_POSITION.getHeading();
+    }
+
+    /**
+     * Robot Motion
      */
 
     public void forwardWithCheck(double power, double distancePerSegment, int numberOfSegments, List<RobotPosition> collinearPositions) {
@@ -221,10 +241,10 @@ public abstract class AutoEngine358 extends Robot358Main {
             RobotPosition prev = points.get(i - 1);
             RobotPosition curr = points.get(i);
             RobotPosition next = points.get(i + 1);
-            int dxPrev = prev.x - curr.x;
-            int dyPrev = prev.y - curr.y;
-            int dxNext = next.x - curr.x;
-            int dyNext = next.y - curr.y;
+            int dxPrev = prev.getX() - curr.getX();
+            int dyPrev = prev.getY() - curr.getY();
+            int dxNext = next.getX() - curr.getX();
+            int dyNext = next.getY() - curr.getY();
             if (dxPrev != dxNext && dyPrev != dyNext) {
                 indices.add(i);
             }

@@ -13,8 +13,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import org.firstinspires.ftc.teamcode.NaiveAccelerationIntegrator;
 
-@TeleOp
-//@Disabled
+//@TeleOp
+@Disabled
 public class GyroPlayground extends LinearOpMode {
 
     BNO055IMU imu;

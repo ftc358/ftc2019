@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
 public class RobotPosition {
-    int x;
-    int y;
-    double heading;
+    private int x;
+    private int y;
+    private double heading;
 
     Boolean isTurn;
 
