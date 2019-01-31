@@ -29,7 +29,6 @@ public class NaiveAccelerationIntegrator implements BNO055IMU.AccelerationIntegr
     Velocity velocity;
     Acceleration acceleration;
 
-
     NaiveAccelerationIntegrator() {
         this.parameters = null;
         this.position = new Position();
