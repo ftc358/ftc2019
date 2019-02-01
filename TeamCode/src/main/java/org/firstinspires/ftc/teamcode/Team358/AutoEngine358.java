@@ -18,6 +18,7 @@ import static java.lang.Math.sqrt;
 
 public abstract class AutoEngine358 extends Robot358Main {
 
+    List<RobotPosition> robotPositionsWithHeadings = new ArrayList<>();
     /**
      * Core Engine Properties
      */
@@ -25,8 +26,6 @@ public abstract class AutoEngine358 extends Robot358Main {
     private List<RobotAction> robotActions = new ArrayList<>();
     private List<MoveAction> robotMoveActions = new ArrayList<>();
     private RobotPosition currentPosition;
-    List<RobotPosition> robotPositionsWithHeadings = new ArrayList<>();
-
     /**
      * Config
      */
@@ -258,6 +257,7 @@ public abstract class AutoEngine358 extends Robot358Main {
                 indices.add(i);
             }
         }
+        indices.add(points.size() - 1);
         return indices;
     }
 

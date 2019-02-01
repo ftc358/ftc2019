@@ -1,11 +1,10 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
 public class RobotPosition {
+    Boolean isTurn;
     private int x;
     private int y;
     private double heading;
-
-    Boolean isTurn;
 
     //Initializers
     RobotPosition(int x, int y) {
