@@ -15,13 +15,13 @@ public class VEX393Test extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         vex393 = hardwareMap.crservo.get("vex393");
-        theOther = hardwareMap.crservo.get("other");
+//        theOther = hardwareMap.crservo.get("other");
 
         waitForStart();
 
         while (opModeIsActive()) {
             vex393.setPower(gamepad1.left_stick_y);
-            theOther.setPower(gamepad1.right_stick_y);
+//            theOther.setPower(gamepad1.right_stick_y);
             telemetry.addData("Power", gamepad1.left_stick_y);
             telemetry.update();
         }
