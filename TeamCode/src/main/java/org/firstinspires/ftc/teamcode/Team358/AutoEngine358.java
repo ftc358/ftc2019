@@ -11,7 +11,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.sqrt;
@@ -41,6 +40,7 @@ public abstract class AutoEngine358 extends Robot358Main {
     public void initialize(RobotPosition STARTING_POSITION) throws InterruptedException {
         super.initialize();
         this.STARTING_POSITION = STARTING_POSITION;
+        currentPosition = STARTING_POSITION;
     }
 
     public void addRobotAction(RobotAction actionMethod) {
@@ -58,9 +58,9 @@ public abstract class AutoEngine358 extends Robot358Main {
                 // Update robot position
                 currentPosition = ((MoveAction) action).getToPosition();
             }
-//            telemetry.addData("Current position", currentPosition.x + ", " + currentPosition.y);
-//            telemetry.addData("Current heading", currentPosition.heading);
-//            telemetry.update();
+            telemetry.addData("Current position", currentPosition.getX() + ", " + currentPosition.getY());
+            telemetry.addData("Current heading", currentPosition.getHeading());
+            telemetry.update();
         }
     }
 
@@ -103,12 +103,6 @@ public abstract class AutoEngine358 extends Robot358Main {
                 }));
             }
 
-            Log.d("Headings", "current heading: (" + currentPosition.getHeading() + ")");
-            Log.d("Headings", "current position: " + currentPosition.getX() + ", " + currentPosition.getY());
-            Log.d("Headings", "target heading: (" + absolutetTargetHeading + ")");
-            Log.d("Headings", "target position: " + targetPosition.getX() + ", " + targetPosition.getY());
-            Log.d("Headings", "to turn: (" + calculateTurn(getAbsoluteCurrentHeading(), absolutetTargetHeading) + ")");
-
             targetPosition.setHeading(absolutetTargetHeading);
 
             robotPositionsWithHeadings.add(currentPosition);
@@ -117,6 +111,8 @@ public abstract class AutoEngine358 extends Robot358Main {
 
     public void optimizeContinuousSegments() {
         List<Integer> turningIndices = computeTurningPointIndices(robotPositionsWithHeadings);
+
+        List<MoveAction> monitor = robotMoveActions;
 
         Integer numberOfMoveActionsRemoved = 0;
 
@@ -134,9 +130,7 @@ public abstract class AutoEngine358 extends Robot358Main {
                 double segmentHeading = robotPositionsWithHeadings.get(first).getRelativeHeading(robotPositionsWithHeadings.get(first + 1));
 
                 //remove individual move actions
-                robotMoveActions.subList(first, second).clear();
-
-                numberOfMoveActionsRemoved += (second - first);
+                robotMoveActions.subList(first - numberOfMoveActionsRemoved, second - numberOfMoveActionsRemoved).clear();
 
                 //add optimized (continuous) action to the start of the original segment
                 if (segmentHeading == 0 || segmentHeading == 90 || segmentHeading == 180 || segmentHeading == 270) {
@@ -158,6 +152,7 @@ public abstract class AutoEngine358 extends Robot358Main {
                         }
                     }));
                 }
+                numberOfMoveActionsRemoved = numberOfMoveActionsRemoved + (second - first - 1);
             }
         }
     }
@@ -187,13 +182,13 @@ public abstract class AutoEngine358 extends Robot358Main {
 
         //Distance is in inches
 
-        int ticks = (int) (((distancePerSegment * numberOfSegments / (4 * Math.PI) * 1130)) * 1.41 + 0.5);
+        int ticks = (int) (((distancePerSegment * numberOfSegments / (4 * Math.PI) * 1120)) * 4 / 3 + 0.5);
 
-        //Reset Encoders358
-        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        //Reset Encoders358
+//        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Set to RUN_TO_POSITION mode
         fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -201,11 +196,13 @@ public abstract class AutoEngine358 extends Robot358Main {
         fR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        int fLStartingPosition = fL.getCurrentPosition();
+
         //Set Target Position
-        fL.setTargetPosition(ticks);
-        bL.setTargetPosition(ticks);
-        fR.setTargetPosition(ticks);
-        bR.setTargetPosition(ticks);
+        fL.setTargetPosition(fL.getCurrentPosition() + ticks);
+        bL.setTargetPosition(bL.getCurrentPosition() + ticks);
+        fR.setTargetPosition(fR.getCurrentPosition() + ticks);
+        bR.setTargetPosition(bR.getCurrentPosition() + ticks);
 
         //Set Drive Power
         fL.setPower(power);
@@ -215,9 +212,11 @@ public abstract class AutoEngine358 extends Robot358Main {
 
         int numberOfSegmentsLast = 0;
         while (fL.isBusy() && fR.isBusy() && bL.isBusy() && bR.isBusy()) {
-            if (fL.getCurrentPosition() / (int) (((distancePerSegment / (4 * Math.PI) * 1130)) * 1.41 + 0.5) > numberOfSegmentsLast) {
-                currentPosition = collinearPositions.get(fL.getCurrentPosition() / (int) (((distancePerSegment / (4 * Math.PI) * 1130)) * 1.41 + 0.5) - numberOfSegmentsLast);
-                numberOfSegmentsLast = fL.getCurrentPosition() / (int) (((distancePerSegment / (4 * Math.PI) * 1130)) * 1.41 + 0.5);
+            int segmentsTraveled = ((fL.getCurrentPosition() - fLStartingPosition) / (int) (((distancePerSegment / (4 * Math.PI) * 1120)) * 4 / 3 + 0.5));
+            if (segmentsTraveled > numberOfSegmentsLast) {
+                currentPosition = collinearPositions.get(segmentsTraveled);
+                numberOfSegmentsLast = segmentsTraveled;
+                Log.d("Current Position updated inside forwardWithCheck", currentPosition.toString());
             }
         }
 
@@ -243,46 +242,38 @@ public abstract class AutoEngine358 extends Robot358Main {
     }
 
     public List<Integer> computeTurningPointIndices(List<RobotPosition> points) {
-        List<Integer> indices = new ArrayList<Integer>();
-        indices.add(0);
-        for (int i = 1; i < points.size() - 1; i++) {
-            RobotPosition prev = points.get(i - 1);
-            RobotPosition curr = points.get(i);
-            RobotPosition next = points.get(i + 1);
-            int dxPrev = prev.getX() - curr.getX();
-            int dyPrev = prev.getY() - curr.getY();
-            int dxNext = next.getX() - curr.getX();
-            int dyNext = next.getY() - curr.getY();
-            if (dxPrev != dxNext && dyPrev != dyNext) {
-                indices.add(i);
+        ArrayList<RobotPosition> turns = new ArrayList<>();
+
+        ArrayList<Integer> turningIndices = new ArrayList<>();
+
+        turningIndices.add(0);
+
+        for (int i = 0; i < robotPositionsWithHeadings.size(); i++) {
+            turns.add(null);
+        }
+
+        if (robotPositionsWithHeadings.size() > 2) {
+            RobotPosition base = robotPositionsWithHeadings.get(0);
+            RobotPosition next = robotPositionsWithHeadings.get(1);
+            double slope = 1.0 * (next.getY() - base.getY()) / (next.getX() - base.getX());
+
+            for (int i = 2; i < robotPositionsWithHeadings.size(); i++) {
+                RobotPosition newpoint = robotPositionsWithHeadings.get(i);
+
+                double newslope = 1.0 * (newpoint.getY() - next.getY()) / (newpoint.getX() - next.getX());
+                if (newslope != slope) {
+                    turns.set(i - 1, robotPositionsWithHeadings.get(i - 1));
+                    turningIndices.add(i - 1);
+                    slope = newslope;
+                }
+
+                next = newpoint;
             }
         }
-        indices.add(points.size() - 1);
-        return indices;
-    }
 
+        turningIndices.add(robotPositionsWithHeadings.size() - 1);
 
-    public List<RobotPosition> calculateTurningPoints(List<RobotPosition> points) {
-        {
-            List<Integer> indices = computeTurningPointIndices(points);
-//            System.out.println("Turning points are at " + indices);
+        return turningIndices;
 
-            List<RobotPosition> turningPoints = indices.stream().map(i -> points.get(i))
-                    .collect(Collectors.toList());
-//            System.out.println("They are " + turningPoints);
-            return turningPoints;
-
-//            System.out.println("Collinear:");
-//            indices.add(0, 0);
-//            indices.add(points.size() - 1);
-//            for (int i = 0; i < indices.size() - 1; i++)
-//            {
-//                int i0 = indices.get(i);
-//                int i1 = indices.get(i + 1);
-//                List<RobotPosition> collinear = points.subList(i0, i1 + 1);
-//
-//                System.out.println("    " + collinear);
-//            }
-        }
     }
 }
