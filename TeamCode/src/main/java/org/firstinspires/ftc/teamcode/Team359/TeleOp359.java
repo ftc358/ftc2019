@@ -21,7 +21,6 @@ public class TeleOp359 extends OpMode {
     DcMotor Rotation;
     CRServo Intake;
     boolean wiggle = false, boundedRotation = false;
-    boolean prevX1 = false, prevX2 = false;
     int downPos = 1500;
 
     //random things for wiggling
@@ -107,23 +106,17 @@ public class TeleOp359 extends OpMode {
 
 
         if (gamepad1.x) {
-            prevX1 = true;
-            if (prevX1 == false) {
-                wiggle = !wiggle;
+            wiggle = !wiggle;
+            while (gamepad1.x){
+                //dont do anything
             }
-        }
-        else {
-            prevX2 = false;
         }
 
         if (gamepad2.x) {
-            prevX2 = true;
-            if (prevX2 == false) {
-                boundedRotation = !boundedRotation;
+            boundedRotation = !boundedRotation;
+            while (gamepad2.x){
+                //dont do anything
             }
-        }
-        else {
-            prevX2 = false;
         }
 
         if (gamepad2.y) {

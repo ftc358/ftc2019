@@ -37,6 +37,7 @@ public class AutoD359 extends LinearOpMode {
     VuforiaLocalizer vuforia;
     private TFObjectDetector tfod;
 
+
     List<Recognition> updatedRecognitions;
 
     public void runOpMode() throws InterruptedException {
@@ -102,7 +103,7 @@ public class AutoD359 extends LinearOpMode {
                         Encoders359.Intake(Rotation,0.5,-1000);
                         Encoders359.Intake(Rotation,0.5,1000);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,2200);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,2500);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,5000);
                     } else if (detected == 2) {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,-350);
@@ -115,7 +116,7 @@ public class AutoD359 extends LinearOpMode {
                         Encoders359.Intake(Rotation,0.5,-1000);
                         Encoders359.Intake(Rotation,0.5,1000);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,-3000);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,-3500);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,5000);
                     }
                     state359 = state.STOP;
