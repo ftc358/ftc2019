@@ -8,8 +8,8 @@ public class RobotPosition {
 
     //Initializers
     RobotPosition(int x, int y) {
-        if (x < 39) {
-            if (y < 39) {
+        if (x < 38) {
+            if (y < 38) {
                 this.x = x;
                 this.y = y;
             } else {
@@ -21,8 +21,8 @@ public class RobotPosition {
     }
 
     RobotPosition(int x, int y, double heading) {
-        if (x < 39) {
-            if (y < 39) {
+        if (x <= 38) {
+            if (y <= 38) {
                 this.x = x;
                 this.y = y;
             } else {
