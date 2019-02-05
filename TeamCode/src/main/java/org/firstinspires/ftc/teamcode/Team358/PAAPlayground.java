@@ -48,7 +48,7 @@ public class PAAPlayground extends AutoEngine358 {
 
         generateMoveActions(autoRoute);
 
-        optimizeContinuousSegments();
+        optimizeContinuousSegments(false);
 
         addAllMoveActions();
 

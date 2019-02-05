@@ -235,10 +235,10 @@ public abstract class Robot358Main extends LinearOpMode {
         int ticks = (int) (distance * 133);
 
         //Reset Encoders358
-        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //Set to RUN_TO_POSITION mode
         fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -247,10 +247,10 @@ public abstract class Robot358Main extends LinearOpMode {
         bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         //Set Target Position
-        fL.setTargetPosition(-ticks);
-        bL.setTargetPosition(+ticks);
-        fR.setTargetPosition(+ticks);
-        bR.setTargetPosition(-ticks);
+        fL.setTargetPosition(fL.getCurrentPosition() -ticks);
+        bL.setTargetPosition(bL.getCurrentPosition() +ticks);
+        fR.setTargetPosition(fR.getCurrentPosition() +ticks);
+        bR.setTargetPosition(bR.getCurrentPosition() -ticks);
 
         //Set Drive Power
         fL.setPower(power);
