@@ -22,7 +22,7 @@ public class TeleOp359 extends OpMode {
     CRServo Intake;
     boolean wiggle = false, boundedRotation = false;
     boolean prevX1 = false, prevX2 = false;
-    int downPos = 1500;
+    int downPos = 1200;
 
     //random things for wiggling
     //int runTimeCount = 0, motorThing, slideThing;
@@ -42,7 +42,7 @@ public class TeleOp359 extends OpMode {
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         Rotation.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        downPos = Rotation.getCurrentPosition() + 1500;
+        downPos = Rotation.getCurrentPosition() + 1200;
     }
 
     public void loop() {
@@ -176,6 +176,6 @@ public class TeleOp359 extends OpMode {
         telemetry.addData("is bounded rotation: ", boundedRotation);
         //telemetry.addData("runtime count: ", runTimeCount);
         telemetry.update();
-
+        //do you get this update
     }
 }
