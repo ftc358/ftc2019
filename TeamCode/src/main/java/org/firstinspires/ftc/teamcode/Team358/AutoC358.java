@@ -77,6 +77,7 @@ public class AutoC358 extends Robot358Main {
                     break;
 
                 case KNOCK:                                    // knock gold block
+
                     if (detected == 1) {
                         turn(new IMUTurner(-15, power, _imu1, 1, null), runUsingEncoders, true);
                         forward(0.5, 28);
@@ -91,6 +92,7 @@ public class AutoC358 extends Robot358Main {
                     break;
 
                 case DROP:                                    // drive to depot & drop token
+
                     if (detected == 1) {
                         turn(new IMUTurner(-70, power, _imu1, 1, null), runUsingEncoders, true);
                         strafe(1, -3);
