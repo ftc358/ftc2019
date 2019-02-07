@@ -84,14 +84,14 @@ public class AutoD359 extends LinearOpMode {
                 case KNOCK:
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
-                        Encoders359.Turn(leftMotor, rightMotor, 0.5, 300);          //Go Left
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,4500);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.5, 450);          //Go Left
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,5000);
                     } else if (detected == 2) {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,-250);            //Go forward
                         Encoders359.Forward(leftMotor, rightMotor, 0.5, 6000);
                     } else if (detected == 3) {
                         Encoders359.Turn(leftMotor, rightMotor, 0.5, -750);         //Go right
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,7500);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,6800);
                     }
                     state359 = state.DRIVE;
                     break;
