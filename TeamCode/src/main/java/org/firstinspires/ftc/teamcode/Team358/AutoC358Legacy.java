@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 import java.util.concurrent.TimeUnit;
 
 @Autonomous
-public class AutoC358 extends Robot358Main {
+public class AutoC358Legacy extends Robot358Main {
 
     int detected = 0;
 

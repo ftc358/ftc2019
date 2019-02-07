@@ -18,6 +18,8 @@ public class TeleOp358 extends Robot358Main {
 
     Integer baseArmPosition;
 
+    boolean autoIntakeControl = false;
+
     //This function finds the magnitude of the left stick of a gamepad.
     private Double magnitudeLeftStick(Gamepad gamepad) {
         return sqrt(pow(gamepad.left_stick_x, 2) + pow(gamepad.left_stick_y, 2));
@@ -85,29 +87,44 @@ public class TeleOp358 extends Robot358Main {
             }
             if (notDefaultBoxPosition) {
                 box.setPosition(abs(gamepad2.right_trigger));
-                telemetry.addData("box servo position", abs(gamepad2.right_trigger));
             } else { //make max 0.61
                 box.setPosition(0.32 + (0.42 * abs(gamepad2.right_trigger)));
             }
-            telemetry.update();
 
             //intake
 
             if (gamepad2.y) {
                 baseArmPosition = lift.getCurrentPosition();
+                autoIntakeControl = true;
             }
 
-            if (baseArmPosition != null) {
-                if ((lift.getCurrentPosition() < baseArmPosition + 1500) && !gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper) {
+            if (gamepad2.dpad_left) {
+                autoIntakeControl = false;
+            } else if (gamepad2.dpad_right) {
+                autoIntakeControl = true;
+            }
+
+            if (baseArmPosition != null && autoIntakeControl) {
+                if ((lift.getCurrentPosition() < baseArmPosition + 1500) && !gamepad2.a) {
                     intake.setPower(-0.9);
-                } else if (lift.getCurrentPosition() > baseArmPosition && !gamepad2.left_bumper && !gamepad2.right_bumper) {
+                } else if (lift.getCurrentPosition() > baseArmPosition) {
                     intake.setPower(0);
-                } else if ((lift.getCurrentPosition() < baseArmPosition + 1500) && gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper) {
+                } else if ((lift.getCurrentPosition() < baseArmPosition + 1500) && gamepad2.a) {
                     intake.setPower(0);
-                    telemetry.addData("intake power", intake.getPower());
-                    telemetry.update();
+                }
+            } else {
+                if (gamepad2.left_bumper) {
+                    intake.setPower(-0.9);
+                } else if (gamepad2.right_bumper) {
+                    intake.setPower(0.9);
+                } else if (gamepad2.a) {
+                    intake.setPower(0);
                 }
             }
+
+            telemetry.addData("lift motor position", lift.getCurrentPosition());
+            telemetry.addData("autoIntakeControl", autoIntakeControl);
+            telemetry.update();
         }
     }
 }
