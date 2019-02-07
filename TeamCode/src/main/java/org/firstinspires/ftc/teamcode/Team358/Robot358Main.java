@@ -132,7 +132,7 @@ public abstract class Robot358Main extends LinearOpMode {
 
     //turns right with positive angles
 
-    public void turn(TurnerIF turner, boolean runUsingEncoders, boolean stopMotors) throws InterruptedException {
+    public void gyroTurn(TurnerIF turner, boolean runUsingEncoders, boolean stopMotors) throws InterruptedException {
         turner.start();
 
         if (runUsingEncoders) {
@@ -183,6 +183,43 @@ public abstract class Robot358Main extends LinearOpMode {
         if (stopMotors) {
             stopMotors();
         }
+    }
+
+    public void turn (double power, int distance) {
+
+        //Reset Encoders
+        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Set to RUN_TO_POSITION mode
+        fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //Set Target Position
+        fL.setTargetPosition(distance);
+        bL.setTargetPosition(distance);
+        fR.setTargetPosition(-distance);
+        bR.setTargetPosition(-distance);
+
+        //Set Drive Power
+        fL.setPower(power);
+        bL.setPower(power);
+        fR.setPower(power);
+        bR.setPower(power);
+
+        while (fL.isBusy() && bL.isBusy() && fR.isBusy() && bR.isBusy()) {
+            //Wait Until Target Position is Reached
+        }
+
+        //Stop and Change Mode back to Normal
+        fL.setPower(0);
+        bL.setPower(0);
+        fR.setPower(0);
+        bR.setPower(0);
     }
 
     public void forward(double power, double distance) {

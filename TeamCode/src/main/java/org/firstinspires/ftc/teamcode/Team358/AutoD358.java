@@ -20,7 +20,7 @@ public class AutoD358 extends Robot358Main {
 
         double power = 1;
         boolean runUsingEncoders = true;
-        state358 = state.UNLATCH;
+        state358 = state.DETECT;
         box.setPosition(0.6);
         waitForStart();
 
@@ -44,8 +44,8 @@ public class AutoD358 extends Robot358Main {
                     state358 = state.DETECT;
                     break;
 
-                case DETECT:                       // detect
-//                    turn(new IMUTurner(-5, power, _imu1, 1, null), runUsingEncoders, true);
+                case DETECT:   // detect
+
                     try {
                         TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
                             @Override
@@ -97,7 +97,8 @@ public class AutoD358 extends Robot358Main {
                     state358 = state.DRIVE;
                     break;
 
-                case DRIVE:                                    // drive to enemy crater
+                case DRIVE:// drive to enemy crater
+
                     if (detected == 1) {
                         turn(new IMUTurner(-150, power, _imu1, 1, null), runUsingEncoders, true);
                         forward(power, 25);
@@ -116,6 +117,7 @@ public class AutoD358 extends Robot358Main {
                     break;
 
                 case CRATER:
+
                     runMotor(lift, 1, -5000);
                     state358 = state.STOP;
                     break;
@@ -123,6 +125,7 @@ public class AutoD358 extends Robot358Main {
                 case STOP:                                      // self explanatory
 
                     stopMotors();
+
             }
         }
     }
