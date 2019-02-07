@@ -98,12 +98,14 @@ public class TeleOp358 extends Robot358Main {
             }
 
             if (baseArmPosition != null) {
-                if ((lift.getCurrentPosition() < baseArmPosition + 1500) && !gamepad2.a) {
-                    intake.setPower(1);
-                } else if (lift.getCurrentPosition() > baseArmPosition) {
+                if ((lift.getCurrentPosition() < baseArmPosition + 1500) && !gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper) {
+                    intake.setPower(-0.9);
+                } else if (lift.getCurrentPosition() > baseArmPosition && !gamepad2.left_bumper && !gamepad2.right_bumper) {
                     intake.setPower(0);
-                } else if ((lift.getCurrentPosition() < baseArmPosition + 1500) && gamepad2.a) {
+                } else if ((lift.getCurrentPosition() < baseArmPosition + 1500) && gamepad2.a && !gamepad2.left_bumper && !gamepad2.right_bumper) {
                     intake.setPower(0);
+                    telemetry.addData("intake power", intake.getPower());
+                    telemetry.update();
                 }
             }
         }
