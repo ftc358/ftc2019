@@ -109,7 +109,7 @@ public abstract class AutoEngine358 extends Robot358Main {
         }
     }
 
-    public void optimizeContinuousSegments() {
+    public void optimizeContinuousSegments(boolean strafe) {
         List<Integer> turningIndices = computeTurningPointIndices(robotPositionsWithHeadings);
 
         List<MoveAction> monitor = robotMoveActions;
@@ -126,33 +126,50 @@ public abstract class AutoEngine358 extends Robot358Main {
 
                 collinearPositions.addAll(robotPositionsWithHeadings.subList(first, second + 1));
 
-                //get heading of the segment
-                double segmentHeading = robotPositionsWithHeadings.get(first).getRelativeHeading(robotPositionsWithHeadings.get(first + 1));
-
                 //remove individual move actions
                 robotMoveActions.subList(first - numberOfMoveActionsRemoved, second - numberOfMoveActionsRemoved).clear();
 
-                //add optimized (continuous) action to the start of the original segment
-                if (segmentHeading == 0 || segmentHeading == 90 || segmentHeading == 180 || segmentHeading == 270) {
-                    robotMoveActions.add(first - numberOfMoveActionsRemoved, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
-                        try {
-                            turn(new IMUTurner(calculateTurn(robotPositionsWithHeadings.get(first).getHeading(), segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
-                            forwardWithCheck(POWER, 2, second - first, collinearPositions);
-                        } catch (InterruptedException e) {
-                            Log.d("Error", "Failed to execute move runnable #3");
+                if (strafe) {
+                    if (robotPositionsWithHeadings.get(first).getHeading() == robotPositionsWithHeadings.get(second).getHeading()) {
+                        //get heading of the segment
+                        double segmentHeading = robotPositionsWithHeadings.get(first).getHeading();
+                        //add optimized (continuous) action to the start of the original segment
+                        if (segmentHeading == 0 || segmentHeading == 90 || segmentHeading == 180 || segmentHeading == 270) {
+                            robotMoveActions.add(first - numberOfMoveActionsRemoved, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
+                                strafeWithCheck(POWER, 2, second - first, collinearPositions);
+                            }));
+                        } else {
+                            robotMoveActions.add(first - numberOfMoveActionsRemoved, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
+                                strafeWithCheck(POWER, sqrt(8), second - first, collinearPositions);
+                            }));
                         }
-                    }));
+                        numberOfMoveActionsRemoved = numberOfMoveActionsRemoved + (second - first - 1);
+                    }
                 } else {
-                    robotMoveActions.add(first - numberOfMoveActionsRemoved, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
-                        try {
-                            turn(new IMUTurner(calculateTurn(robotPositionsWithHeadings.get(first).getHeading(), segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
-                            forwardWithCheck(POWER, sqrt(8), second - first, collinearPositions);
-                        } catch (InterruptedException e) {
-                            Log.d("Error", "Failed to execute move runnable #4");
-                        }
-                    }));
+                    //get heading of the segment
+                    double segmentHeading = robotPositionsWithHeadings.get(first).getRelativeHeading(robotPositionsWithHeadings.get(first + 1));
+                    //add optimized (continuous) action to the start of the original segment
+                    if (segmentHeading == 0 || segmentHeading == 90 || segmentHeading == 180 || segmentHeading == 270) {
+                        robotMoveActions.add(first - numberOfMoveActionsRemoved, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
+                            try {
+                                turn(new IMUTurner(calculateTurn(robotPositionsWithHeadings.get(first).getHeading(), segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                                forwardWithCheck(POWER, 2, second - first, collinearPositions);
+                            } catch (InterruptedException e) {
+                                Log.d("Error", "Failed to execute move runnable #3");
+                            }
+                        }));
+                    } else {
+                        robotMoveActions.add(first - numberOfMoveActionsRemoved, new MoveAction(robotPositionsWithHeadings.get(second), () -> {
+                            try {
+                                turn(new IMUTurner(calculateTurn(robotPositionsWithHeadings.get(first).getHeading(), segmentHeading), POWER, _imu1, 1, null), RUN_USING_ENCODERS, true);
+                                forwardWithCheck(POWER, sqrt(8), second - first, collinearPositions);
+                            } catch (InterruptedException e) {
+                                Log.d("Error", "Failed to execute move runnable #4");
+                            }
+                        }));
+                    }
+                    numberOfMoveActionsRemoved = numberOfMoveActionsRemoved + (second - first - 1);
                 }
-                numberOfMoveActionsRemoved = numberOfMoveActionsRemoved + (second - first - 1);
             }
         }
     }
@@ -217,6 +234,56 @@ public abstract class AutoEngine358 extends Robot358Main {
                 currentPosition = collinearPositions.get(segmentsTraveled);
                 numberOfSegmentsLast = segmentsTraveled;
                 Log.d("Current Position updated inside forwardWithCheck", currentPosition.toString());
+            }
+        }
+
+        //Stop and Change Mode back to Normal
+        fL.setPower(0);
+        bL.setPower(0);
+        fR.setPower(0);
+        bR.setPower(0);
+    }
+
+    public void strafeWithCheck(double power, double distancePerSegment, int numberOfSegments, List<RobotPosition> collinearPositions) {
+
+        runUsingEncoders();
+
+        int ticks = (int) (distancePerSegment * numberOfSegments * 133);
+
+        //Reset Encoders358
+//        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Set to RUN_TO_POSITION mode
+        fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        int fLStartingPosition = fL.getCurrentPosition();
+
+        //Set Target Position
+        fL.setTargetPosition(fL.getCurrentPosition() - ticks);
+        bL.setTargetPosition(bL.getCurrentPosition() + ticks);
+        fR.setTargetPosition(fR.getCurrentPosition() + ticks);
+        bR.setTargetPosition(bR.getCurrentPosition() - ticks);
+
+        //Set Drive Power
+        fL.setPower(power);
+        bL.setPower(power);
+        fR.setPower(power);
+        bR.setPower(power);
+
+        int numberOfSegmentsLast = 0;
+        while (fL.isBusy() && fR.isBusy() && bL.isBusy() && bR.isBusy()) {
+            //Wait Until Target Position is Reached
+            int segmentsTraveled = ((fL.getCurrentPosition() - fLStartingPosition) / 133);
+            if (segmentsTraveled > numberOfSegmentsLast) {
+                currentPosition = collinearPositions.get(segmentsTraveled);
+                numberOfSegmentsLast = segmentsTraveled;
+                Log.d("Current Position updated inside strafeWithCheck", currentPosition.toString());
             }
         }
 
