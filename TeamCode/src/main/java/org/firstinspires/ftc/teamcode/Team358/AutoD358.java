@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Team358;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.TimeLimitedCodeBlock;
 
@@ -20,7 +21,7 @@ public class AutoD358 extends Robot358Main {
 
         double power = 1;
         boolean runUsingEncoders = true;
-        state358 = state.UNLATCH;
+        state358 = state.DETECT;
         box.setPosition(0.6);
         waitForStart();
 
@@ -29,23 +30,18 @@ public class AutoD358 extends Robot358Main {
             telemetry.addData("Going into state", state358);
             telemetry.update();
             switch (state358) {
-                case UNLATCH:                                   // unlatch and orient 90 degrees
-
-                    double startingHeading = getCurrentHeading();
+                case UNLATCH: // unlatch and orient 90 degrees
 
                     runMotor(latch, 1, 7000);
-
                     forward(power, 3);
-                    double descendedHeading = getCurrentHeading();
-                    double headingChange = descendedHeading + startingHeading;
-                    turn(new IMUTurner(-90 - headingChange, power, _imu1, 1, null), true, true);
                     strafe(power, 4);
-
+                    forward(power, -3);
+                    runMotor(latch, 1, -7000);
                     state358 = state.DETECT;
                     break;
 
-                case DETECT:                       // detect
-//                    turn(new IMUTurner(-5, power, _imu1, 1, null), runUsingEncoders, true);
+                case DETECT: // detects position of cube
+
                     try {
                         TimeLimitedCodeBlock.runWithTimeout(new Runnable() {
                             @Override
@@ -64,67 +60,89 @@ public class AutoD358 extends Robot358Main {
                     state358 = state.KNOCK;
                     break;
 
-                case KNOCK:                                    // knock gold block
+                case KNOCK: // knocks gold block and drives to common position
+
+                    turn(power, -3000);
                     if (detected == 1) {
-                        turn(new IMUTurner(-30, power, _imu1, 1, null), runUsingEncoders, true);
-//                        turn(new IMUTurner(-15, power, _imu1, 1, null), runUsingEncoders, true);
+                        turn(power, 1000);
                         forward(power, 34);
-                        turn(new IMUTurner(60, power, _imu1, 1, null), runUsingEncoders, true);
+                        turn(power, 60);
+                        forward(power, 2000);
+                        turn(power, -1000);
+
                     } else if (detected == 2) {
-//                        turn(new IMUTurner(10, power, _imu1, 1, null), runUsingEncoders, true);
-//                        turn(new IMUTurner(5, power, _imu1, 1, null), runUsingEncoders, true);
                         forward(power, 31);
+                        turn(power, 2000);
+                        forward(power,50);
+
                     } else if (detected == 3) {
-                        turn(new IMUTurner(30, power, _imu1, 1, null), runUsingEncoders, true);
-//                        turn(new IMUTurner(25, power, _imu1, 1, null), runUsingEncoders, true);
+                        turn(power, -1000);
                         forward(power, 34);
-                        turn(new IMUTurner(-50, power, _imu1, 1, null), runUsingEncoders, true);
+                        turn(power, 60);
+                        forward(power, 3000);
+                        turn(power, -1000);
                     }
                     state358 = state.DROP;
                     break;
 
-                case DROP:                                    // drive to depot & drop token
-
-                    runMotor(lift, 1, -2000);
-                    // extend motor: 200 ticks for 1 inch
-                    runMotor(extend, 1, 3000);
-                    box.setPosition(0);
-                    intake.setPower(-1);
-                    sleep(500);
-                    intake.setPower(0);
-                    runMotor(lift, 1, 2000);
+                case DROP: // drive to depot & drop token
 
                     state358 = state.DRIVE;
                     break;
 
-                case DRIVE:                                    // drive to enemy crater
-                    if (detected == 1) {
-                        turn(new IMUTurner(-150, power, _imu1, 1, null), runUsingEncoders, true);
-                        forward(power, 25);
-                    } else if (detected == 2) {
-                        forward(power, -15);
-                        turn(new IMUTurner(-90, power, _imu1, 1, null), runUsingEncoders, true);
-                        forward(power, 36);
-                        turn(new IMUTurner(-30, power, _imu1, 1, null), runUsingEncoders, true);
-                    } else if (detected == 3) {
-                        forward(power, -15);
-                        turn(new IMUTurner(135, power, _imu1, 1, null), runUsingEncoders, true);
-                        forward(power, 18);
-                        turn(new IMUTurner(30, power, _imu1, 1, null), runUsingEncoders, true);
-                    }
+                case DRIVE: // drive to enemy crater
+
                     state358 = state.CRATER;
                     break;
 
-                case CRATER:
-                    runMotor(lift, 1, -5000);
+                case CRATER: // drop arm into crater
+
                     state358 = state.STOP;
                     break;
 
-                case STOP:                                      // self explanatory
+                case STOP: // self explanatory
 
                     stopMotors();
+
             }
         }
+    }
+
+    public void turn (double power, int distance) {
+
+        //Reset Encoders
+        fL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        fR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        bR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        //Set to RUN_TO_POSITION mode
+        fL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        //Set Target Position
+        fL.setTargetPosition(distance);
+        bL.setTargetPosition(distance);
+        fR.setTargetPosition(-distance);
+        bR.setTargetPosition(-distance);
+
+        //Set Drive Power
+        fL.setPower(power);
+        bL.setPower(power);
+        fR.setPower(power);
+        bR.setPower(power);
+
+        while (fL.isBusy() && bL.isBusy() && fR.isBusy() && bR.isBusy()) {
+            //Wait Until Target Position is Reached
+        }
+
+        //Stop and Change Mode back to Normal
+        fL.setPower(0);
+        bL.setPower(0);
+        fR.setPower(0);
+        bR.setPower(0);
     }
 }
 
