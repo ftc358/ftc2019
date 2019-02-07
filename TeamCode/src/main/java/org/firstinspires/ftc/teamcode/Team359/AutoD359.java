@@ -64,7 +64,7 @@ public class AutoD359 extends LinearOpMode {
             switch (state359) {
 
                 case LATCH:
-                    Encoders359.Forward(leftLatch, rightLatch, 1, -15000);
+                    Encoders359.Forward(leftLatch, rightLatch, 1, -15800);
                     Encoders359.Forward(leftMotor,rightMotor,0.5,400);
                     Encoders359.Turn(leftMotor,rightMotor,0.5,250);
                     state359 = state.DETECT;
@@ -90,8 +90,8 @@ public class AutoD359 extends LinearOpMode {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,-250);            //Go forward
                         Encoders359.Forward(leftMotor, rightMotor, 0.5, 6000);
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor, rightMotor, 0.5, -800);         //Go right
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,5500);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.5, -750);         //Go right
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,7500);
                     }
                     state359 = state.DRIVE;
                     break;
@@ -101,23 +101,25 @@ public class AutoD359 extends LinearOpMode {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,-1000);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,2000);
                         Encoders359.Intake(Rotation,0.5,-1000);
-                        Encoders359.Intake(Rotation,0.5,1000);
+                        Encoders359.Intake(Rotation,0.5,1000);                      //Push the cube
                         Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,2500);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,2600);
                         Encoders359.Forward(leftMotor,rightMotor,0.5,5000);
                     } else if (detected == 2) {
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,-350);
                         Encoders359.Intake(Rotation,0.5,-1000);
-                        Encoders359.Intake(Rotation,0.5,1000);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
+                        Encoders359.Intake(Rotation,0.5,1000);                      //Push the cube
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,-1500);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,-2500);
+                        Encoders359.Turn(leftMotor, rightMotor,0.5,650);            //Avoid he ball
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,-10000);
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,1000);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,1000);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,1200);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,1500);
                         Encoders359.Intake(Rotation,0.5,-1000);
-                        Encoders359.Intake(Rotation,0.5,1000);
+                        Encoders359.Intake(Rotation,0.5,1000);                      //Push the cube
                         Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,-3500);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,5000);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,-2800);
+                        Encoders359.Forward(leftMotor,rightMotor,0.5,4300);
                     }
                     state359 = state.STOP;
                     break;
