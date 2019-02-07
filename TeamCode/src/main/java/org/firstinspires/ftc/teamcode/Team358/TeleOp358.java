@@ -50,12 +50,12 @@ public class TeleOp358 extends Robot358Main {
             double frPower = drive + strafe - rotate;                                                           //
             double brPower = drive - strafe - rotate;                                                           //
             //
-            double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);     //
+            double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);                //
             double POWER = -1 * joyStick * abs(joyStick);                                                       //
-            telemetry.addData("POWER: ", POWER);                                                        //
+            telemetry.addData("POWER: ", POWER);                                                                //
             double maxPower = findMax(abs(flPower), abs(blPower), abs(frPower), abs(brPower));                  //
             // greatest value of all motor powers                                                               //
-            telemetry.addData("maxPower: ", maxPower);                                                  //
+            telemetry.addData("maxPower: ", maxPower);                                                          //
             //
             //Sets the power for all the drive motors.                                                          //
             fL.setPower(-(POWER * flPower / maxPower) / SCALE);                                                 //
@@ -65,9 +65,9 @@ public class TeleOp358 extends Robot358Main {
             //Drive code :)///////////////////////////////////////////////////////////////////////////////////////
 
             if (gamepad1.left_bumper) {
-                latch.setPower(-1);
-            } else if (gamepad1.right_bumper) {
                 latch.setPower(1);
+            } else if (gamepad1.right_bumper) {
+                latch.setPower(-1);
             } else {
                 latch.setPower(0);
             }
