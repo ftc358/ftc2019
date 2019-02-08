@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import static java.lang.Math.sqrt;
 
 @Autonomous
-public class AutoC358 extends AutoEngine358 {
+public class AutoC358_Red extends AutoEngine358 {
     private double POWER = 1;
     private boolean done = false;
 

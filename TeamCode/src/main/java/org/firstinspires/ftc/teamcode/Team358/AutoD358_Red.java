@@ -8,7 +8,7 @@ import java.util.List;
 import static java.lang.Math.sqrt;
 
 @Autonomous
-public class AutoD358 extends AutoEngine358 {
+public class AutoD358_Red extends AutoEngine358 {
     private double POWER = 1;
     private boolean done = false;
 
