@@ -11,7 +11,8 @@ public class AutoC358 extends AutoEngine358 {
 
     public void runOpMode() throws InterruptedException {
 
-        initialize(new RobotPosition(11, -11, 135));
+        //TODO: change this! actually unlatching from lander should be 135
+        initialize(new RobotPosition(11, -11, 225));
 
         waitForStart();
 
@@ -19,7 +20,14 @@ public class AutoC358 extends AutoEngine358 {
 
             //TODO: unlatch & go to starting position
 
-            switch (lookForwardAndCheck()) {
+            int cubePosition = lookForwardAndCheck();
+
+            telemetry.addData("cube position", cubePosition);
+            telemetry.addData("current absolute heading", getAbsoluteCurrentHeading());
+            telemetry.addData("angle to turn", calculateTurn(getAbsoluteCurrentHeading(),90));
+            telemetry.update();
+
+            switch (cubePosition) {
                 case 1:
                     turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),90), POWER, _imu1, 1, null), true, true);
                     forward(POWER, 28);
@@ -33,6 +41,7 @@ public class AutoC358 extends AutoEngine358 {
                     done = true;
                     break;
                 case 2:
+                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),135), POWER, _imu1, 1, null), true, true);
                     forward(POWER,7*sqrt(2));
                     forward(POWER,-4*sqrt(2));
                     turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),45), POWER, _imu1, 1, null), true, true);

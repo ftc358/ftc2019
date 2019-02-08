@@ -14,7 +14,8 @@ public class AutoD358 extends AutoEngine358 {
 
     public void runOpMode() throws InterruptedException {
 
-        initialize(new RobotPosition(11, 11, 45));
+        //TODO: change this! actually unlatching from lander should be 45
+        initialize(new RobotPosition(11, 11, 135));
 
         waitForStart();
 
@@ -34,6 +35,7 @@ public class AutoD358 extends AutoEngine358 {
                     done = true;
                     break;
                 case 2:
+                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),45), POWER, _imu1, 1, null), true, true);
                     forward(POWER, 21*sqrt(2));
                     turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),270), POWER, _imu1, 1, null), true, true);
                     dropToken();
