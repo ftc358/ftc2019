@@ -35,6 +35,7 @@ public abstract class Robot358Main extends LinearOpMode {
     protected DcMotor extend;
     protected CRServo intake;
     protected Servo box;
+    protected Servo token;
     protected BNO055IMU _imu1;
     VuforiaLocalizer vuforia;
     Orientation angles;
@@ -64,6 +65,7 @@ public abstract class Robot358Main extends LinearOpMode {
         extend.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake = hardwareMap.crservo.get("intake");
         box = hardwareMap.servo.get("box");
+        token = hardwareMap.servo.get("token");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
