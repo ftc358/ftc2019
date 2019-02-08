@@ -11,16 +11,16 @@ public class AutoC358_Red extends AutoEngine358 {
 
     public void runOpMode() throws InterruptedException {
 
-        //TODO: change this! actually unlatching from lander should be 135
         initialize(new RobotPosition(11, -11, 225));
 
         token.setPosition(0);
+        latch.setPower(0);
 
         waitForStart();
 
         while (opModeIsActive() && !done) {
 
-            //TODO: unlatch & go to starting position
+            unlatch();
 
             int cubePosition = lookForwardAndCheck();
 
@@ -37,7 +37,7 @@ public class AutoC358_Red extends AutoEngine358 {
                     turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
                     forward(POWER,-60);
                     turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
-                    token.setPosition(0.6);
+                    dropToken();
                     forward(POWER,76);
                     done = true;
                     break;
@@ -50,7 +50,7 @@ public class AutoC358_Red extends AutoEngine358 {
                     turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
                     forward(POWER,-44);
                     turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
-                    token.setPosition(0.6);
+                    dropToken();
                     forward(POWER,76);
                     done = true;
                     break;
@@ -63,11 +63,24 @@ public class AutoC358_Red extends AutoEngine358 {
                     turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
                     forward(POWER,-44);
                     turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
-                    token.setPosition(0.6);
+                    dropToken();
                     forward(POWER,76);
                     done = true;
                     break;
             }
         }
+    }
+
+    public void dropToken() {
+        token.setPosition(0.6);
+    }
+
+    public void unlatch() throws InterruptedException {
+        runMotor(latch,1,-10400);
+        forward(1,2);
+        strafe(1,12.5);
+        turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),225), 1, _imu1, 1, null), true, true);
+        forward(1,-5.5);
+        done = true;
     }
 }

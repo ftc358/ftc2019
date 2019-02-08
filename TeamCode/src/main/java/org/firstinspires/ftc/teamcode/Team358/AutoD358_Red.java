@@ -14,8 +14,8 @@ public class AutoD358_Red extends AutoEngine358 {
 
     public void runOpMode() throws InterruptedException {
 
-        //TODO: change this! actually unlatching from lander should be 135
         initialize(new RobotPosition(11, 11, 135));
+        token.setPosition(0);
 
         waitForStart();
 
