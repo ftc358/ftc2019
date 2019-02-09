@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.Archive.Vuforia;
 
 import java.util.List;
 
@@ -309,22 +310,35 @@ public abstract class Robot358Main extends LinearOpMode {
                 telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
                 telemetry.update();
                 if (updatedRecognitions.size() == 2) {
-                    int goldMineralX = -1;
-                    int silverMineralX = -1;
-                    for (Recognition recognition : updatedRecognitions) {
-                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
-                            goldMineralX = (int) recognition.getLeft();
-                        } else if (silverMineralX == -1) {
-                            silverMineralX = (int) recognition.getLeft();
-                        } else {
-                            return 3;
+
+                    VuforiaMineral mineral1;
+                    VuforiaMineral mineral2;
+
+                    if (updatedRecognitions.get(0).getLabel().equals(LABEL_GOLD_MINERAL)) {
+                        mineral1 = new VuforiaMineral(LABEL_GOLD_MINERAL, (int) updatedRecognitions.get(0).getLeft());
+                    } else {
+                        mineral1 = new VuforiaMineral(LABEL_SILVER_MINERAL, (int) updatedRecognitions.get(0).getLeft());
+                    }
+
+                    if (updatedRecognitions.get(1).getLabel().equals(LABEL_GOLD_MINERAL)) {
+                        mineral2 = new VuforiaMineral(LABEL_GOLD_MINERAL, (int) updatedRecognitions.get(1).getLeft());
+                    } else {
+                        mineral2 = new VuforiaMineral(LABEL_SILVER_MINERAL, (int) updatedRecognitions.get(1).getLeft());
+                    }
+
+                    if (mineral1.position < mineral2.position && mineral1.label.equals(LABEL_GOLD_MINERAL)) {
+                        position = 1;
+                    } else if (mineral1.position < mineral2.position && mineral1.label.equals(LABEL_SILVER_MINERAL)) {
+                        if (mineral2.label.equals(LABEL_GOLD_MINERAL)) {
+                            position = 2;
+                        } else if (mineral2.label.equals(LABEL_SILVER_MINERAL)) {
+                            position = 3;
                         }
                     }
-                    if (goldMineralX < silverMineralX) {
-                        position = 1;
-                    } else {
-                        position = 2;
-                    }
+
+                    telemetry.addData("recognition", updatedRecognitions);
+                    telemetry.addData("position", position);
+                    telemetry.update();
                 }
             }
         }
