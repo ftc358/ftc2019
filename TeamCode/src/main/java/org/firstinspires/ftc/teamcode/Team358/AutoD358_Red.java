@@ -21,9 +21,11 @@ public class AutoD358_Red extends AutoEngine358 {
 
         while (opModeIsActive() && !done) {
 
-            //TODO: unlatch & go to starting position
+            unlatch();
 
-            switch (lookForwardAndCheck()) {
+            int cubePosition = lookForwardAndCheck();
+
+            switch (cubePosition) {
                 case 1:
                     turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),0), POWER, _imu1, 1, null), true, true);
                     forward(POWER, 42);
@@ -58,5 +60,14 @@ public class AutoD358_Red extends AutoEngine358 {
 
     public void dropToken() {
         token.setPosition(0.6);
+    }
+
+    public void unlatch() throws InterruptedException {
+        runMotor(latch,1,-10400);
+        forward(1,2);
+        strafe(1,12.5);
+        turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),225), 1, _imu1, 1, null), true, true);
+        forward(1,-5.5);
+        done = true;
     }
 }
