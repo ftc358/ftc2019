@@ -298,6 +298,8 @@ public abstract class Robot358Main extends LinearOpMode {
         initVuforia();
         if (this.tfod != null) {
             tfod.activate();
+        } else {
+            return 0;
         }
         // getUpdatedRecognitions() will return null if no new information is available since
         // the last time that call was made.
@@ -307,26 +309,22 @@ public abstract class Robot358Main extends LinearOpMode {
                 telemetry.addData("updatedRecognitions", updatedRecognitions.toString());
                 telemetry.update();
                 if (updatedRecognitions.size() == 2) {
-//                    VuforiaMineral leftMineral;
-//                    VuforiaMineral rightMineral;
-
-//                    if (updatedRecognitions.get(0).getRight() < updatedRecognitions.get(1).getRight()) {
-//                        leftMineral = new VuforiaMineral(updatedRecognitions.get(0).getLabel(), (int) updatedRecognitions.get(0).getRight());
-//                        rightMineral = new VuforiaMineral(updatedRecognitions.get(1).getLabel(), (int) updatedRecognitions.get(1).getRight());
-//                    } else {
-//                        leftMineral = new VuforiaMineral(updatedRecognitions.get(1).getLabel(), (int) updatedRecognitions.get(1).getRight());
-//                        rightMineral = new VuforiaMineral(updatedRecognitions.get(0).getLabel(), (int) updatedRecognitions.get(0).getRight());
-//                    }
-
-                    if (updatedRecognitions.get(0).getLabel() == LABEL_GOLD_MINERAL && updatedRecognitions.get(1).getLabel() == LABEL_SILVER_MINERAL) {
-                        position = 1;
-                    } else if (updatedRecognitions.get(0).getLabel() == LABEL_SILVER_MINERAL && updatedRecognitions.get(1).getLabel() == LABEL_GOLD_MINERAL) {
-                        position= 2;
-                    } else if (updatedRecognitions.get(0).getLabel() == LABEL_SILVER_MINERAL && updatedRecognitions.get(1).getLabel() == LABEL_SILVER_MINERAL) {
-                        position = 3;
+                    int goldMineralX = -1;
+                    int silverMineralX = -1;
+                    for (Recognition recognition : updatedRecognitions) {
+                        if (recognition.getLabel().equals(LABEL_GOLD_MINERAL)) {
+                            goldMineralX = (int) recognition.getLeft();
+                        } else if (silverMineralX == -1) {
+                            silverMineralX = (int) recognition.getLeft();
+                        } else {
+                            return 3;
+                        }
                     }
-                } else {
-                    position = 2;
+                    if (goldMineralX < silverMineralX) {
+                        position = 1;
+                    } else {
+                        position = 2;
+                    }
                 }
             }
         }

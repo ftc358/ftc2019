@@ -16,9 +16,11 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @TeleOp
 public class VuforiaPlayground2 extends Robot358Main {
 
+    @Override
     public void runOpMode() throws InterruptedException {
         int goldPosition = lookForwardAndCheck();
         telemetry.addData("Gold position", goldPosition);
         telemetry.update();
+        sleep(1000);
     }
 }

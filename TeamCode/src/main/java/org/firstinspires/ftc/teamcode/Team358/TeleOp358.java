@@ -98,10 +98,8 @@ public class TeleOp358 extends Robot358Main {
                 autoIntakeControl = true;
             }
 
-            if (gamepad2.dpad_left) {
+            if (gamepad2.left_bumper || gamepad2.right_bumper) {
                 autoIntakeControl = false;
-            } else if (gamepad2.dpad_right) {
-                autoIntakeControl = true;
             }
 
             if (baseArmPosition != null && autoIntakeControl) {
