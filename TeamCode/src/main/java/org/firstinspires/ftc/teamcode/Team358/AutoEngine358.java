@@ -64,11 +64,19 @@ public abstract class AutoEngine358 extends Robot358Main {
         }
     }
 
+    public void clearMoveActions() {
+        robotMoveActions.clear();
+    }
+
+    public void clearRobotActions() {
+        robotActions.clear();
+    }
+
     /**
-     * Helper Functions
+     * Navigation Functions
      */
 
-    public void generateMoveActions(List<RobotPosition> positions) {
+    public void generateMoveActions(List<RobotPosition> positions, boolean optimize) {
 
         for (RobotPosition currentPosition : positions) {
 
@@ -107,9 +115,15 @@ public abstract class AutoEngine358 extends Robot358Main {
 
             robotPositionsWithHeadings.add(currentPosition);
         }
+
+        if (optimize) {
+            optimizeContinuousSegments();
+        }
     }
 
-    public void optimizeContinuousSegments(boolean strafe) {
+    public void optimizeContinuousSegments() {
+        boolean strafe = false;
+
         List<Integer> turningIndices = computeTurningPointIndices(robotPositionsWithHeadings);
 
         List<MoveAction> monitor = robotMoveActions;

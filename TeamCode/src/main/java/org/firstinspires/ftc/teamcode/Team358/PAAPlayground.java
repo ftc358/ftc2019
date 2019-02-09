@@ -46,9 +46,7 @@ public class PAAPlayground extends AutoEngine358 {
 
         autoRoute = pathfinder1.generateRobotPath();
 
-        generateMoveActions(autoRoute);
-
-        optimizeContinuousSegments(false);
+        generateMoveActions(autoRoute,true);
 
         addAllMoveActions();
 
