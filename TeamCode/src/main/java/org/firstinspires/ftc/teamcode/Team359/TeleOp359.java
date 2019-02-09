@@ -22,7 +22,7 @@ public class TeleOp359 extends OpMode {
     CRServo Intake;
     boolean wiggle = false, boundedRotation = false;
     boolean prevX1 = false, prevX2 = false;
-    int rotatingConstant = 500;
+    int rotatingConstant = 1500;
     int downPos = rotatingConstant;
 
     //random things for wiggling
@@ -104,13 +104,15 @@ public class TeleOp359 extends OpMode {
 
             if (gamepad2.dpad_up){
                 //Encoders359.Rotate(Rotation, slideExtend, 3, downPos);
-                if (pos > - 500) {
-                    if (pos > -100) {
-                        Rotation.setPower(-0.7);
+                if (pos > - 1500) {
+                    if (pos > -500) {
+                        Rotation.setPower(-0.8);
                     }
-                    else
-                    if (pos < -100) {
-                        slideExtend.setPower(.4);
+                    else {
+                        Rotation.setPower(-0.6);
+                    }
+                    if (pos < -500) {
+                        slideExtend.setPower(.2);
                     }
                     else {
                         slideExtend.setPower(0);
@@ -129,6 +131,10 @@ public class TeleOp359 extends OpMode {
                 else {
                     Rotation.setPower(0);
                 }
+            }
+            else {
+                Rotation.setPower(0);
+                slideExtend.setPower(0);
             }
         }
 
