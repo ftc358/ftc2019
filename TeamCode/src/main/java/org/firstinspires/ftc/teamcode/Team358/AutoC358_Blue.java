@@ -11,7 +11,7 @@ public class AutoC358_Blue extends AutoEngine358 {
 
     public void runOpMode() throws InterruptedException {
 
-        initialize(new RobotPosition(11, -11, 225));
+        initialize(new RobotPosition(11, -11, 45));
 
         token.setPosition(0);
         latch.setPower(0);
@@ -30,39 +30,39 @@ public class AutoC358_Blue extends AutoEngine358 {
 
             switch (cubePosition) {
                 case 1:
-                    turnTo(90, POWER);
+                    turnTo(270, POWER);
                     forward(POWER, 28);
-                    turnTo(45, POWER);
+                    turnTo(225, POWER);
                     forward(POWER, 7 * 2 * sqrt(2));
-                    turnTo(180, POWER);
+                    turnTo(0, POWER);
                     forward(POWER, -60);
-                    turnTo(180, POWER);
+                    turnTo(0, POWER);
                     dropToken();
                     forward(POWER, 76);
                     done = true;
                     break;
                 case 2:
-                    turnTo(135, POWER);
+                    turnTo(315, POWER);
                     forward(POWER, 6 * 2 * sqrt(2));
                     forward(POWER, -4 * 2 * sqrt(2));
-                    turnTo(45, POWER);
+                    turnTo(225, POWER);
                     forward(POWER, 18 * 2 * sqrt(2));
-                    turnTo(180, POWER);
+                    turnTo(0, POWER);
                     forward(POWER, -44);
-                    turnTo(180, POWER);
+                    turnTo(0, POWER);
                     dropToken();
                     forward(POWER, 76);
                     done = true;
                     break;
                 case 3:
-                    turnTo(180, POWER);
+                    turnTo(0, POWER);
                     forward(POWER, 24);
                     forward(POWER, -12);
-                    turnTo(45, POWER);
+                    turnTo(225, POWER);
                     forward(POWER, 21 * 2 * sqrt(2));
-                    turnTo(180, POWER);
+                    turnTo(0, POWER);
                     forward(POWER, -44);
-                    turnTo(180, POWER);
+                    turnTo(0, POWER);
                     dropToken();
                     forward(POWER, 76);
                     done = true;
@@ -79,7 +79,7 @@ public class AutoC358_Blue extends AutoEngine358 {
         runMotor(latch, 1, -10400);
         forward(1, 2);
         strafe(1, 12.5);
-        turnTo(225, POWER);
+        turnTo(45, POWER);
         forward(1, -5.5);
         done = true;
     }
