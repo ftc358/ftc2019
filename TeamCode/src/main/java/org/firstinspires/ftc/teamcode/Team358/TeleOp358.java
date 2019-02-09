@@ -14,7 +14,7 @@ import static java.lang.Math.sqrt;
 public class TeleOp358 extends Robot358Main {
 
     boolean notDefaultBoxPosition = false;
-    double SCALE = 2;
+    double SCALE = 1.5;
 
     Integer baseArmPosition;
 
@@ -50,12 +50,12 @@ public class TeleOp358 extends Robot358Main {
             double frPower = drive + strafe - rotate;                                                           //
             double brPower = drive - strafe - rotate;                                                           //
             //
-            double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);                //
+            double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);     //
             double POWER = -1 * joyStick * abs(joyStick);                                                       //
-            telemetry.addData("POWER: ", POWER);                                                                //
+            telemetry.addData("POWER: ", POWER);                                                        //
             double maxPower = findMax(abs(flPower), abs(blPower), abs(frPower), abs(brPower));                  //
             // greatest value of all motor powers                                                               //
-            telemetry.addData("maxPower: ", maxPower);                                                          //
+            telemetry.addData("maxPower: ", maxPower);                                                  //
             //
             //Sets the power for all the drive motors.                                                          //
             fL.setPower(-(POWER * flPower / maxPower) / SCALE);                                                 //
