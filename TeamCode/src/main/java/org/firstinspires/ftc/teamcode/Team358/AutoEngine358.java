@@ -308,6 +308,10 @@ public abstract class AutoEngine358 extends Robot358Main {
         bR.setPower(0);
     }
 
+    public void turnTo(double heading, double power) throws InterruptedException {
+        turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),heading), power, _imu1, 1, null), true, true);
+    }
+
     /**
      * Gimme Functions
      */

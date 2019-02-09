@@ -30,41 +30,41 @@ public class AutoC358_Red extends AutoEngine358 {
 
             switch (cubePosition) {
                 case 1:
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),90), POWER, _imu1, 1, null), true, true);
+                    turnTo(90, POWER);
                     forward(POWER, 28);
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),45), POWER, _imu1, 1, null), true, true);
-                    forward(POWER,7*2*sqrt(2));
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
-                    forward(POWER,-60);
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
+                    turnTo(45, POWER);
+                    forward(POWER, 7 * 2 * sqrt(2));
+                    turnTo(180, POWER);
+                    forward(POWER, -60);
+                    turnTo(180, POWER);
                     dropToken();
-                    forward(POWER,76);
+                    forward(POWER, 76);
                     done = true;
                     break;
                 case 2:
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),135), POWER, _imu1, 1, null), true, true);
-                    forward(POWER,6*2*sqrt(2));
-                    forward(POWER,-4*2*sqrt(2));
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),45), POWER, _imu1, 1, null), true, true);
-                    forward(POWER,18*2*sqrt(2));
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
-                    forward(POWER,-44);
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
+                    turnTo(135, POWER);
+                    forward(POWER, 6 * 2 * sqrt(2));
+                    forward(POWER, -4 * 2 * sqrt(2));
+                    turnTo(45, POWER);
+                    forward(POWER, 18 * 2 * sqrt(2));
+                    turnTo(180, POWER);
+                    forward(POWER, -44);
+                    turnTo(180, POWER);
                     dropToken();
-                    forward(POWER,76);
+                    forward(POWER, 76);
                     done = true;
                     break;
                 case 3:
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
-                    forward(POWER,24);
-                    forward(POWER,-12);
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),45), POWER, _imu1, 1, null), true, true);
-                    forward(POWER,21*2*sqrt(2));
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
-                    forward(POWER,-44);
-                    turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),180), POWER, _imu1, 1, null), true, true);
+                    turnTo(180, POWER);
+                    forward(POWER, 24);
+                    forward(POWER, -12);
+                    turnTo(45, POWER);
+                    forward(POWER, 21 * 2 * sqrt(2));
+                    turnTo(180, POWER);
+                    forward(POWER, -44);
+                    turnTo(180, POWER);
                     dropToken();
-                    forward(POWER,76);
+                    forward(POWER, 76);
                     done = true;
                     break;
             }
@@ -76,11 +76,11 @@ public class AutoC358_Red extends AutoEngine358 {
     }
 
     public void unlatch() throws InterruptedException {
-        runMotor(latch,1,-10400);
-        forward(1,2);
-        strafe(1,12.5);
-        turn(new IMUTurner(calculateTurn(getAbsoluteCurrentHeading(),225), 1, _imu1, 1, null), true, true);
-        forward(1,-5.5);
+        runMotor(latch, 1, -10400);
+        forward(1, 2);
+        strafe(1, 12.5);
+        turnTo(225, POWER);
+        forward(1, -5.5);
         done = true;
     }
 }
