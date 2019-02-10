@@ -83,39 +83,40 @@ public class AutoC359 extends LinearOpMode {
 
                 case KNOCK:
                     telemetry.addData("Detected", detected);
+                    Intake.setPower(0);
                     if (detected == 1) {
-                        Encoders359.Turn(leftMotor, rightMotor, 0.5, 450);          //Go Left
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,3100);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,-3100);
-                        Encoders359.Turn(leftMotor, rightMotor, 0.5, -400);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.8, 450);          //Go Left
+                        Encoders359.Forward(leftMotor,rightMotor,0.8,3100);
+                        Encoders359.Forward(leftMotor,rightMotor,0.8,-3100);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.8, -350);
 //                        Encoders359.Turn(leftMotor,rightMotor,0.5, -1200);
                     } else if (detected == 2) {
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,-250);            //Go forward
-                        Encoders359.Forward(leftMotor, rightMotor, 0.5, 2900);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,-2900);
-                        Encoders359.Turn(leftMotor, rightMotor, 0.5, 100);
+                        Encoders359.Turn(leftMotor,rightMotor,0.8,-250);            //Go forward
+                        Encoders359.Forward(leftMotor, rightMotor, 0.8, 2900);
+                        Encoders359.Forward(leftMotor,rightMotor,0.8,-2900);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.8, 200);
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor, rightMotor, 0.5, -850);         //Go right
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,3100);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,-3100);
-                        Encoders359.Turn(leftMotor, rightMotor, 0.5, 950);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.8, -850);         //Go right
+                        Encoders359.Forward(leftMotor,rightMotor,0.8,3100);
+                        Encoders359.Forward(leftMotor,rightMotor,0.8,-3100);
+                        Encoders359.Turn(leftMotor, rightMotor, 0.8, 1000);
 //                        Encoders359.Turn(leftMotor,rightMotor,0.5, 1200);
                     }
-                    state359 = state.STOP;
+                    state359 = state.DRIVE;
                     break;
 
                 case DRIVE:
-                    Encoders359.Forward(leftMotor,rightMotor,0.5,1360);
-                    Encoders359.Turn(leftMotor,rightMotor,0.5,2040);
-                    Encoders359.Forward(leftMotor,rightMotor,0.5,4636);
-                    Encoders359.Turn(leftMotor,rightMotor,0.5,2419);
-                    Encoders359.Forward(leftMotor,rightMotor,0.5,5730);
-                    Encoders359.Intake(Rotation,0.5,-1000);
-                    Encoders359.Intake(Rotation,0.5,1000);
-                    Encoders359.Turn(leftMotor,rightMotor,0.5,180);
-                    Encoders359.Forward(leftMotor,rightMotor,0.5,5000);
-                    Encoders359.Turn(leftMotor,rightMotor,0.5,200);
-                    Encoders359.Forward(leftMotor,rightMotor,0.5,2500);
+                    Encoders359.Forward(leftMotor,rightMotor,0.8,1360);
+                    Encoders359.Turn(leftMotor,rightMotor,0.8,2040);
+                    Encoders359.Forward(leftMotor,rightMotor,0.8,4636);
+                    Encoders359.Turn(leftMotor,rightMotor,0.8,2419);
+                    Encoders359.Forward(leftMotor,rightMotor,0.8,5730);
+                    Encoders359.Intake(Rotation,0.6,-1000);
+                    Encoders359.Intake(Rotation,0.6,1000);
+                    Encoders359.Turn(leftMotor,rightMotor,0.8,180);
+                    Encoders359.Forward(leftMotor,rightMotor,0.8,5000);
+                    Encoders359.Turn(leftMotor,rightMotor,0.8,200);
+                    Encoders359.Forward(leftMotor,rightMotor,0.8,2500);
                     state359 = state.STOP;
                     break;
 
@@ -165,7 +166,7 @@ public class AutoC359 extends LinearOpMode {
 
         // getUpdatedRecognitions() will return null if no new information is available since
         // the last time that call was made.
-        sleep(1500);
+        //sleep(1500);
         while (position == 0) {
             updatedRecognitions = tfod.getUpdatedRecognitions();
             int maxSize = 0;
@@ -175,7 +176,7 @@ public class AutoC359 extends LinearOpMode {
                     updatedRecognitions = newRecognitions;
                     maxSize = newRecognitions. size();
                 }
-                sleep(10);
+                sleep(5);
             }
 
             if (updatedRecognitions != null) {
