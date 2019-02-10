@@ -104,15 +104,15 @@ public class TeleOp359 extends OpMode {
 
             if (gamepad2.dpad_up){
                 //Encoders359.Rotate(Rotation, slideExtend, 3, downPos);
-                if (pos > - 1500) {
+                if (pos > - 1700) {
                     if (pos > -500) {
-                        Rotation.setPower(-0.8);
+                        Rotation.setPower(-0.5);
                     }
                     else {
-                        Rotation.setPower(-0.6);
+                        Rotation.setPower(-0.3);
                     }
                     if (pos < -500) {
-                        slideExtend.setPower(.2);
+                        slideExtend.setPower(1);
                     }
                     else {
                         slideExtend.setPower(0);
@@ -120,6 +120,7 @@ public class TeleOp359 extends OpMode {
                 }
                 else {
                     Rotation.setPower(0);
+                    slideExtend.setPower(0);
                 }
 
 

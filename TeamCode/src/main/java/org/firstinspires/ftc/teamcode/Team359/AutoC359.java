@@ -22,7 +22,6 @@ public class AutoC359 extends LinearOpMode {
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
-    private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
 
     DcMotor leftMotor;
     DcMotor rightMotor;
@@ -63,7 +62,7 @@ public class AutoC359 extends LinearOpMode {
             switch (state359) {
 
                 case LATCH:
-                    Encoders359.Forward(leftLatch, rightLatch, 1, -15000);
+                    Encoders359.Forward(leftLatch, rightLatch, 1, -15800);
                     Encoders359.Forward(leftMotor,rightMotor,0.5,400);
                     Encoders359.Turn(leftMotor,rightMotor,0.5,250);
                     state359 = state.DETECT;
@@ -83,22 +82,21 @@ public class AutoC359 extends LinearOpMode {
                 case KNOCK:
                     telemetry.addData("Detected", detected);
                     if (detected == 1) {
-                        Encoders359.Turn(leftMotor, rightMotor, 0.5, 300);          //Go Left
+                        Encoders359.Turn(leftMotor, rightMotor, 0.5, 450);          //Go Left
                         Encoders359.Forward(leftMotor,rightMotor,0.5,5500);
-                        Encoders359.Turn(leftMotor,rightMotor,0.5, -1200);
+//                        Encoders359.Turn(leftMotor,rightMotor,0.5, -1200);
                     } else if (detected == 2) {
                         Encoders359.Turn(leftMotor,rightMotor,0.5,-250);            //Go forward
                         Encoders359.Forward(leftMotor, rightMotor, 0.5, 4500);
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor, rightMotor, 0.5, -800);         //Go right
+                        Encoders359.Turn(leftMotor, rightMotor, 0.5, -850);         //Go right
                         Encoders359.Forward(leftMotor,rightMotor,0.5,5500);
-                        Encoders359.Turn(leftMotor,rightMotor,0.5, 1200);
+//                        Encoders359.Turn(leftMotor,rightMotor,0.5, 1200);
                     }
-                    state359 = state.DRIVE;
+                    state359 = state.STOP;
                     break;
 
                 case DRIVE:
-                    Encoders359.Forward(leftMotor,rightMotor,0.5,3000);
                     state359 = state.STOP;
                     break;
 
@@ -117,7 +115,7 @@ public class AutoC359 extends LinearOpMode {
                 "tfodMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
-        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
+        tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL);
     }
 
     public void initVuforiaThingy() {
@@ -191,13 +189,9 @@ public class AutoC359 extends LinearOpMode {
                             int topCoord = (int) recognition.getTop();
                             if (topCoord > THRESHOLD_UP) {
                                 position = 1;
-                            }
-                            else if (topCoord < THRESHOLD_DOWN) {
+                            } else if (topCoord < THRESHOLD_DOWN) {
                                 position = 2;
                             }
-                        }
-                        else if (recognition.getLabel().equals(LABEL_SILVER_MINERAL)){
-                            position = 3;
                         }
                     }
                 }
