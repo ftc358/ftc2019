@@ -92,6 +92,8 @@ public class AutoD359 extends LinearOpMode {
                     } else if (detected == 3) {
                         Encoders359.Turn(leftMotor, rightMotor, 0.5, -750);         //Go right
                         Encoders359.Forward(leftMotor,rightMotor,0.5,6300);
+                        Encoders359.Turn(leftMotor,rightMotor,0.5,500);
+                        Encoders359.Forward(leftMotor,rightMotor,1,-7000);
                     }
                     state359 = state.DRIVE;
                     break;
@@ -113,13 +115,13 @@ public class AutoD359 extends LinearOpMode {
                         Encoders359.Turn(leftMotor, rightMotor,0.5,850);            //Avoid he ball
                         Encoders359.Forward(leftMotor,rightMotor,0.5,-10000);
                     } else if (detected == 3) {
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,1200);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,1500);
-                        Encoders359.Intake(Rotation,0.5,-1000);
-                        Encoders359.Intake(Rotation,0.5,1000);                      //Push the cube
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
-                        Encoders359.Turn(leftMotor,rightMotor,0.5,-2800);
-                        Encoders359.Forward(leftMotor,rightMotor,0.5,4300);
+//                        Encoders359.Turn(leftMotor,rightMotor,0.5,1200);
+//                        Encoders359.Forward(leftMotor,rightMotor,0.5,1500);
+//                        Encoders359.Intake(Rotation,0.5,-1000);
+//                        Encoders359.Intake(Rotation,0.5,1000);                      //Push the cube
+//                        Encoders359.Forward(leftMotor,rightMotor,0.5,-3000);
+//                        Encoders359.Turn(leftMotor,rightMotor,0.5,-2800);
+//                        Encoders359.Forward(leftMotor,rightMotor,0.5,4300);
                     }
                     state359 = state.STOP;
                     break;
