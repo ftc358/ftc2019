@@ -25,6 +25,7 @@ public class CalvinEncoders {
 //        while (allMotorStatus(motorArray)) {
 //            //Wait Until Target Position is Reached
 //        }
+
 //        //Stop and Change Mode back to Normal
 //        stopAllMotors(motorArray);
     }
